@@ -1,0 +1,37 @@
+.fancybox__container {
+  --fancybox-bg: rgb(43 56 59 / 93%);
+
+  z-index: 1055;
+}
+
+.fancybox__thumbs {
+  --f-thumb-border-radius: 0;
+}
+
+//.fancybox__nav {
+//  --f-button-width: 50px;
+//  --f-button-height: 50px;
+//  --f-button-svg-width: 26px;
+//  --f-button-svg-height: 26px;
+//}
+
+.fancybox__toolbar {
+  padding: 1rem;
+}
+
+.fancybox__carousel .fancybox__slide.has-iframe .fancybox__content {
+  //height: 80% !important;
+  padding: 0;
+}
+
+.fancybox__caption {
+  text-align: center;
+  min-width: 50%;
+
+  //.title {
+  //}
+
+  .description {
+    font-size: 18px;
+  }
+}

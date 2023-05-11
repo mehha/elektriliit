@@ -1,0 +1,30 @@
+//Config
+@import "config/variables/variables";
+@import "config/external/external";
+@import "config/mixins/mixins";
+@import "config/utilities";
+
+//Common
+@import "common/global";
+@import "common/type";
+@import "common/layout";
+@import "common/wp-classes";
+@import "common/specific";
+
+//Components
+@import "components/buttons";
+@import "components/cover";
+@import "components/fancybox";
+@import "components/forms";
+@import "components/navs-tabs";
+@import "components/tables";
+@import "components/components-global";
+@import "components/cookie-banner";
+
+//Partials
+@import "partials/menu/menu";
+@import "partials/menu/menu-mobile";
+@import "partials/menu/menu-desktop";
+@import "partials/footer";
+@import "partials/header";
+@import "partials/page-header";

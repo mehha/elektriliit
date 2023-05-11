@@ -1,0 +1,14 @@
+.btn {
+  //--bs-btn-padding-x: 0.75rem;
+  //--bs-btn-padding-y: 0.375rem;
+  //--bs-btn-border-radius: 0.375rem;
+  //--bs-btn-font-weight: 400;
+}
+
+.btn-search {
+  &[aria-expanded="true"] {
+    svg path {
+      stroke: $primary;
+    }
+  }
+}

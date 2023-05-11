@@ -1,0 +1,12 @@
+.wp-block-row,
+.wp-block-group {
+  margin-bottom: 2rem;
+}
+
+.entry-content {
+  .wp-block-row,
+  .wp-block-group {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+}
