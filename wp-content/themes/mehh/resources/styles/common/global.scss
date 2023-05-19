@@ -48,7 +48,7 @@ main {
   }
 }
 
-.page,
+.page:not(.home),
 .woocommerce-page,
 .single,
 .archive,
@@ -58,7 +58,7 @@ main {
     padding-top: 2rem;
     padding-bottom: 2rem;
     @include media-breakpoint-up(md) {
-      padding-top: 3rem;
+      padding-top: 4rem;
       padding-bottom: 3rem;
     }
   }
@@ -84,8 +84,16 @@ video {
   object-fit: cover;
 }
 
+.ratio {
+  img {
+    object-fit: cover;
+    color: transparent;
+  }
+}
+
 .dark-overlay {
   z-index: 1;
+  background-color: rgba(0,0,0,0.4);
 }
 
 .alert {

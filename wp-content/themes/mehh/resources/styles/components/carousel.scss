@@ -1,0 +1,41 @@
+.wp-block-create-block-carousel {
+  .ratio {
+    max-height: 1024px;
+  }
+
+  .carousel-caption {
+    z-index: 2;
+    bottom: 50%;
+    transform: translateY(50%);
+    left: 0;
+    right: 0;
+    padding-bottom: 43px;
+    padding-top: 43px;
+    text-align: left;
+    @include media-breakpoint-up(md) {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    .carousel-caption-inner {
+      @include media-breakpoint-up(md) {
+        max-width: 800px;
+      }
+    }
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    z-index: 10;
+    width: 20px;
+    display: none;
+    @media (width >= 1550px) {
+      display: flex;
+      width: 5%;
+    }
+  }
+
+  .carousel-indicators {
+    justify-content: flex-start;
+  }
+}

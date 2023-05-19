@@ -14,17 +14,21 @@
 //Components
 @import "components/buttons";
 @import "components/cover";
+@import "components/carousel";
 @import "components/fancybox";
 @import "components/forms";
 @import "components/navs-tabs";
 @import "components/tables";
 @import "components/components-global";
 @import "components/cookie-banner";
+@import "components/latest-posts";
+@import "components/social-icons";
 
 //Partials
 @import "partials/menu/menu";
 @import "partials/menu/menu-mobile";
 @import "partials/menu/menu-desktop";
+@import "partials/menu/menu-top";
 @import "partials/footer";
 @import "partials/header";
 @import "partials/page-header";

@@ -9,4 +9,9 @@ domReady(() => {
     name: 'outline',
     label: 'Outline',
   });
+
+  registerBlockStyle('core/button', {
+    name: 'arrow',
+    label: 'Arrow',
+  });
 });

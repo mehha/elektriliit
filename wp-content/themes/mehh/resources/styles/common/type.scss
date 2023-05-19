@@ -13,6 +13,11 @@ a {
   }
 }
 
+time {
+  font-family: $font-secondary;
+  color: $gray;
+}
+
 //In content
 .entry-content {
   h2 {

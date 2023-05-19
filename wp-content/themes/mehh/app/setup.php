@@ -71,7 +71,8 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/reference/functions/register_nav_menus/
      */
     register_nav_menus([
-        'primary_navigation' => __('Primary Navigation', 'sage')
+        'primary_navigation' => __('Primary Navigation', 'sage'),
+        'top_navigation' => __('Top Navigation', 'sage')
     ]);
 
     /**
@@ -185,13 +186,12 @@ add_action('wp_head', function () { ?>
     <link rel="icon" type="image/png" sizes="32x32" href="<?php print get_stylesheet_directory_uri(); ?>/public/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="<?php print get_stylesheet_directory_uri(); ?>/public/images/favicon-16x16.png">
     <link rel="manifest" href="<?php print get_stylesheet_directory_uri(); ?>/public/images/site.webmanifest">
-    <meta name="msapplication-TileColor" content="#09647c">
+    <meta name="msapplication-TileColor" content="#44749D">
     <meta name="theme-color" content="#ffffff">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Signika+Negative:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <?php
 }, 100);
@@ -201,15 +201,15 @@ add_action('login_head', function(){
 
     echo '<style>
     #login h1 a {
-            background: url('.get_stylesheet_directory_uri().'/public/images/logo.jpg) no-repeat center top;
-            background-size: 200px auto;
-            width: 200px;
-            height: 60px;
+            background: url('.get_stylesheet_directory_uri().'/public/images/logo.png) no-repeat center top;
+            background-size: 158px auto;
+            width: 158px;
+            height: 78px;
             margin: 0 auto 20px;
         }
          body { background: #fff; }
          .button-primary {
-            background: #C100F2 !important;
+            background: #44749D !important;
             color: #fff !important;
             border: none !important;
             text-shadow none;
@@ -220,7 +220,7 @@ add_action('login_head', function(){
             padding: 8px 16px;
           }
           .login #login_error, .login .message, .login .success {
-            border-left: 4px solid #C100F2;
+            border-left: 4px solid #44749D;
           }
         </style>';
 } );
@@ -275,7 +275,7 @@ add_action('after_setup_theme', function () {
 //http://minusadam.test/et/wp-admin/edit-comments.php
 add_action('admin_menu', function () {
     remove_menu_page( 'edit-comments.php' );
-    remove_menu_page( 'edit.php?post_type=acf-field-group' );
+    //remove_menu_page( 'edit.php?post_type=acf-field-group' );
     remove_menu_page( 'sb-instagram-feed' );
 }, 1000);
 

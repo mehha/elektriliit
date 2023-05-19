@@ -1,41 +1,62 @@
 @include media-breakpoint-up(lg) {
-  .navbar {
-    .nav-item {
-      //.nav-link {
-      //  padding-left: 1rem;
-      //  padding-right: 1rem;
-      //  line-height: 1.2;
-      //  font-size: 1rem;
-      //}
+  .navbar-primary {
+    padding-top: 0;
+    padding-bottom: 0;
 
-      &.menu-item-has-children {
-        position: relative;
+    .navbar-nav {
+      --bs-nav-link-color: var(--bs-secondary);
+      --bs-nav-link-hover-color: var(--bs-primary);
 
-        &:hover,
-        &:focus,
-        &:focus-within {
-          .sub-menu {
-            display: block;
-          }
+      margin-left: 213px;
+
+      .sub-menu {
+        display: block;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-1rem);
+        @include theme-transition;
+      }
+
+      > .nav-item {
+        > .nav-link {
+        --bs-nav-link-padding-y: 32px;
+        --bs-nav-link-font-weight: 500;
+        --bs-navbar-nav-link-padding-x: 12px;
         }
 
-        > .sub-menu {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          background-color: $gray-100;
-          padding-top: 20px;
-          padding-bottom: 16px;
-          min-width: 220px;
+        &.menu-item-has-children {
+          position: relative;
 
-          .sub-menu {
-            a {
-              padding-left: 1.5rem;
+          &:hover,
+          &:focus,
+          &:focus-within {
+            .sub-menu {
+              opacity: 1;
+              visibility: visible;
+              transform: translateY(0);
             }
+          }
+
+          > .sub-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgb(246 250 253 / 98%);
+            padding: 1rem;
+            min-width: 280px;
+            font-size: 15px;
+            font-weight: 500;
 
             .sub-menu {
               a {
-                padding-left: 2rem;
+                padding-left: 1.5rem;
+                font-weight: 400;
+              }
+
+              .sub-menu {
+                a {
+                  padding-left: 2rem;
+                }
               }
             }
           }

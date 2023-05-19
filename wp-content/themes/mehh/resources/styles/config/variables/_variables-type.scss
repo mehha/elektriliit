@@ -18,12 +18,12 @@
 //  font-display: block;
 //}
 
-$font-primary: sans-serif;
-$font-secondary: serif;
+$font-primary: "Signika Negative", sans-serif;
+$font-secondary: "Play", sans-serif;
 
 $font-family-base: $font-primary;
 //$font-family-sans-serif: $font-primary;
-//$headings-font-family: $font-secondary;
+$headings-font-family: $font-secondary;
 
 //$font-size-base: 1.125rem;
 $font-weight-base: 400;

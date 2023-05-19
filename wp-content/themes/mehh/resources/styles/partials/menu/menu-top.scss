@@ -1,0 +1,14 @@
+.navbar-top {
+  --bs-navbar-padding-y: 4px;
+
+  background-color: $secondary;
+
+  .navbar-nav {
+    --bs-nav-link-color: #fff;
+    --bs-nav-link-hover-color: #EFF6FC;
+
+    .nav-link {
+      --bs-nav-link-padding-y: 0;
+    }
+  }
+}

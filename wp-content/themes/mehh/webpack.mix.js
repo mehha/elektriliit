@@ -15,7 +15,7 @@ require('laravel-mix-copy-watched');
 
 mix
   .setPublicPath('./public')
-  .browserSync('mehh-template.test');
+  .browserSync('elektriliit.test');
 
 mix
   .sass('resources/styles/app.scss', 'styles')

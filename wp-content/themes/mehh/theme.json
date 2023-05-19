@@ -6,13 +6,28 @@
       "palette": [
         {
           "slug": "primary",
-          "color": "#111",
+          "color": "#F15C28",
           "name": "Primary"
         },
         {
           "slug": "secondary",
-          "color": "#fefefe",
+          "color": "#44749D",
           "name": "Secondary"
+        },
+        {
+          "slug": "blue-light",
+          "color": "#EFF6FC",
+          "name": "Blue light"
+        },
+        {
+          "slug": "blue-dark",
+          "color": "#2E3192",
+          "name": "Blue dark"
+        },
+        {
+          "slug": "gray-transparent",
+          "color": "rgba(248, 248, 248, 0.6)",
+          "name": "Gray transparent"
         }
       ]
     }

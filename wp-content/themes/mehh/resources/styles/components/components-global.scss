@@ -1,6 +1,9 @@
 .wp-block-row,
 .wp-block-group {
   margin-bottom: 2rem;
+  @include media-breakpoint-up(md) {
+    margin-bottom: 3rem;
+  }
 }
 
 .entry-content {

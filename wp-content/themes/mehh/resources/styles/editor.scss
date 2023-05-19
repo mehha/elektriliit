@@ -11,3 +11,10 @@
   height: 160px !important;
   min-height: 160px!important;
 }
+
+.is-style-arrow {
+  .wp-element-button {
+    background-color: transparent!important;
+    color: black!important;
+  }
+}

@@ -1,5 +1,5 @@
 // Bootstrap (importing BS scripts individually)
-// import 'bootstrap/js/dist/carousel';
+import 'bootstrap/js/dist/carousel';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/button';
 // import 'bootstrap/js/dist/dropdown';
@@ -22,7 +22,7 @@ const mountedFns = [
   handleCheckScroll,
   handleForms,
   handleSearch,
-  handleCookieBanner
+  handleCookieBanner,
 ]
 
 // Run fn-s

@@ -15,6 +15,36 @@ header.banner {
   @include theme-transition(transform, 0.2s, ease-in-out);
 
   border-bottom: 1px solid $gray-light;
+
+  .btn-search {
+    svg {
+      path {
+        stroke: $white;
+      }
+    }
+  }
+}
+
+.navbar-brand {
+  --bs-navbar-brand-margin-end: 0;
+  --bs-navbar-brand-padding-y: 0;
+
+  position: relative;
+
+  .navbar-brand-inner {
+    background-color: $white;
+    position: absolute;
+    left: 0;
+    top: -43px;
+    width: 205px;
+    height: 135px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid $gray-light;
+    border-right: 1px solid $gray-light;
+    border-left: 1px solid $gray-light;
+  }
 }
 
 .toggle-search-form {
@@ -35,7 +65,7 @@ header.banner {
 .not-top.scrolled-down {
   header.banner {
     @include media-breakpoint-up(xl) {
-      transform: translateY(-39px);
+      transform: translateY(-32px);
 
       .navbar-main {
         padding-top: 8px;
@@ -56,7 +86,7 @@ header.banner {
   &.not-top {
     header.banner {
       top: 0;
-      @media (min-width: 600px) {
+      @media (width >= 600px) {
         top: 46px;
       }
       @include media-breakpoint-up(md) {
