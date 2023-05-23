@@ -20,7 +20,7 @@
     .carousel-caption-inner {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.5rem;
       align-items: flex-start;
 
       @include media-breakpoint-up(md) {
