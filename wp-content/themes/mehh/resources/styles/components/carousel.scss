@@ -59,5 +59,7 @@
 
   .carousel-indicators {
     justify-content: flex-start;
+    max-width: $container;
+    @include make-container;
   }
 }
