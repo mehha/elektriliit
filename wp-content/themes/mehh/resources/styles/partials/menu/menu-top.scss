@@ -9,6 +9,12 @@
 
     .nav-link {
       --bs-nav-link-padding-y: 0;
+
+      @include hover-focus-active {
+        text-decoration: underline;
+        text-decoration-color: var(--bs-primary);
+        text-underline-offset: 4px;
+      }
     }
   }
 }

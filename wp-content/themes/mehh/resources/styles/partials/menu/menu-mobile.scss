@@ -1,4 +1,4 @@
-@include media-breakpoint-down(lg) {
+@include media-breakpoint-down(xl) {
   .navbar-primary {
     background-color: $gray-dark;
 
@@ -6,11 +6,15 @@
       margin-top: 20px;
 
       .nav-link {
-        color: $white;
+        //color: $white;
+        font-weight: 600;
       }
 
       .sub-menu {
+        display: none;
+
         a {
+          font-weight: 400;
           padding-left: 0.5rem;
         }
 
@@ -20,6 +24,64 @@
           }
         }
       }
+
+      .nav-item {
+        &.menu-item-has-children {
+          position: relative;
+
+          > .nav-link {
+            margin-right: 34px;
+          }
+
+          > .expander {
+            display: block;
+          }
+
+          &.nav-item-open {
+            > a {
+              color: $link-color;
+            }
+
+            >.sub-menu {
+              display: block;
+            }
+
+            > .expander {
+              background-image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12.4 12.4' style='enable-background:new 0 0 12.4 12.4' xml:space='preserve'><path d='M12.4 5.4H-.1v1.5h12.5V5.4z' style='fill:#44749D'/></svg>"));
+              //transform: rotate(-180deg);
+            }
+          }
+
+          @include wp-current-menu-item {
+            > a {
+              color: $link-color;
+            }
+
+            > .sub-menu {
+              display: block;
+            }
+
+            > .expander {
+              background-image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12.4 12.4' style='enable-background:new 0 0 12.4 12.4' xml:space='preserve'><path d='M12.4 5.4H-.1v1.5h12.5V5.4z' style='fill:#44749D'/></svg>"));
+            }
+          }
+        }
+      }
+    }
+  }
+
+  body:not(:has(.navbar-toggler.collapsed)) {
+    overflow: hidden;
+
+    header.banner,
+    .navbar-primary {
+      height: 100%;
+    }
+
+    .navbar-primary {
+      align-items: flex-start;
+      overflow-y: auto;
+      padding-bottom: 3rem;
     }
   }
 }

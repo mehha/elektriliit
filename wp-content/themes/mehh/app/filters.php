@@ -17,7 +17,7 @@ add_filter('excerpt_more', function () {
 
 //Nav extra class to li
 add_filter('nav_menu_css_class', function ($classes, $item, $args) {
-    if ( 'primary_navigation' === $args->theme_location || 'top_navigation' === $args->theme_location ) {
+    if ( 'primary_navigation' === $args->theme_location || 'top_navigation' === $args->theme_location || 'top_protected_navigation' === $args->theme_location ) {
         $classes[] = "nav-item";
     }
 
@@ -44,3 +44,28 @@ add_filter('upload_mimes', function ($mimes) {
     $mimes['eps']   = 'image/x-eps';
     return $mimes;
 });
+
+//Add expander
+add_filter('wp_nav_menu_items', function ($items, $args) {
+    // Check if it's the desired menu location
+    if ($args->theme_location == 'primary_navigation') {
+        // Get the menu items
+        $menu_items = wp_get_nav_menu_items($args->menu);
+
+        // Find the menu item with children
+        $parent_item = null;
+        foreach ($menu_items as $menu_item) {
+            if (in_array('menu-item-has-children', $menu_item->classes)) {
+                $parent_item = $menu_item;
+                break;
+            }
+        }
+
+        // Add the extra expander button as a child of the parent item
+        if ($parent_item) {
+            $extra_button = '<a href="#" class="extra-expander">Expand All</a>';
+            $items = str_replace('</li>', $extra_button . '</li>', $items);
+        }
+    }
+    return $items;
+}, 10, 2);

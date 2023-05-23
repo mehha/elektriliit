@@ -32,18 +32,31 @@ header.banner {
   position: relative;
 
   .navbar-brand-inner {
-    background-color: $white;
-    position: absolute;
-    left: 0;
-    top: -43px;
-    width: 205px;
-    height: 135px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid $gray-light;
-    border-right: 1px solid $gray-light;
-    border-left: 1px solid $gray-light;
+    @include media-breakpoint-up(xl) {
+      background-color: $white;
+      position: absolute;
+      left: 0;
+      top: -43px;
+      width: 205px;
+      height: 135px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid $gray-light;
+      border-right: 1px solid $gray-light;
+      border-left: 1px solid $gray-light;
+      @include theme-transition(height);
+
+      body.not-top & {
+        height: 110px;
+      }
+    }
+
+    img {
+      @include media-breakpoint-down(xl) {
+        max-width: 80px;
+      }
+    }
   }
 }
 
@@ -52,7 +65,7 @@ header.banner {
   top: 100%;
   z-index: 1;
   @include media-breakpoint-up(lg) {
-    top: calc(100% - 10px);
+    top: calc(100% - 0px);
   }
 
   .inner-container {
@@ -67,9 +80,11 @@ header.banner {
     @include media-breakpoint-up(xl) {
       transform: translateY(-32px);
 
-      .navbar-main {
-        padding-top: 8px;
-        padding-bottom: 8px;
+      .navbar-primary {
+        .navbar-nav > li > a {
+          padding-top: 20px;
+          padding-bottom: 20px;
+        }
       }
     }
   }

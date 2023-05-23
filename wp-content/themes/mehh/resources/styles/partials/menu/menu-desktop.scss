@@ -1,4 +1,4 @@
-@include media-breakpoint-up(lg) {
+@include media-breakpoint-up(xl) {
   .navbar-primary {
     padding-top: 0;
     padding-bottom: 0;
@@ -19,6 +19,8 @@
 
       > .nav-item {
         > .nav-link {
+          @include theme-transition;
+
         --bs-nav-link-padding-y: 32px;
         --bs-nav-link-font-weight: 500;
         --bs-navbar-nav-link-padding-x: 12px;
@@ -41,11 +43,12 @@
             position: absolute;
             top: 100%;
             left: 0;
-            background-color: rgb(246 250 253 / 98%);
+            background-color: rgb(246 250 253 / 100%);
             padding: 1rem;
             min-width: 280px;
             font-size: 15px;
             font-weight: 500;
+            box-shadow: 0 7px 7px 0 rgb(0 0 0 / 15%);
 
             .sub-menu {
               a {

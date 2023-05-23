@@ -1,0 +1,10 @@
+.wrap_file_manager {
+  .theme-windows---10 .elfinder * {
+    font-family: $font-primary;
+  }
+
+  .elfinder-cwd-view-list td,
+  .elfinder .elfinder-navbar {
+    font-size: 14px;
+  }
+}

@@ -18,8 +18,30 @@
     }
 
     .carousel-caption-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+
       @include media-breakpoint-up(md) {
         max-width: 800px;
+      }
+
+      > * {
+        margin: 0;
+      }
+
+      .wp-element-button {
+        background-color: $primary;
+        @include theme-transition;
+
+        a {
+          color: $white;
+        }
+
+        @include hover-focus-active {
+          background-color: darken($primary, 10%);
+        }
       }
     }
   }

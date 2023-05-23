@@ -110,7 +110,8 @@ function Edit(_ref) {
     setItems([...items, {
       image: '',
       title: '',
-      content: ''
+      content: '',
+      links: ''
     }]);
   };
   const deleteRow = (val, i) => {
@@ -150,6 +151,15 @@ function Edit(_ref) {
       return [...prevItems];
     });
   };
+  const updateLinks = (val, i) => {
+    setItems(prevItems => {
+      prevItems[i].links = val;
+      setAttributes({
+        items: [...prevItems]
+      });
+      return [...prevItems];
+    });
+  };
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Panel, {
     header: "Carousel"
   }, items.map((item, i) => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -183,6 +193,10 @@ function Edit(_ref) {
     placeholder: "Content",
     value: item.content,
     onChange: val => updateContent(val, i)
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+    placeholder: "Link(s)",
+    value: item.links,
+    onChange: val => updateLinks(val, i)
   }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Button, {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"],
     label: "Delete",
@@ -327,7 +341,12 @@ function save(_ref) {
       class: "display-1"
     }), singleItem.content && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
       value: singleItem.content,
+      tagName: "div",
       class: "description"
+    }), singleItem.links && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
+      value: singleItem.links,
+      tagName: "button",
+      class: "wp-element-button"
     }))));
   })), attributes?.items.length && 1 == 2 && 0));
 }

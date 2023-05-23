@@ -1,4 +1,21 @@
 .navbar {
+  &.navbar-primary {
+    background-color: $white;
+  }
+
+  .navbar-toggler {
+    .navbar-toggler-icon {
+      background-image: escape-svg(url("data:image/svg+xml,<svg fill='none' stroke='#44749D' stroke-width='1.5' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'> <path stroke-linecap='round' stroke-linejoin='round' d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12'></path></svg>"));
+      @include theme-transition;
+    }
+
+    &:not(.collapsed) {
+      .navbar-toggler-icon {
+        background-image: escape-svg(url("data:image/svg+xml,<svg fill='none' stroke='#44749D' stroke-width='1.5' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'> <path stroke-linecap='round' stroke-linejoin='round' d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'></path></svg>"));
+      }
+    }
+  }
+
   .nav-item {
     @include wp-current-menu-item {
       > a {
@@ -13,4 +30,17 @@
     list-style: none;
     padding-left: 0;
   }
+}
+
+.expander {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 38px;
+  width: 34px;
+  background-image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12.4 12.4' style='enable-background:new 0 0 12.4 12.4' xml:space='preserve'><path d='M5.4 7v5.4h1.5V7h5.5V5.5H6.9V0H5.4v5.5H0V7h5.4z' style='fill-rule:evenodd;clip-rule:evenodd;fill:#44749D'/></svg>"));
+  background-repeat: no-repeat;
+  background-size: 14px auto;
+  background-position: center center;
 }

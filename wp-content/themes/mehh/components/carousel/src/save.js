@@ -49,7 +49,8 @@ export default function save({attributes}) {
 								<div className="carousel-caption container">
 									<div className="carousel-caption-inner">
 										{singleItem.title && <RichText.Content value={singleItem.title} tagName="h1" class="display-1" />}
-										{singleItem.content && <RichText.Content value={singleItem.content} class="description" />}
+										{singleItem.content && <RichText.Content value={singleItem.content} tagName="div" class="description" />}
+										{singleItem.links && <RichText.Content value={singleItem.links} tagName="button" class="wp-element-button" />}
 									</div>
 								</div>
 							</div>

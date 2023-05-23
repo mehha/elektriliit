@@ -47,7 +47,7 @@ export default function Edit({attributes, setAttributes, props}) {
 	}, [])
 
 	const addRow = () => {
-		setItems([...items, {image: '', title: '', content: ''}]);
+		setItems([...items, {image: '', title: '', content: '', links: ''}]);
 	}
 
 	const deleteRow = (val, i) => {
@@ -82,6 +82,16 @@ export default function Edit({attributes, setAttributes, props}) {
 	const updateContent = (val, i) => {
 		setItems(prevItems => {
 			prevItems[i].content = val
+			setAttributes({items: [...prevItems]});
+			return [
+				...prevItems,
+			]
+		});
+	}
+
+	const updateLinks = (val, i) => {
+		setItems(prevItems => {
+			prevItems[i].links = val
 			setAttributes({items: [...prevItems]});
 			return [
 				...prevItems,
@@ -132,6 +142,13 @@ export default function Edit({attributes, setAttributes, props}) {
 									placeholder="Content"
 									value={item.content}
 									onChange={(val) => updateContent(val, i)}
+								/>
+							</PanelRow>
+							<PanelRow>
+								<RichText
+									placeholder="Link(s)"
+									value={item.links}
+									onChange={(val) => updateLinks(val, i)}
 								/>
 							</PanelRow>
 						</PanelBody>
