@@ -87,6 +87,12 @@ video {
 }
 
 .ratio {
+  &::before {
+    @include media-breakpoint-down(lg) {
+      padding-top: 400px;
+    }
+  }
+
   img {
     object-fit: cover;
     color: transparent;
