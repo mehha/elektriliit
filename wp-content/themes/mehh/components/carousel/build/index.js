@@ -322,7 +322,8 @@ function save(_ref) {
     className: "carousel-inner"
   }, attributes?.items.length && attributes?.items.map((singleItem, key) => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: `${key === 0 ? 'active' : ''} carousel-item`
+      className: `${key === 0 ? 'active' : ''} carousel-item`,
+      "data-bs-interval": "6000"
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "ratio",
       style: "--bs-aspect-ratio: 28%;"
