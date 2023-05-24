@@ -22,7 +22,7 @@ export default function save({attributes}) {
 
 	return (
 		<div {...useBlockProps.save({className: 'wp-block-row'})}>
-			<div id={`carousel-${attributes?.blockId}`} className="carousel slide carousel-fade">
+			<div id={`carousel-${attributes?.blockId}`} className="carousel slide" data-bs-ride="carousel">
 				{attributes?.items.length > 1 &&
 					<div className="carousel-indicators">
 						{attributes?.items.map((singleItem, key) => {

@@ -206,7 +206,7 @@ function Edit(_ref) {
     variant: "link",
     className: "add-btn",
     onClick: () => addRow()
-  }, "Add row"));
+  }, "Add slide"));
 }
 
 /***/ }),
@@ -307,7 +307,8 @@ function save(_ref) {
     className: 'wp-block-row'
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: `carousel-${attributes?.blockId}`,
-    className: "carousel slide carousel-fade"
+    className: "carousel slide",
+    "data-bs-ride": "carousel"
   }, attributes?.items.length > 1 && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "carousel-indicators"
   }, attributes?.items.map((singleItem, key) => {

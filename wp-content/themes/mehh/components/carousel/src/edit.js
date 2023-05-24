@@ -165,7 +165,7 @@ export default function Edit({attributes, setAttributes, props}) {
 				variant="link"
 				className="add-btn"
 				onClick={() => addRow()}
-			>Add row</Button>
+			>Add slide</Button>
 		</div>
 	);
 }
