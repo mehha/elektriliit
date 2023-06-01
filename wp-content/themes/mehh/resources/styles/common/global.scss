@@ -27,8 +27,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  background: url("../images/bg-opacity-40.webp") no-repeat center center;
-  background-size: cover;
 }
 
 // Prevent iOS autozoom when focusing
@@ -42,6 +40,8 @@ body {
 
 main {
   padding-top: 87px;
+  background: url("../images/bg-opacity-40.webp") no-repeat center center;
+  background-size: cover;
   @include media-breakpoint-up(xl) {
     padding-top: 119px;
     display: flex;
@@ -61,13 +61,14 @@ main {
     padding-bottom: 2rem;
     @include media-breakpoint-up(xl) {
       padding-top: 5rem;
-      padding-bottom: 3rem;
+      padding-bottom: 4rem;
     }
   }
 }
 
 .page:not(.home, .wide-layout),
-.single {
+.single,
+.archive {
   main {
     .main-content-wrapper {
       max-width: $container-narrow;

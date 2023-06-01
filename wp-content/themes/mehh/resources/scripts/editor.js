@@ -1,6 +1,6 @@
 import '@wordpress/edit-post';
 import domReady from '@wordpress/dom-ready';
-import { unregisterBlockStyle, registerBlockStyle } from '@wordpress/blocks';
+import { unregisterBlockStyle, registerBlockStyle, registerBlockVariation } from '@wordpress/blocks';
 
 domReady(() => {
   unregisterBlockStyle('core/button', 'outline');
@@ -13,5 +13,11 @@ domReady(() => {
   registerBlockStyle('core/button', {
     name: 'arrow',
     label: 'Arrow',
+  });
+
+  registerBlockVariation('core/social-link', {
+    name: 'elektriliit',
+    title: 'Elektriliit',
+    attributes: { service: 'elektriliit' },
   });
 });

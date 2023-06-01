@@ -1,0 +1,7 @@
+.wp-block-archives-dropdown {
+  margin-bottom: 2rem;
+
+  @include media-breakpoint-up(md) {
+    max-width: 300px;
+  }
+}

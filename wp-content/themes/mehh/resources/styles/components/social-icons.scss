@@ -3,4 +3,31 @@
     height: 18px!important;
     width: auto!important;
   }
+
+  .wp-social-link-facebook {
+    .wp-block-social-link-label {
+      @include visually-hidden;
+    }
+  }
+
+  .wp-social-link-elektriliit {
+    a {
+      padding-left: 20px;
+
+      &::before {
+        content: "";
+        display: inline-block;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+        background: url("../images/favicon-16x16.png") no-repeat center center;
+        background-size: cover;
+      }
+    }
+
+    svg {
+      display: none;
+    }
+  }
 }

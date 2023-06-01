@@ -11,9 +11,16 @@
     {!! get_search_form(false) !!}
   @endif
 
-  @while(have_posts()) @php(the_post())
-    @includeFirst(['partials.content-' . get_post_type(), 'partials.content'])
-  @endwhile
+  <div class="wrap container" role="document">
+    <div class="content">
+      <div class="main-content-wrapper">
+        @while(have_posts())
+          @php(the_post())
+          @includeFirst(['partials.content-' . get_post_type(), 'partials.content'])
+        @endwhile
+      </div>
+    </div>
+  </div>
 
   {!! get_the_posts_navigation() !!}
 @endsection

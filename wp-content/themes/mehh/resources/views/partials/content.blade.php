@@ -6,7 +6,10 @@
       </a>
     </h2>
 
-    @include('partials/entry-meta')
+    <div class="d-flex gap-2">
+      @include('partials/entry-meta')
+      @include('partials/categories')
+    </div>
   </header>
 
   <div class="entry-summary">

@@ -13,6 +13,7 @@ class Post extends Composer
      */
     protected static $views = [
         'partials.page-header',
+        'partials.categories',
         'partials.content',
         'partials.content-*',
     ];
@@ -26,6 +27,7 @@ class Post extends Composer
     {
         return [
             'title' => $this->title(),
+            'categories' => $this->getCategories(),
         ];
     }
 
@@ -65,5 +67,14 @@ class Post extends Composer
         }
 
         return get_the_title();
+    }
+
+    public function getCategories()
+    {
+        $post_id = get_the_ID(); // Get the current post ID or specify the post ID as needed
+
+        $categories = get_the_category($post_id);
+
+        return $categories ?: false;
     }
 }
