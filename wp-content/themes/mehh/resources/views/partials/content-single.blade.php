@@ -5,10 +5,7 @@
         {!! $title !!}
       </h1>
 
-      <div class="d-flex gap-2">
-        @include('partials/entry-meta')
-        @include('partials/categories')
-      </div>
+      @include('partials/entry-meta')
     </header>
 
     <div class="entry-content">

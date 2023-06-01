@@ -13,7 +13,6 @@ class Post extends Composer
      */
     protected static $views = [
         'partials.page-header',
-        'partials.categories',
         'partials.content',
         'partials.content-*',
     ];
