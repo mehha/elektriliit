@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-02T09:15:54+03:00\n"
+"POT-Creation-Date: 2023-06-02T14:20:42+03:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 
@@ -111,6 +111,14 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
+#: resources/views/forms/dropdown.blade.php:3
+msgid "Filter by Year"
+msgstr ""
+
+#: resources/views/forms/dropdown.blade.php:6
+msgid "All Years"
+msgstr ""
+
 #: resources/views/forms/search.blade.php:4
 msgctxt "label"
 msgid "Search for:"
@@ -128,14 +136,6 @@ msgstr ""
 
 #: resources/views/layouts/app.blade.php:2
 msgid "Skip to content"
-msgstr ""
-
-#: resources/views/page-archive.blade.php:45
-msgid "Filter by Year"
-msgstr ""
-
-#: resources/views/page-archive.blade.php:49
-msgid "All Years"
 msgstr ""
 
 #: resources/views/partials/comments.blade.php:5

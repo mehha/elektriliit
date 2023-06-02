@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mehh Media Theme 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mehh\n"
+"POT-Creation-Date: 2023-06-02T14:20:42+03:00\n"
+"PO-Revision-Date: 2023-06-02 14:22+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-26T15:00:53+03:00\n"
-"PO-Revision-Date: 2023-05-16 13:08+0300\n"
-"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
@@ -37,15 +37,23 @@ msgstr "Loe edasi"
 msgid "Primary Navigation"
 msgstr ""
 
-#: app/setup.php:242
+#: app/setup.php:75
+msgid "Top Navigation"
+msgstr ""
+
+#: app/setup.php:76
+msgid "Top Protected Navigation"
+msgstr ""
+
+#: app/setup.php:243
 msgid "Primary"
 msgstr "Peamine"
 
-#: app/setup.php:247
+#: app/setup.php:248
 msgid "Header"
 msgstr "Päis"
 
-#: app/setup.php:252
+#: app/setup.php:253
 msgid "Footer"
 msgstr "Jalus"
 
@@ -61,23 +69,27 @@ msgstr ""
 msgid "Please enter a valid message."
 msgstr ""
 
-#: app/View/Composers/ContactForm.php:65
+#: app/View/Composers/ContactForm.php:71
 #: resources/views/shortcodes/contact-form.blade.php:6
 msgid "Your message has been successfully sent."
 msgstr "Sõnum on edukalt saadetud."
 
-#: app/View/Composers/Post.php:48
+#: app/View/Composers/Post.php:49
 msgid "Latest Posts"
 msgstr "Uusimad postitused"
 
 #. translators: %s is replaced with the search query
-#: app/View/Composers/Post.php:58
+#: app/View/Composers/Post.php:59
 msgid "Search Results for %s"
 msgstr "Otsingu tulemused %s"
 
-#: app/View/Composers/Post.php:64
+#: app/View/Composers/Post.php:65
 msgid "Not Found"
 msgstr "Ei leitud"
+
+#. Template Name of the theme
+msgid "Archive"
+msgstr "Arhiiv"
 
 #. Template Name of the theme
 msgid "Home"
@@ -92,12 +104,24 @@ msgid "Sorry, but the page you are trying to view does not exist."
 msgstr ""
 
 #: resources/views/components/cookie-banner.blade.php:2
-msgid "This site uses cookies to improve your experience. By continuing to use this site, you consent to our use of cookies."
-msgstr "Kasutusel on küpsised Teie kogemuse parandamiseks. Lehel sirvides nõustud vajalike küpsiste kasutamisega."
+msgid ""
+"This site uses cookies to improve your experience. By continuing to use this "
+"site, you consent to our use of cookies."
+msgstr ""
+"Kasutusel on küpsised Teie kogemuse parandamiseks. Lehel sirvides nõustud "
+"vajalike küpsiste kasutamisega."
 
 #: resources/views/components/cookie-banner.blade.php:3
 msgid "Accept"
 msgstr "Nõustun"
+
+#: resources/views/forms/dropdown.blade.php:3
+msgid "Filter by Year"
+msgstr "Filtreeri aasta järgi"
+
+#: resources/views/forms/dropdown.blade.php:6
+msgid "All Years"
+msgstr "Kõik aastad"
 
 #: resources/views/forms/search.blade.php:4
 msgctxt "label"
@@ -109,8 +133,7 @@ msgstr ""
 msgid "Search"
 msgstr "Otsi"
 
-#: resources/views/index.blade.php:8
-#: resources/views/search.blade.php:11
+#: resources/views/index.blade.php:8 resources/views/search.blade.php:11
 msgid "Sorry, no results were found."
 msgstr "Kahjuks ei leitud tulemusi."
 
@@ -139,12 +162,11 @@ msgstr "Kommentaarid on kinni."
 
 #: resources/views/partials/content-page-no-entry.blade.php:3
 #: resources/views/partials/content-page.blade.php:4
-#: resources/views/partials/content-single.blade.php:17
 msgid "Pages:"
 msgstr "Lehed:"
 
-#: resources/views/partials/entry-meta.blade.php:7
-msgid "By"
+#: resources/views/partials/header.blade.php:45
+msgid "expander"
 msgstr ""
 
 #: resources/views/shortcodes/contact-form.blade.php:18
@@ -163,7 +185,7 @@ msgstr "Sõnum"
 msgid "You must agree before submitting."
 msgstr "Peate nõustuma saatmiseks."
 
-#: resources/views/shortcodes/contact-form.blade.php:55
+#: resources/views/shortcodes/contact-form.blade.php:60
 msgid "Submit"
 msgstr "Saada"
 
