@@ -6,6 +6,7 @@ $acf_fields = array(
     'contact-form/contact-form.php',
     'accordion/accordion.php',
     'carousel/carousel.php',
+    'archive/archive.php',
 );
 
 foreach ($acf_fields as $key => $field) {

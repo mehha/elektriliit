@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mehh Media Theme 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mehh\n"
-"POT-Creation-Date: 2023-04-26T15:00:53+03:00\n"
-"PO-Revision-Date: 2023-05-16 13:08+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-04-26T15:00:53+03:00\n"
+"PO-Revision-Date: 2023-05-16 13:08+0300\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
@@ -92,12 +92,8 @@ msgid "Sorry, but the page you are trying to view does not exist."
 msgstr ""
 
 #: resources/views/components/cookie-banner.blade.php:2
-msgid ""
-"This site uses cookies to improve your experience. By continuing to use this "
-"site, you consent to our use of cookies."
-msgstr ""
-"Kasutusel on küpsised Teie kogemuse parandamiseks. Lehel sirvides nõustud "
-"vajalike küpsiste kasutamisega."
+msgid "This site uses cookies to improve your experience. By continuing to use this site, you consent to our use of cookies."
+msgstr "Kasutusel on küpsised Teie kogemuse parandamiseks. Lehel sirvides nõustud vajalike küpsiste kasutamisega."
 
 #: resources/views/components/cookie-banner.blade.php:3
 msgid "Accept"
@@ -113,7 +109,8 @@ msgstr ""
 msgid "Search"
 msgstr "Otsi"
 
-#: resources/views/index.blade.php:8 resources/views/search.blade.php:11
+#: resources/views/index.blade.php:8
+#: resources/views/search.blade.php:11
 msgid "Sorry, no results were found."
 msgstr "Kahjuks ei leitud tulemusi."
 
