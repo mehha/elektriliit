@@ -16,7 +16,6 @@ import {useBlockProps, RichText} from '@wordpress/block-editor';
  * @return {WPElement} Element to render.
  */
 export default function save({attributes}) {
-	console.log('attributes', attributes)
 
 	return (
 		<div {...useBlockProps.save({className: 'wp-block-row'})}>
