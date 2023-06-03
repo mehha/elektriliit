@@ -40,8 +40,6 @@ export default function Edit({attributes, setAttributes, props}) {
 	const [items, setItems] = useState(attributes.items || []);
 	const blockId = attributes?.blockId;
 
-	console.log('items', items)
-
 	useEffect(() => {
 		if (!blockId) {
 			setAttributes({blockId: blockProps.id});
