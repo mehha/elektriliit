@@ -16,6 +16,8 @@ import {useBlockProps, RichText} from '@wordpress/block-editor';
  * @return {WPElement} Element to render.
  */
 export default function save({attributes}) {
+	console.log('attributes', attributes)
+
 	return (
 		<div {...useBlockProps.save({className: 'wp-block-row'})}>
 			<div id={`swiper-${attributes?.blockId}`} className="swiper">
@@ -26,9 +28,9 @@ export default function save({attributes}) {
 							<div key={key} className={`swiper-slide${isFirstChild ? ' swiper-slide-first' : ''}`}>
 								{singleItem.link ? (
 									<a href={singleItem?.link} target="_blank" rel="noopener noreferrer">
-										<img src={singleItem?.image?.url} alt={singleItem?.image?.alt}/>
+										<img src={singleItem?.image?.url} alt={singleItem?.image?.alt} width={singleItem?.image?.width} height={singleItem?.image?.height}/>
 									</a>) : (
-									<img src={singleItem?.image?.url} alt={singleItem?.image?.alt}/>
+									<img src={singleItem?.image?.url} alt={singleItem?.image?.alt} width={singleItem?.image?.width} height={singleItem?.image?.height}/>
 								)
 								}
 							</div>
