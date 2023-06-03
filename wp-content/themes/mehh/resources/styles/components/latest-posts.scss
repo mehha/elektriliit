@@ -61,7 +61,9 @@
     }
 
     li {
-      background-color: rgb(239 246 252 / 60%);
+      backdrop-filter: blur(2px) saturate(100%);
+      background-color: rgb(239 246 252 / 40%);
+      border: 1px solid rgb(209 213 219 / 30%);
       padding: 22px;
       display: flex;
       flex-direction: column;
