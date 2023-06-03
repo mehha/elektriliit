@@ -5,6 +5,14 @@
 .wp-block[data-type="core/widget-area"] {
   max-width: 90%;
   margin-top: 20px;
+
+  .wp-block-widget-area__inner-blocks {
+    max-width: 100%;
+
+    .wp-block {
+      flex: 1;
+    }
+  }
 }
 
 .low-wysiwyg iframe {

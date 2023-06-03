@@ -1,4 +1,4 @@
-<div class="dropdown my-4">
+<div class="dropdown mt-4 mb-5">
     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
       @if($active) {{$active}}@else {{ __('Filter by Year', 'sage') }} @endif
     </button>

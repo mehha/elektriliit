@@ -1,0 +1,17 @@
+.swiper {
+  --swiper-theme-color: #F15C28;
+}
+
+.swiper-slide {
+  text-align: center;
+}
+
+.swiper-pagination {
+  --swiper-pagination-bottom: 0;
+}
+
+.swiper-pagination-bullet {
+  --swiper-pagination-bullet-border-radius: 0;
+  --swiper-pagination-bullet-width: 30px;
+  --swiper-pagination-bullet-height: 3px;
+}

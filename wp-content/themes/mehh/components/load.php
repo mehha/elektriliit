@@ -6,6 +6,7 @@ $acf_fields = array(
     'contact-form/contact-form.php',
     'accordion/accordion.php',
     'carousel/carousel.php',
+    'logo-carousel/logo-carousel.php',
     'archive/archive.php',
 );
 

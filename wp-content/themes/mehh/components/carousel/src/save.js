@@ -18,7 +18,6 @@ import {RawHTML} from '@wordpress/element';
  * @return {WPElement} Element to render.
  */
 export default function save({attributes}) {
-	console.log('attributes', attributes)
 
 	return (
 		<div {...useBlockProps.save({className: 'wp-block-row'})}>

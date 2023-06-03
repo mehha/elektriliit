@@ -14,6 +14,7 @@ import {handleCheckScroll} from "./utilities/check-scroll";
 import {handleForms} from "./components/forms";
 import {handleSearch} from "./components/search";
 import {handleCookieBanner} from "./components/cookie_banner";
+import {handleSwiper} from "./components/swiper";
 
 const mountedFns = [
   handleFancybox,
@@ -23,6 +24,7 @@ const mountedFns = [
   handleForms,
   handleSearch,
   handleCookieBanner,
+  handleSwiper,
 ]
 
 // Run fn-s

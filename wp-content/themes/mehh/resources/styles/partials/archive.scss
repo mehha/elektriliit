@@ -1,0 +1,14 @@
+.article-container {
+  .entry-title {
+    line-height: 1.05;
+
+    a {
+      color: $body-color;
+      font-weight: 600;
+      @include font-size(24px);
+      @include hover-focus-active {
+        color: $link-color;
+      }
+    }
+  }
+}

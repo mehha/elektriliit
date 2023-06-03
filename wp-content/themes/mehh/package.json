@@ -24,6 +24,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.21.3",
     "@fancyapps/ui": "^5.0.15",
+    "@popperjs/core": "^2.11.8",
     "@tinypixelco/laravel-mix-wp-blocks": "^1.2.0",
     "@wordpress/babel-preset-default": "^7.14.0",
     "@wordpress/browserslist-config": "^5.13.0",
@@ -41,9 +42,7 @@
     "sass": "^1.61.0",
     "sass-loader": "13.2.2",
     "stylelint": "^15.4.0",
-    "stylelint-config-standard-scss": "^8.0.0"
-  },
-  "dependencies": {
-    "@popperjs/core": "^2.11.8"
+    "stylelint-config-standard-scss": "^8.0.0",
+    "swiper": "^9.3.2"
   }
 }
