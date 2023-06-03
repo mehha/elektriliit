@@ -6,7 +6,7 @@
   @if($categories)
     <div class="category-list">
       @foreach($categories as $category)
-        <a class="link-secondary" href="{{get_category_link($category->term_id)}}">{{$category->name}}</a>
+        <span class="text-secondary">{{$category->name}}</span>
       @endforeach
     </div>
   @endif
