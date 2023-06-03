@@ -4,7 +4,7 @@
       {{ get_the_date() }}
     </time>
 
-    <p class="byline author vcard mb-0">
+    <p class="byline author vcard mb-0 d-none">
       <a class="link-primary" href="{{ get_author_posts_url(get_the_author_meta('ID')) }}" rel="author" class="fn">
         {{ get_the_author() }}
       </a>
