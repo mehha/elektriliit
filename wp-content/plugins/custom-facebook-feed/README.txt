@@ -1,10 +1,10 @@
 === Smash Balloon Social Post Feed ===
-Contributors: smashballoon
+Contributors: smashballoon, craig-at-smash-balloon, am, smub
 Tags: Facebook, Facebook feed, Facebook posts, Facebook group, Facebook page
 Requires at least: 4.1
 Requires PHP: 5.6
-Tested up to: 6.2
-Stable tag: 4.1.8
+Tested up to: 6.3
+Stable tag: 4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ Use the plugin to display Facebook feeds from a Facebook page or Facebook group 
 
 **Completely Customizable**
 By default the Facebook feed will adopt the styles of your WordPress theme, but your feeds can be completely customized to look however you like using our visual feed customizer - with tons of options to customize every part of your Facebook posts and feed.
+
+**Elementor and Divi Ready**
+Custom Facebook Feeds has a built in Elementor and Divi block for easy page building. Simply launch your Elementor or Divi builder and find the related Custom Facebook Feed block in the sidebar like any other block.
 
 **SEO Friendly**
 The Facebook feed content is crawlable by search engines adding SEO value to your site, while other Facebook plugins embed the feed using iframes which are not crawlable.
@@ -146,7 +149,7 @@ This is a feature of the [Pro version of the plugin](https://smashballoon.com/cu
 
 = Is the content of my Custom Facebook Feed crawlable by search engines? =
 
-It sure is. Unlike other Facebook plugins which use iframes to embed your Facebook feed into your page once it's loaded, the Custom Facebook Feed uses PHP to embed your Facebook feed content directly into your page. This adds dynamic, search engine crawlable content to your site.
+It sure is. Unlike other Facebook plugins which use iframes to embed your feed into your page once it's loaded, the Custom Facebook Feed uses PHP to embed your Facebook feed content directly into your page. This adds dynamic, search engine crawlable content to your site.
 
 = How do I embed the Custom Facebook Feed directly into a WordPress page template? =
 
@@ -155,38 +158,6 @@ You can embed your Facebook feed directly into a template file by using the Word
 = My Facebook feed posts are not showing up, or all I can see is the Facebook Like box but no posts =
 
 Please refer to [this FAQ](https://smashballoon.com/facebook-feed-doesnt-show-can-see-like-box-posts-gives/?utm_campaign=facebook-free-readme&utm_source=faq&utm_medium=errors "My Facebook feed posts are not showing up, or all I can see is the Facebook Like box but no posts") for potential solutions on how to resolve this issue.
-
-= Create a basic slideshow from your Facebook posts =
-
-The Custom Facebook Feed plugin doesn't currently have a slideshow feature built into it, but it's possible to achieve a basic slideshow by doing the following:
-
-1) Add a class to the shortcode of the Facebook feed that you want to convert into a slideshow:
-
-`[custom-facebook-feed class="slideshow"]`
-
-2) Set the number of posts to display to be the number of Facebook posts you want to include in the slideshow (10 for example). You can do this by using the `num` shortcode option:
-
-`[custom-facebook-feed class="slideshow" num=10]`
-
-3) Add the following to the plugin's **Custom JavaScript** section, which is under the 'Misc' tab on the plugin's 'Customize' page. Please note, if you change the class option in the shortcode above to be anything but "slideshow" then make sure to change that on the first line of the snippet below:
-
-`var shortcodeClass = 'slideshow',
-    cffSpeed = 5000,
-    $cff = $('#cff.'+ shortcodeClass);
-    $cffItem = $cff.find('.cff-item'),
-    cffNum = $cffItem.length,
-    cffCur = 0;
-$cffItem.hide();
-setTimeout(function(){ $cff.find('.cff-item').eq(0).show(); }, 200);
-setInterval(function(){
-    $cff.find('.cff-item').eq(cffCur).fadeOut( "fast", function() {
-        if( cffCur == cffNum-1 ) cffCur = -1;
-        cffCur++;
-        $cff.find('.cff-item').eq(cffCur).fadeIn();
-    });
-}, cffSpeed);`
-
-4) You can change the speed of the transition by editing the **cffSpeed = 5000** value at the top of the snippet. 5000 is equal to 5 seconds (5000ms).
 
 = Changing the font in your Facebook feed and using Google Fonts =
 
@@ -198,9 +169,9 @@ Please refer to [this FAQ](https://smashballoon.com/can-display-facebook-post-ho
 
 = My Facebook feed appears to have stopped updating / working =
 
-If your Facebook feed doesn't appear to be showing the most recent Facebook posts then the most likely explanation is that the recent Facebook posts in your feed may be shared from a user's personal Facebook profile. Facebook's privacy policy doesn't allow posts that you share from personal Facebook profiles to be shared outside of Facebook as the posts don't technically belong to your Facebook page, they belong to the user who posted it to their personal Facebook profile. There's an example of a post shared from a user's personal Facebook profile [here](https://smashballoon.com/wp-content/uploads/2014/11/sharing-photo-facebook-profile.jpg "Example of Facebook post shared from personal Faceboo profile").
+If your Facebook feed doesn't appear to be showing the most recent Facebook posts then the most likely explanation is that the recent posts in your feed may be shared from a user's personal profile. Facebook's privacy policy doesn't allow posts that you share from personal Facebook profiles to be shared outside of Facebook as the posts don't technically belong to your Facebook page, they belong to the user who posted it to their personal Facebook profile. There's an example of a post shared from a user's personal Facebook profile [here](https://smashballoon.com/wp-content/uploads/2014/11/sharing-photo-facebook-profile.jpg "Example of Facebook post shared from personal profile").
 
-Please note, this isn't a limitation of our plugin, it's a restriction which Facebook places on it's content in order to protect the privacy of their Facebook users.
+Please note, this isn't a limitation of our plugin, it's a restriction which Meta (Facebook) places on it's content in order to protect the privacy of their Facebook users.
 
 **Potential solutions**
 
@@ -215,12 +186,6 @@ Please refer to our [Error Message Reference page](https://smashballoon.com/cust
 = Creating a Masonry grid layout from your Facebook posts =
 
 Please refer to [this FAQ](https://smashballoon.com/creating-a-masonry-grid-layout-from-your-facebook-posts/?utm_campaign=facebook-free-readme&utm_source=faq&utm_medium=masonry "Creating a Masonry grid layout from your Facebook posts") for directions on how to create a Masonry grid layout from your Facebook feed posts.
-
-= How do I customize my Facebook feed? =
-
-You can customize the Facebook feed by setting the options on the Customize page, which can be found under the Facebook Feed menu in your left hand WordPress admin menu. If you need even deeper customization than the built in options allow then you can add your own CSS to the plugin in the Custom CSS section under the Misc tab to further customize your Facebook feed.
-
-You can also override these styles for individual Facebook feeds by setting options within the shortcode. For example, you can change the height of a specific Facebook feed like so: `[custom-facebook-feed height=500px]`.
 
 = The Custom Facebook Feed shortcode options aren't working =
 
@@ -262,6 +227,15 @@ The most common reason for this is that an add-on or extension you have installe
 9. It's super easy to display your Facebook feed in any page or post
 
 == Changelog ==
+= 4.2 =
+* New: Added an onboarding wizard for new users to easily get started with Facebook Feeds.
+* Fix: Fixed a PHP 8.x warning (PHP Deprecated: Calling static trait method)
+
+= 4.1.9 =
+* New: Added a menu item to easily install our new [Reviews Feed](https://wordpress.org/plugins/reviews-feed/) plugin!
+* Tweak: Updated our Gutenberg Block to be more user friendly.
+* Fix: Fixed our integration with Cookie Yes to work with recent updates.
+
 = 4.1.8 =
 * Fix: Feeds with masonry layout selected would still show as a list feed.
 
