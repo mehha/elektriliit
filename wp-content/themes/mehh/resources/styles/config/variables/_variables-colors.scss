@@ -9,13 +9,15 @@ $gray-dark: #2b383b;
 $orange: #F15C28;
 $yellow: #fc0;
 $red: #f43319;
-$green: #2dcb48;
+$green-light: #b4daa7;
+$green: #60d034;
 $blue-light: #EFF6FC;
 $blue: #44749D;
 $blue-dark: #2E3192;
 
-$primary: $orange;
+$primary: $green;
 $secondary: $blue;
+$body-tertiary-color: $blue-dark;
 
 $success: $green;
 $warning: $yellow;

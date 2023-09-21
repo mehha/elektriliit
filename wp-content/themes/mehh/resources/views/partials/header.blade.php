@@ -38,7 +38,7 @@
       </button>
 
       @if (has_nav_menu('primary_navigation'))
-        <div id="navbarPrimary" class="collapse navbar-collapse justify-content-start"
+        <div id="navbarPrimary" class="collapse navbar-collapse justify-content-end"
              aria-label="{{ wp_get_nav_menu_name('primary_navigation') }}">
           {!! wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'navbar-nav me-auto mb-2 mb-lg-0', 'after' => '<button class="expander border-0 bg-transparent p-0" aria-label="'.__('expander', 'eklips_lang').'"><span class="visually-hidden">Expander</span></button>', 'anchor_class' => 'nav-link', 'echo' => false]) !!}
         </div>
