@@ -69,12 +69,7 @@
       margin: 0!important;
       width: auto;
 
-      time {
-        order: 1;
-      }
-
       > a {
-        order: 2;
         color: $body-color;
         font-weight: 600;
         line-height: 1.2;
@@ -82,10 +77,6 @@
         @include hover-focus-active {
           color: $link-color;
         }
-      }
-
-      > div {
-        order: 3;
       }
     }
   }
