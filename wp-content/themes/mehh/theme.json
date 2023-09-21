@@ -28,6 +28,16 @@
           "slug": "gray-transparent",
           "color": "rgba(248, 248, 248, 0.6)",
           "name": "Gray transparent"
+        },
+        {
+          "slug": "green-light",
+          "color": "#b4daa7",
+          "name": "Green light"
+        },
+        {
+          "slug": "green",
+          "color": "#60d034",
+          "name": "Green"
         }
       ]
     }
