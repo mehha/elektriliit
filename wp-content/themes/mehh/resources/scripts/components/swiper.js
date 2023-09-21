@@ -15,20 +15,20 @@ export function handleSwiper() {
     },
     breakpoints: {
       320: {
-        slidesPerView: 1.3,
+        slidesPerView: 1,
         // spaceBetween: 20,
       },
       540: {
-        slidesPerView: 2.3,
+        slidesPerView: 2,
         // spaceBetween: 20,
       },
       // 768: {
       //   slidesPerView: 4.3,
       // },
-      1200: {
-        //slidesPerView: slidesPerView,
-        slidesPerView: 4.3,
-      },
+      // 1200: {
+      //   //slidesPerView: slidesPerView,
+      //   slidesPerView: 2,
+      // },
     },
   });
 }
