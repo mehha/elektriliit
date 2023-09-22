@@ -56,13 +56,19 @@ main {
 .archive,
 .search,
 .error404 {
-  .wrap {
+  :where(.wrap) {
     padding-top: 3rem;
     padding-bottom: 2rem;
     @include media-breakpoint-up(xl) {
       padding-top: 5rem;
       padding-bottom: 4rem;
     }
+  }
+}
+
+.has-top-image {
+  .wrap {
+    padding-top: 0;
   }
 }
 
