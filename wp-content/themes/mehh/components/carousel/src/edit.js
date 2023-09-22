@@ -102,64 +102,66 @@ export default function Edit({attributes, setAttributes, props}) {
 	return (
 		<div {...useBlockProps()}>
 			<Panel header="Carousel">
-				{items.map((item, i) => (
-					<div className="panel-body-container">
-						<PanelBody
-							title={`${item.title.substring(0, 20)} ${item.title.length > 20 ? '...' : ''}`}
-							initialOpen={false}
-						>
-							<PanelRow>
-								{item.image && (
-									<div className="image-container">
-										<img
-											src={item.image.sizes.thumbnail.url}
-											alt={item.image.alt}
-											width={item.image.sizes.thumbnail.width}
-											height={item.image.sizes.thumbnail.height}
-										/>
-										<Button variant="primary" onClick={() => updateImage('', i)}>Remove
-											image</Button>
-									</div>
-								)}
-								<MediaPlaceholder
-									onSelect={(val) => updateImage(val, i)}
-									allowedTypes={['image']}
-									multiple={false}
-									value={{id: item.image.id || ''}}
-								>
-								</MediaPlaceholder>
-							</PanelRow>
-							<PanelRow>
-								<RichText
-									placeholder="Title"
-									tagName="h1"
-									value={item.title}
-									onChange={(val) => updateTitle(val, i)}
-								/>
-							</PanelRow>
-							<PanelRow>
-								<RichText
-									placeholder="Content"
-									value={item.content}
-									onChange={(val) => updateContent(val, i)}
-								/>
-							</PanelRow>
-							<PanelRow>
-								<RichText
-									placeholder="Link(s)"
-									value={item.links}
-									onChange={(val) => updateLinks(val, i)}
-								/>
-							</PanelRow>
-						</PanelBody>
-						<Button
-							icon={close}
-							label="Delete"
-							onClick={(val) => deleteRow(val, i)}
-							className="delete-btn"
-						/>
-					</div>
-				))}
+				{items.map((item, i) => {
+					return (
+						<div className="panel-body-container">
+							<PanelBody
+								title={`${item.title.substring(0, 20)} ${item.title.length > 20 ? '...' : ''}`}
+								initialOpen={false}
+							>
+								<PanelRow>
+									{item.image && (
+										<div className="image-container">
+											<img
+												src={item?.image?.sizes?.thumbnail?.url || item?.image?.url}
+												alt={item?.image?.alt || ''}
+												width={item?.image?.sizes?.thumbnail?.width || 150}
+												height={item?.image?.sizes?.thumbnail?.height || 150}
+											/>
+											<Button variant="primary" onClick={() => updateImage('', i)}>Remove
+												image</Button>
+										</div>
+									)}
+									<MediaPlaceholder
+										onSelect={(val) => updateImage(val, i)}
+										allowedTypes={['image']}
+										multiple={false}
+										value={{id: item?.image?.id || ''}}
+									>
+									</MediaPlaceholder>
+								</PanelRow>
+								<PanelRow>
+									<RichText
+										placeholder="Title"
+										tagName="h1"
+										value={item.title}
+										onChange={(val) => updateTitle(val, i)}
+									/>
+								</PanelRow>
+								<PanelRow>
+									<RichText
+										placeholder="Content"
+										value={item.content}
+										onChange={(val) => updateContent(val, i)}
+									/>
+								</PanelRow>
+								<PanelRow>
+									<RichText
+										placeholder="Link(s)"
+										value={item.links}
+										onChange={(val) => updateLinks(val, i)}
+									/>
+								</PanelRow>
+							</PanelBody>
+							<Button
+								icon={close}
+								label="Delete"
+								onClick={(val) => deleteRow(val, i)}
+								className="delete-btn"
+							/>
+						</div>
+					)
+				})}
 			</Panel>
 			<Button
 				variant="link"
