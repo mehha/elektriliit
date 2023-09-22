@@ -36,7 +36,7 @@
     gap: 10px;
     font-family: $font-secondary;
     font-weight: bold;
-    color: $primary;
+    color: $orange;
     @include theme-transition;
 
     &::after {
@@ -44,7 +44,7 @@
       display: inline-block;
       height: 14px;
       width: 16px;
-      background-image: escape-svg(url("data:image/svg+xml,<svg width='16' height='15' viewBox='0 0 16 15' fill='none' xmlns='http://www.w3.org/2000/svg'> <path d='M15.0929 8.11051L15.9036 7.29035L15.0964 6.47019L9.95357 1.24438L9.14286 0.420593L7.52857 2.06454L8.33571 2.88471L11.5286 6.12906H1.14286H0V8.45164H1.14286H11.525L8.33214 11.696L7.52857 12.5162L9.14286 14.1601L9.95 13.3399L15.0929 8.11414V8.11051Z' fill='#60d034'/></svg>"));
+      background-image: escape-svg(url("data:image/svg+xml,<svg width='16' height='15' viewBox='0 0 16 15' fill='none' xmlns='http://www.w3.org/2000/svg'> <path d='M15.0929 8.11051L15.9036 7.29035L15.0964 6.47019L9.95357 1.24438L9.14286 0.420593L7.52857 2.06454L8.33571 2.88471L11.5286 6.12906H1.14286H0V8.45164H1.14286H11.525L8.33214 11.696L7.52857 12.5162L9.14286 14.1601L9.95 13.3399L15.0929 8.11414V8.11051Z' fill='#EE9322'/></svg>"));
       background-repeat: no-repeat;
       background-size: 16px auto;
       background-position: center center;

@@ -31,12 +31,12 @@
         },
         {
           "slug": "green-light",
-          "color": "rgba(96, 208, 52, 0.1)",
+          "color": "rgba(33, 156, 144, 0.1)",
           "name": "Green light"
         },
         {
           "slug": "green",
-          "color": "#60d034",
+          "color": "#219C90",
           "name": "Green"
         }
       ]
