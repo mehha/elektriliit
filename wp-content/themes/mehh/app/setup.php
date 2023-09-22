@@ -9,6 +9,14 @@ namespace App;
 use function Roots\asset;
 
 /**
+ * Register image thumbnails
+ *
+ */
+
+
+add_image_size('top_image', 1400, 400,  array('center', 'center'));
+
+/**
  * Register the theme assets.
  *
  * @return void
