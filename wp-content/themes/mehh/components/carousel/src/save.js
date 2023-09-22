@@ -40,7 +40,7 @@ export default function save({attributes}) {
 					{attributes?.items.length && attributes?.items.map((singleItem, key) => {
 						return (
 							<div className={`${key === 0 ? 'active' : ''} carousel-item`} data-bs-interval="6000">
-								<div className="ratio" style="--bs-aspect-ratio: 28%;">
+								<div className="ratio" style="--bs-aspect-ratio: 34%;">
 									<div className="dark-overlay w-100 h-100 position-absolute top-0 start-0"></div>
 									{singleItem?.image &&
 										<img src={singleItem?.image?.url} alt={singleItem?.image?.alt}/>}

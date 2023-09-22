@@ -1,0 +1,14 @@
+.numbers-module {
+  h1 {
+    margin-bottom: 0;
+
+    &::after {
+      content: " ";
+      display: block;
+      width: 1px;
+      height: 25px;
+      margin: 6px auto;
+      background-color: $primary;
+    }
+  }
+}

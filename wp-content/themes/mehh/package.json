@@ -44,5 +44,8 @@
     "stylelint": "^15.10.3",
     "stylelint-config-standard-scss": "^11.0.0",
     "swiper": "^10.2.0"
+  },
+  "dependencies": {
+    "countup.js": "^2.8.0"
   }
 }

@@ -32,7 +32,7 @@
       }
 
       .wp-element-button {
-        background-color: $primary;
+        background-color: $orange;
         @include theme-transition;
 
         a {
@@ -40,7 +40,7 @@
         }
 
         @include hover-focus-active {
-          background-color: darken($primary, 10%);
+          background-color: darken($orange, 10%);
         }
       }
     }
