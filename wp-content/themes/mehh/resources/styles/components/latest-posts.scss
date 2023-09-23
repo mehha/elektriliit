@@ -61,7 +61,8 @@
     }
 
     li {
-      background-color: rgba($primary, 0.10);
+      border: 1px solid $gray-200;
+      background-color: rgba($gray-light, 20%);
       padding: 22px;
       display: flex;
       flex-direction: column;
@@ -69,10 +70,18 @@
       margin: 0!important;
       width: auto;
 
+      .wp-block-latest-posts__featured-image {
+        margin: -22px -22px 0;
+      }
+
       img {
         aspect-ratio: 16/9;
         object-fit: cover;
         width: 100%;
+      }
+
+      time {
+        margin-top: -8px;
       }
 
       > a {

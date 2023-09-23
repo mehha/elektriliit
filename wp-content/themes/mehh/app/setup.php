@@ -14,7 +14,7 @@ use function Roots\asset;
  */
 
 
-add_image_size('top_image', 1400, 400,  array('center', 'center'));
+add_image_size('top_image', 1400, 340,  array('center', 'center'));
 
 /**
  * Register the theme assets.
