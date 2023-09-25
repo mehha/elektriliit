@@ -38,10 +38,10 @@
           @endphp
 
           @while($cpt_query->have_posts()) @php($cpt_query->the_post())
-              <div class="article-container d-sm-flex gap-3 mb-4 pb-3 border-bottom">
+              <div class="article-container d-flex flex-column flex-sm-row gap-3 mb-4 pb-3 border-bottom">
                   @if(has_post_thumbnail())
-                      <div class="top-image">
-                          {!! get_the_post_thumbnail(null, 'thumbnail', ['class' => 'rounded']) !!}
+                      <div class="top-image text-start">
+                          {!! get_the_post_thumbnail(null, 'square', ['class' => '']) !!}
                       </div>
                   @endif
                   @include('partials.content')

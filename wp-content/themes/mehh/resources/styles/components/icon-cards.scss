@@ -1,0 +1,13 @@
+.icon-cards {
+  .wp-block-column {
+    position: relative;
+    padding-top: 36px!important;
+
+    figure {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
