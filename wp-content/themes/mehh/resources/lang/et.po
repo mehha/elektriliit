@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mehh Media Theme 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mehh\n"
-"POT-Creation-Date: 2023-09-26T12:28:26+03:00\n"
-"PO-Revision-Date: 2023-09-26 12:31+0300\n"
+"POT-Creation-Date: 2023-09-26T15:31:09+03:00\n"
+"PO-Revision-Date: 2023-09-26 16:13+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: et\n"
@@ -119,6 +119,10 @@ msgid "Archive"
 msgstr "Arhiiv"
 
 #. Template Name of the theme
+msgid "Events archive"
+msgstr "Ürituste arhiiv"
+
+#. Template Name of the theme
 msgid "Home"
 msgstr "Avaleht"
 
@@ -177,6 +181,14 @@ msgstr "Kahjuks ei leitud tulemusi."
 msgid "Skip to content"
 msgstr "Edasi sisusse"
 
+#: resources/views/page-events.blade.php:52
+msgid "Upcoming events"
+msgstr "Tulevad sündmused"
+
+#: resources/views/page-events.blade.php:55
+msgid "Past events"
+msgstr "Vanad sündmused"
+
 #: resources/views/partials/comments.blade.php:5
 msgctxt "comments title"
 msgid "One response to &ldquo;%2$s&rdquo;"
@@ -195,6 +207,10 @@ msgstr ""
 #: resources/views/partials/comments.blade.php:37
 msgid "Comments are closed."
 msgstr "Kommentaarid on kinni."
+
+#: resources/views/partials/content-event-list.blade.php:17
+msgid "Read More"
+msgstr "Loe edasi"
 
 #: resources/views/partials/content-page-no-entry.blade.php:3
 #: resources/views/partials/content-page.blade.php:4
