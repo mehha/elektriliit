@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Mehh Media Theme 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mehh\n"
 "POT-Creation-Date: 2023-09-26T15:41:27+03:00\n"
-"PO-Revision-Date: 2023-09-26 16:23+0300\n"
+"PO-Revision-Date: 2023-09-26 16:28+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: et\n"
@@ -116,7 +116,7 @@ msgstr "Ei leitud"
 
 #: components/event/event-acf.php:7
 msgid "Event settings"
-msgstr "Ürituse seaded"
+msgstr "Sündmuse seaded"
 
 #: components/event/event-acf.php:11 components/event/event.php:45
 msgid "Begin date and time"
@@ -132,11 +132,11 @@ msgstr "Asukoht"
 
 #: components/event/event.php:10 components/event/event.php:12
 msgid "Events"
-msgstr "Üritused"
+msgstr "Sündmused"
 
 #: components/event/event.php:11
 msgid "Event"
-msgstr "Üritus"
+msgstr "Sündmus"
 
 #: components/event/event.php:13
 msgid "Parent event"
@@ -176,7 +176,7 @@ msgstr ""
 
 #: components/event/event.php:26
 msgid "events"
-msgstr "sündmused"
+msgstr "syndmused"
 
 #. Template Name of the theme
 msgid "Archive"
@@ -184,7 +184,7 @@ msgstr "Arhiiv"
 
 #. Template Name of the theme
 msgid "Events archive"
-msgstr "Ürituste arhiiv"
+msgstr "Sündmuste arhiiv"
 
 #. Template Name of the theme
 msgid "Home"
