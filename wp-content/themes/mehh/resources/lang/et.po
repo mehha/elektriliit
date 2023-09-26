@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mehh Media Theme 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mehh\n"
-"POT-Creation-Date: 2023-06-02T14:20:42+03:00\n"
-"PO-Revision-Date: 2023-06-02 14:22+0300\n"
+"POT-Creation-Date: 2023-09-26T12:28:26+03:00\n"
+"PO-Revision-Date: 2023-09-26 12:31+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: et\n"
@@ -33,43 +33,70 @@ msgstr ""
 msgid "Continued"
 msgstr "Loe edasi"
 
-#: app/setup.php:74
+#: app/setup.php:83
 msgid "Primary Navigation"
 msgstr ""
 
-#: app/setup.php:75
+#: app/setup.php:84
 msgid "Top Navigation"
 msgstr ""
 
-#: app/setup.php:76
+#: app/setup.php:85
 msgid "Top Protected Navigation"
 msgstr ""
 
-#: app/setup.php:243
+#: app/setup.php:252
 msgid "Primary"
 msgstr "Peamine"
 
-#: app/setup.php:248
+#: app/setup.php:257
 msgid "Header"
 msgstr "Päis"
 
-#: app/setup.php:253
+#: app/setup.php:262
 msgid "Footer"
 msgstr "Jalus"
 
-#: app/View/Composers/ContactForm.php:43
+#: app/View/Composers/ContactForm.php:44
 msgid "Please enter a valid name."
-msgstr ""
+msgstr "Palun sisesta korrektne nimi"
 
-#: app/View/Composers/ContactForm.php:48
+#: app/View/Composers/ContactForm.php:49
 msgid "Please enter a valid email address."
-msgstr ""
+msgstr "Palun sisesta korrektne email"
 
-#: app/View/Composers/ContactForm.php:52
+#: app/View/Composers/ContactForm.php:53
+msgid "Please enter a valid organization."
+msgstr "Palun sisesta korrektne organisatsioon"
+
+#: app/View/Composers/ContactForm.php:57
 msgid "Please enter a valid message."
+msgstr "Palun sisesta korrektne sisu"
+
+#: app/View/Composers/ContactForm.php:62
+msgid "Error in contact form (honeypot)."
+msgstr ""
+"Viga, palun kontrolli üle kas kõik nõutud väljad sisestatud ja proovi uuesti"
+
+#: app/View/Composers/ContactForm.php:66
+msgid "Error in contact form."
+msgstr ""
+"Viga, palun kontrolli üle kas kõik nõutud väljad sisestatud ja proovi uuesti"
+
+#: app/View/Composers/ContactForm.php:72
+msgid "You have not filled out all the information required (time)."
+msgstr ""
+"Viga, palun kontrolli üle kas kõik nõutud väljad sisestatud ja proovi uuesti"
+
+#: app/View/Composers/ContactForm.php:77
+msgid "check_ajax_referer error in contact form."
 msgstr ""
 
-#: app/View/Composers/ContactForm.php:71
+#: app/View/Composers/ContactForm.php:104
+msgid "Captcha not clicked"
+msgstr ""
+
+#: app/View/Composers/ContactForm.php:121
 #: resources/views/shortcodes/contact-form.blade.php:6
 msgid "Your message has been successfully sent."
 msgstr "Sõnum on edukalt saadetud."
@@ -102,6 +129,15 @@ msgstr ""
 #: resources/views/404.blade.php:11
 msgid "Sorry, but the page you are trying to view does not exist."
 msgstr ""
+
+#: resources/views/components/contact-form-modal-body.blade.php:5
+#: resources/views/components/contact-form-modal-btn.blade.php:2
+msgid "Join us"
+msgstr "Liitu"
+
+#: resources/views/components/contact-form-modal-body.blade.php:12
+msgid "Close"
+msgstr "Sulge"
 
 #: resources/views/components/cookie-banner.blade.php:2
 msgid ""
@@ -165,7 +201,7 @@ msgstr "Kommentaarid on kinni."
 msgid "Pages:"
 msgstr "Lehed:"
 
-#: resources/views/partials/header.blade.php:45
+#: resources/views/partials/header.blade.php:46
 msgid "expander"
 msgstr ""
 
@@ -178,14 +214,18 @@ msgid "Email"
 msgstr "E-mail"
 
 #: resources/views/shortcodes/contact-form.blade.php:28
+msgid "Organization"
+msgstr "Organisatsioon"
+
+#: resources/views/shortcodes/contact-form.blade.php:33
 msgid "Message"
 msgstr "Sõnum"
 
-#: resources/views/shortcodes/contact-form.blade.php:48
+#: resources/views/shortcodes/contact-form.blade.php:55
 msgid "You must agree before submitting."
 msgstr "Peate nõustuma saatmiseks."
 
-#: resources/views/shortcodes/contact-form.blade.php:60
+#: resources/views/shortcodes/contact-form.blade.php:67
 msgid "Submit"
 msgstr "Saada"
 
