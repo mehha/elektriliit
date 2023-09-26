@@ -71,6 +71,11 @@ add_filter('wp_nav_menu_items', function ($items, $args) {
 }, 10, 2);
 
 //Excerpt length
-add_filter('excerpt_length', function ($length) {
+add_filter('excerpt_length', function () {
    return 30;
+});
+
+//Remove read more
+add_filter('excerpt_more', function () {
+   return ' ...';
 });
