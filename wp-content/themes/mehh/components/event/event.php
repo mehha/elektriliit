@@ -60,7 +60,7 @@ add_filter('nav_menu_css_class', function($classes, $item, $args, $depth){
 
     if (is_singular(array('events'))) {
 //        100 is page id of Koolitused page (archive)
-        if(100 == $item->object_id){
+        if(342 == $item->object_id){
             $classes[] = 'current-menu-item';
         }
     }
