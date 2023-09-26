@@ -24,9 +24,16 @@
   </div>
 
   <div class="col-12 mb-4">
+    <label class="form-label fw-bold" for="organization">{{__('Organization', 'sage')}}*</label>
+    <input type="text" id="organization" class="form-control" name="organization" required>
+  </div>
+
+  <div class="col-12 mb-4">
     <label class="form-label fw-bold" for="message">{{__('Message', 'sage')}}*</label>
     <textarea id="message" class="form-control" name="message" rows="3" required></textarea>
   </div>
+
+  <input type="hidden" name="form-type" value="contact-form"/>
 
   @if(get_field('captcha_key', 'options'))
     <div class="col-12 recaptcha-container mb-4">
@@ -55,5 +62,7 @@
   </div>
 
   <input class="btn btn-primary mt-4" type="submit" id="contact-form-submit" value="{{__('Submit', 'sage')}}">
+  <input type="hidden" name="time" value="{{time()}}"/>
+  @php(wp_nonce_field('contact_nonce'))
 
 </form>

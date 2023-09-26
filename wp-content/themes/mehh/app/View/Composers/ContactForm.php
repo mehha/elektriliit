@@ -36,6 +36,7 @@ class ContactForm extends Composer
        		//Sanitize the data
        		$full_name = isset( $_POST['full_name'] ) ? sanitize_text_field( $_POST['full_name'] ) : '';
        		$email     = isset( $_POST['email'] ) ? sanitize_text_field( $_POST['email'] ) : '';
+       		$organization     = isset( $_POST['organization'] ) ? sanitize_text_field( $_POST['organization'] ) : '';
        		$message   = isset( $_POST['message'] ) ? sanitize_textarea_field( $_POST['message'] ) : '';
 
        		//Validate the data
@@ -48,25 +49,74 @@ class ContactForm extends Composer
        			$validation_messages[] = esc_html__( 'Please enter a valid email address.', 'sage' );
        		}
 
+            if ( strlen( $organization ) === 0 ) {
+                $validation_messages[] = esc_html__( 'Please enter a valid organization.', 'sage' );
+            }
+
        		if ( strlen( $message ) === 0 ) {
        			$validation_messages[] = esc_html__( 'Please enter a valid message.', 'sage' );
        		}
 
             // Check for honeypot field
             if ( isset( $_POST['honeypot'] ) && ! empty( $_POST['honeypot'] ) ) {
-                // If honeypot field is not empty, it means a bot filled it, so reject the submission
-                die( 'Form submission failed. Please try again.' );
+                $validation_messages[] = esc_html__( 'Error in contact form (honeypot).', 'sage' );
+            }
+
+            if(!esc_attr(isset($_POST['form-type'])) || esc_attr($_POST['form-type']) != 'contact-form'){
+                $validation_messages[] = esc_html__( 'Error in contact form.', 'sage' );
+            }
+
+//            Check time
+            $time = esc_attr($_POST['time']);
+            if (!is_numeric($time) || ($time + 4 > time())) {
+                $validation_messages[] = esc_html__( 'You have not filled out all the information required (time).', 'sage' );
+            }
+
+            // REFERER ERROR
+            if (!check_ajax_referer('contact_nonce')) {
+                $validation_messages[] = esc_html__( 'check_ajax_referer error in contact form.', 'sage' );
+            }
+
+            // VERIFY CAPTCHA
+            $url = 'https://www.google.com/recaptcha/api/siteverify';
+            $fields = array(
+                'secret' => '6LcBqCokAAAAABmLojSAO8UDJKZI76xxZ123FNkE',
+                'response' => $_POST['g-recaptcha-response'],
+                'remoteip' => $_SERVER['REMOTE_ADDR']
+            );
+
+            $fields_string = '';
+            foreach ($fields as $key => $value) {
+                $fields_string .= $key . '=' . $value . '&';
+            }
+            $fields_string = rtrim($fields_string, '&');
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, count($fields));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+
+            $result = json_decode(curl_exec($ch));
+
+            if (!$result->success) {
+                return __('Captcha not clicked', 'sage');
             }
 
        		//Send an email to the WordPress administrator if there are no validation errors
        		if ( empty( $validation_messages ) ) {
 
        			$mail    = get_field('contact_form_recipient', 'options') ? get_field('contact_form_recipient', 'options') : get_option( 'admin_email' );
-       			$subject = 'Uus sõnum kodulehelt';
-       			$message = 'Saatja: ' . $full_name . '<br>Kliendi email: ' . $email .'<br><br>'. $message;
+                $emailArray = preg_split('/\s*,\s*/', $mail, -1, PREG_SPLIT_NO_EMPTY);
+
+                $subject = 'Uus sõnum kodulehelt';
+       			$message = 'Saatja: ' .$full_name. '<br>Kliendi email: ' .$email.'<br>Organisatsioon: ' .$organization. '<br><br>'. $message;
                 $headers = array('Content-Type: text/html; charset=UTF-8');
 
-       			wp_mail( $mail, $subject, $message, $headers );
+                foreach ($emailArray as $recipient) {
+                    wp_mail($recipient, $subject, $message, $headers);
+                }
 
        			$success_message = esc_html__( 'Your message has been successfully sent.', 'sage' );
 

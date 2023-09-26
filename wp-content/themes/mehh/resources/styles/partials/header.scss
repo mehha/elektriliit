@@ -78,7 +78,7 @@ header.banner {
 .not-top.scrolled-down {
   header.banner {
     @include media-breakpoint-up(xl) {
-      transform: translateY(-36px);
+      transform: translateY(-44px);
 
       .navbar-primary {
         .navbar-nav > li > a {

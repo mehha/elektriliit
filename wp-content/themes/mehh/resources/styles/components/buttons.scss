@@ -26,6 +26,49 @@
   }
 }
 
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-color: #fff;
+}
+
+.btn-orange {
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--bs-orange);
+  --bs-btn-border-color: #{shade-color($orange, 10%)};
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: #{shade-color($orange, 10%)};
+  --bs-btn-hover-border-color: #{shade-color($orange, 10%)};
+  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: #{shade-color($orange, 20%)};
+  --bs-btn-active-border-color: #{shade-color($orange, 20%)};
+}
+
+.has-primary-background-color {
+  @include hover-focus-active {
+    background-color: #{shade-color($orange, 10%)} !important;
+  }
+}
+
+.btn-modal {
+  gap: 10px;
+
+  svg {
+    width: 16px;
+    height: auto;
+
+    path {
+      fill: $white;
+    }
+
+    .fa-secondary {
+      opacity: 0.8;
+    }
+  }
+}
+
 .is-style-arrow {
   a {
     padding: 0;

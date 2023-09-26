@@ -3,6 +3,7 @@ import 'bootstrap/js/dist/carousel';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/button';
 import 'bootstrap/js/dist/dropdown';
+import 'bootstrap/js/dist/modal';
 // import 'bootstrap/js/dist/scrollspy';
 // import 'bootstrap/js/dist/tab';
 
@@ -16,6 +17,7 @@ import {handleSearch} from "./components/search";
 import {handleCookieBanner} from "./components/cookie_banner";
 import {handleSwiper} from "./components/swiper";
 import {handleCountUp} from "./components/countup";
+import {handleModal} from "./components/modal";
 
 const mountedFns = [
   handleFancybox,
@@ -27,6 +29,7 @@ const mountedFns = [
   handleCookieBanner,
   handleSwiper,
   handleCountUp,
+  handleModal,
 ]
 
 // Run fn-s

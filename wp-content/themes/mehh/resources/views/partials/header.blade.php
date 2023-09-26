@@ -2,8 +2,9 @@
   @if (has_nav_menu('top_navigation'))
     <nav class="navbar navbar-top d-flex navbar-expand">
       <div class="container">
-        <div class="navbar-top-left">
+        <div class="navbar-top-left d-flex gap-3 align-items-center">
           @php(dynamic_sidebar('sidebar-header'))
+          @include('components.contact-form-modal-btn')
         </div>
         <div class="navbar-top-right d-flex align-items-center gap-2">
           @if(is_user_logged_in())
@@ -47,3 +48,5 @@
     </div>
   </nav>
 </header>
+
+@include('components.contact-form-modal-body')

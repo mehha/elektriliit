@@ -11,10 +11,10 @@ if( function_exists('acf_add_options_page') ):
         'fields' => array (
             array (
                 'key' => 'field_5beadaadi33asxdrt',
-                'label' => 'Recipient',
+                'label' => 'Recipient(s)',
                 'name' => 'contact_form_recipient',
                 'type' => 'text',
-                'instructions' => '',
+                'instructions' => 'Separated with comma',
                 'required' => 0,
                 'conditional_logic' => 0,
                 'wrapper' => array (
@@ -49,7 +49,7 @@ if( function_exists('acf_add_options_page') ):
             ),
             array (
                 'key' => 'field_5be3a3asassdc4cf',
-                'label' => 'Captcha key',
+                'label' => 'Captcha sitekey',
                 'name' => 'captcha_key',
                 'type' => 'text',
                 'instructions' => '',
