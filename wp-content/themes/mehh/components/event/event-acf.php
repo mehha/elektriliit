@@ -43,6 +43,15 @@ if (function_exists('acf_add_local_field_group')):
                 'first_day' => 1,
             ),
             array(
+                'key' => 'field_adada0asdf67',
+                'label' => 'Full day event',
+                'name' => 'full_day',
+                'type' => 'true_false',
+                'default_value' => 0,
+                'column_width' => '',
+                'ui' => 1,
+            ),
+            array(
                 'key' => 'field_63e8c1650cft6',
                 'label' => __('Location', 'sage'),
                 'name' => 'location',

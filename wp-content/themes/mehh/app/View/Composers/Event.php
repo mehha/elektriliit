@@ -49,6 +49,12 @@ class Event extends Composer
 
     public function getTime()
     {
+        $full_day = function_exists('get_field') && get_field('full_day');
+
+        if ($full_day) {
+            return '';
+        }
+
         $begin = function_exists('get_field') ?  get_field('begin_date_time') : false;
         $end = function_exists('get_field') ?  get_field('end_date_time') : false;
 
