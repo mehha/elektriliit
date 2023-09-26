@@ -2,7 +2,9 @@
   //--bs-btn-padding-x: 0.75rem;
   //--bs-btn-padding-y: 0.375rem;
   //--bs-btn-border-radius: 0.375rem;
-  //--bs-btn-font-weight: 400;
+  //--bs-btn-font-weight: 700;
+
+  font-family: $font-secondary;
 }
 
 .btn-search {
@@ -33,7 +35,6 @@
 }
 
 .btn-orange {
-  --bs-btn-font-weight: 600;
   --bs-btn-color: var(--bs-white);
   --bs-btn-bg: var(--bs-orange);
   --bs-btn-border-color: #{shade-color($orange, 10%)};
@@ -47,6 +48,8 @@
 }
 
 .has-primary-background-color {
+  font-family: $font-secondary;
+
   @include hover-focus-active {
     background-color: #{shade-color($orange, 10%)} !important;
   }

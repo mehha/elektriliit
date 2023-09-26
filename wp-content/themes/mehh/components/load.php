@@ -8,6 +8,7 @@ $acf_fields = array(
     'carousel/carousel.php',
     'logo-carousel/logo-carousel.php',
     'archive/archive.php',
+    'event/event.php',
 );
 
 foreach ($acf_fields as $key => $field) {

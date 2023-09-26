@@ -14,6 +14,18 @@
 
   .top-image {
     margin-bottom: 1rem;
-    flex: 1 0 200px;
+    flex: 0 0 400px;
+
+    img {
+      max-height: 300px;
+      object-fit: cover;
+    }
+  }
+}
+
+.meta {
+  svg {
+    width: 18px;
+    height: auto;
   }
 }

@@ -33,6 +33,8 @@
 
       .wp-element-button {
         background-color: $orange;
+        font-family: $font-secondary;
+
         @include theme-transition;
 
         a {
