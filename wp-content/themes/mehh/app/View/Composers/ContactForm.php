@@ -80,7 +80,7 @@ class ContactForm extends Composer
             // VERIFY CAPTCHA
             $url = 'https://www.google.com/recaptcha/api/siteverify';
             $fields = array(
-                'secret' => '6LcBqCokAAAAABmLojSAO8UDJKZI76xxZ123FNkE',
+                'secret' => '6LcaFlcoAAAAAOd7KkL5gZW4vnuKZJe8dISeK12j',
                 'response' => $_POST['g-recaptcha-response'],
                 'remoteip' => $_SERVER['REMOTE_ADDR']
             );
