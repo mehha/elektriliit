@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Mehh Media Theme 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/mehh\n"
 "POT-Creation-Date: 2023-09-26T15:41:27+03:00\n"
-"PO-Revision-Date: 2023-09-26 16:28+0300\n"
+"PO-Revision-Date: 2023-09-26 16:32+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: et\n"
@@ -116,7 +116,7 @@ msgstr "Ei leitud"
 
 #: components/event/event-acf.php:7
 msgid "Event settings"
-msgstr "Sündmuse seaded"
+msgstr "Ürituse seaded"
 
 #: components/event/event-acf.php:11 components/event/event.php:45
 msgid "Begin date and time"
@@ -132,27 +132,27 @@ msgstr "Asukoht"
 
 #: components/event/event.php:10 components/event/event.php:12
 msgid "Events"
-msgstr "Sündmused"
+msgstr "Üritused"
 
 #: components/event/event.php:11
 msgid "Event"
-msgstr "Sündmus"
+msgstr "Üritus"
 
 #: components/event/event.php:13
 msgid "Parent event"
-msgstr "Parent sündmus"
+msgstr "Parent üritus"
 
 #: components/event/event.php:14
 msgid "All events"
-msgstr "Kõik sündmused"
+msgstr "Kõik üritused"
 
 #: components/event/event.php:15
 msgid "View event"
-msgstr "Vaata sündmust"
+msgstr "Vaata üritust"
 
 #: components/event/event.php:16
 msgid "Add New event"
-msgstr "Lisa uus sündmus"
+msgstr "Lisa uus üritus"
 
 #: components/event/event.php:17
 msgid "Add New"
@@ -160,15 +160,15 @@ msgstr "Lisa uus"
 
 #: components/event/event.php:18
 msgid "Edit event"
-msgstr "Muuda sündmust"
+msgstr "Muuda üritust"
 
 #: components/event/event.php:19
 msgid "Update event"
-msgstr "Uuenda sündmust"
+msgstr "Uuenda üritust"
 
 #: components/event/event.php:20
 msgid "Search event"
-msgstr "Otsi sündmust"
+msgstr "Otsi üritust"
 
 #: components/event/event.php:22
 msgid "Not found in Trash"
@@ -176,7 +176,7 @@ msgstr ""
 
 #: components/event/event.php:26
 msgid "events"
-msgstr "syndmused"
+msgstr "yritused"
 
 #. Template Name of the theme
 msgid "Archive"
@@ -184,7 +184,7 @@ msgstr "Arhiiv"
 
 #. Template Name of the theme
 msgid "Events archive"
-msgstr "Sündmuste arhiiv"
+msgstr "Ürituste arhiiv"
 
 #. Template Name of the theme
 msgid "Home"
@@ -247,11 +247,11 @@ msgstr "Edasi sisusse"
 
 #: resources/views/page-events.blade.php:52
 msgid "Upcoming events"
-msgstr "Tulevad sündmused"
+msgstr "Tulevad üritused"
 
 #: resources/views/page-events.blade.php:55
 msgid "Past events"
-msgstr "Vanad sündmused"
+msgstr "Vanad üritused"
 
 #: resources/views/partials/comments.blade.php:5
 msgctxt "comments title"
