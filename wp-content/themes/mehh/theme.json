@@ -38,6 +38,11 @@
           "slug": "green",
           "color": "#219C90",
           "name": "Green"
+        },
+        {
+          "slug": "gray",
+          "color": "#414042",
+          "name": "Gray"
         }
       ]
     }
