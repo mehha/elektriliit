@@ -8,9 +8,6 @@
       <div class="modal-body">
         @php print do_shortcode('[contact-form]'); @endphp
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">{{__('Close', 'sage')}}</button>
-      </div>
     </div>
   </div>
 </div>

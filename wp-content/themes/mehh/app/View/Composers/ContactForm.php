@@ -80,7 +80,7 @@ class ContactForm extends Composer
             // VERIFY CAPTCHA
             $url = 'https://www.google.com/recaptcha/api/siteverify';
             $fields = array(
-                'secret' => '6LcaFlcoAAAAAOd7KkL5gZW4vnuKZJe8dISeK12j',
+                'secret' => get_field('captcha_secret', 'options'),
                 'response' => $_POST['g-recaptcha-response'],
                 'remoteip' => $_SERVER['REMOTE_ADDR']
             );
@@ -110,7 +110,7 @@ class ContactForm extends Composer
        			$mail    = get_field('contact_form_recipient', 'options') ? get_field('contact_form_recipient', 'options') : get_option( 'admin_email' );
                 $emailArray = preg_split('/\s*,\s*/', $mail, -1, PREG_SPLIT_NO_EMPTY);
 
-                $subject = 'Uus sõnum kodulehelt';
+                $subject = 'Liitumissoov kodulehelt elektriliit.ee';
        			$message = 'Saatja: ' .$full_name. '<br>Kliendi email: ' .$email.'<br>Organisatsioon: ' .$organization. '<br><br>'. $message;
                 $headers = array('Content-Type: text/html; charset=UTF-8');
 

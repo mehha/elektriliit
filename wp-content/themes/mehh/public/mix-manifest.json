@@ -1,6 +1,6 @@
 {
-    "/scripts/app.js": "/scripts/app.js?id=af999236f0818aa647205ecd17dd1b56",
-    "/scripts/app.asset.php": "/scripts/app.asset.php?id=3f67f18075732bc8b9a5f36002b78cdc",
+    "/scripts/app.js": "/scripts/app.js?id=40cfea3f25c9776b1488197a86e8cf9c",
+    "/scripts/app.asset.php": "/scripts/app.asset.php?id=1896f2af03c90f2e78456a4c10c37f92",
     "/scripts/customizer.js": "/scripts/customizer.js?id=624359c52ce88941989ae1fa589a5911",
     "/scripts/customizer.asset.php": "/scripts/customizer.asset.php?id=41c490d77ac3fef3a7e8f56fe76d9990",
     "/scripts/editor.js": "/scripts/editor.js?id=3c6b51f5d328d94017aae976396100ae",
@@ -25,9 +25,9 @@
     "/images/mstile-150x150.png": "/images/mstile-150x150.png?id=b899ba5fa5e5e956d5f97179e2020445",
     "/images/safari-pinned-tab.svg": "/images/safari-pinned-tab.svg?id=378e301906f4f38417bd1ee26595c915",
     "/images/site.webmanifest": "/images/site.webmanifest?id=a651b3e42080ca7792de5ff9f7150fab",
-    "/icons/MagnifyingGlass.svg": "/icons/MagnifyingGlass.svg?id=57f48c85b36f8281bc31841ffb35fc62",
     "/icons/bell-duotone.svg": "/icons/bell-duotone.svg?id=f0b299038d64d367a8e4e7de3698004a",
-    "/icons/location-dot-duotone.svg": "/icons/location-dot-duotone.svg?id=1c27bee0606015483b592acb1387108c",
     "/icons/calendar-duotone.svg": "/icons/calendar-duotone.svg?id=52017cda3ab95f0e55acc7feb8b62f66",
+    "/icons/location-dot-duotone.svg": "/icons/location-dot-duotone.svg?id=1c27bee0606015483b592acb1387108c",
+    "/icons/MagnifyingGlass.svg": "/icons/MagnifyingGlass.svg?id=57f48c85b36f8281bc31841ffb35fc62",
     "/icons/timer-duotone.svg": "/icons/timer-duotone.svg?id=1866e515f142ce8b3c2ab2b520ad90dc"
 }

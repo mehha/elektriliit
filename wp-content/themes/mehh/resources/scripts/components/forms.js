@@ -1,3 +1,4 @@
+import Modal from 'bootstrap/js/dist/modal';
 export function handleForms() {
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   const forms = document.querySelectorAll('.needs-validation')
@@ -24,6 +25,9 @@ export function handleForms() {
       if (!form.checkValidity() || !reCaptcha) {
         event.preventDefault()
         event.stopPropagation()
+        localStorage.removeItem('form-submitted');
+      } else {
+        localStorage.setItem('form-submitted', 'true')
       }
 
       form.classList.add('was-validated')
@@ -44,4 +48,18 @@ export function handleForms() {
     if ( response !== '')
       FormCaptcha.classList.remove('captcha-error');
   };
+
+  window.addEventListener("load", function() {
+      const submittedUsername = localStorage.getItem('form-submitted');
+      const contactModal = new Modal('#contactModal')
+
+      if (submittedUsername) {
+        contactModal.show()
+        localStorage.removeItem('form-submitted');
+
+        setTimeout(() => {
+          contactModal.hide()
+        }, 2400)
+      }
+  });
 }
