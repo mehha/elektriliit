@@ -1,4 +1,4 @@
-@mixin container-narrow($padding-x: $container-padding-x) {
+@mixin container-narrow($padding-x: $container-padding-x * 0.5) {
   max-width: $container-narrow;
   width: 100%;
   padding-right: $padding-x;

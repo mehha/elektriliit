@@ -79,3 +79,19 @@ add_filter('excerpt_length', function () {
 add_filter('excerpt_more', function () {
    return ' ...';
 });
+
+/*
+ * Modify menu active menu classes for posts
+ */
+add_filter('nav_menu_css_class', function($classes, $item, $args, $depth){
+
+    if (is_single()) {
+//        100 is page id of Koolitused page (archive)
+        if(338 == $item->object_id){
+            $classes[] = 'current-menu-item';
+        }
+    }
+
+    return $classes;
+
+}, 10, 4);

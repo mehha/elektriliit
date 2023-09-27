@@ -14,7 +14,9 @@
 
   .top-image {
     margin-bottom: 1rem;
-    flex: 0 0 400px;
+    @include media-breakpoint-up(md) {
+      flex: 0 0 400px;
+    }
 
     img {
       max-height: 300px;
