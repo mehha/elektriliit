@@ -92,6 +92,18 @@ add_filter('nav_menu_css_class', function($classes, $item, $args, $depth){
         }
     }
 
+    if (is_single() && in_category(5)) {
+        if(158 == $item->object_id){
+            $classes[] = 'current-menu-item';
+        }
+    }
+
+    if (is_single() && in_category(6)) {
+        if(156 == $item->object_id){
+            $classes[] = 'current-menu-item';
+        }
+    }
+
     return $classes;
 
 }, 10, 4);
