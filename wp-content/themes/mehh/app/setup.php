@@ -298,3 +298,23 @@ add_action('admin_bar_menu', function ($wp_admin_bar) {
 add_action('get_header', function () {
 //    if ( !is_user_logged_in() ) { wp_die('Maintenance mode active!'); }
 });
+
+//Dashboard
+function add_mehh_tutorial_videos() {
+    wp_add_dashboard_widget(
+        'mehh_tutorial_videos',
+        'Tutorial videos',
+        function() {
+            echo '<p>Uue sündmuse lisamine</p><video controls muted playsinline><source type="video/mp4" src="https://elektriliit.mehh.ee/et/wp-content/uploads/sites/2/2023/09/Urituse-lisamine.mp4"></video>';
+        }
+    );
+}
+
+// Add the widgets
+add_action('wp_dashboard_setup', function () {
+    add_mehh_tutorial_videos();
+});
+
+add_action('wp_network_dashboard_setup', function () {
+    add_mehh_tutorial_videos();
+});
