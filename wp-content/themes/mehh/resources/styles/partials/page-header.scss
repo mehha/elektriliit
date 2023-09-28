@@ -7,8 +7,11 @@
 
 //Top image
 .top-image {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   text-align: center;
+  @include media-breakpoint-up(md) {
+    margin-bottom: 3rem;
+  }
 
   img {
     width: 100%;
