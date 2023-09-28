@@ -2,7 +2,7 @@
 
 @section('content')
   @if(has_post_thumbnail())
-    <div class="top-image position-relative">
+    <div class="top-image top-image-with-heading position-relative">
       @include('components.color-overlay')
       <div class="position-absolute start-50 top-50 translate-middle text-white z-1">
         @include('partials.page-header')

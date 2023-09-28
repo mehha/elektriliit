@@ -14,4 +14,14 @@
     width: 100%;
     object-fit: cover;
   }
+
+  &.top-image-with-heading {
+    h1 {
+      margin-bottom: 0;
+    }
+
+    img {
+      min-height: 240px;
+    }
+  }
 }
