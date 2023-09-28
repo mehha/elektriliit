@@ -318,6 +318,12 @@ font-size: 14px;
 	width: 75%;
 	margin-bottom: 15px;
 }
+input.regular-text.subject-input {
+    margin: 0;
+}
+p.subject-desc.description{
+	margin: 5px 0px 23px;
+}
 .emailNotiTable .fm_addMoreBtnDv{
 	margin-bottom: 20px;
 }

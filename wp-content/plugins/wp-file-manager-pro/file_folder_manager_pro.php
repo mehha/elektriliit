@@ -4,7 +4,7 @@
   Plugin URI: https://filemanagerpro.io/product/file-manager/
   Description: Manage your WP files.
   Author: mndpsingh287
-  Version: 8.3.3
+  Version: 8.3.4
   Author URI: https://profiles.wordpress.org/mndpsingh287
   License: GPLv2
  **/
@@ -24,7 +24,7 @@ if (!class_exists('mk_file_folder_manager')):
     class mk_file_folder_manager
     {
 
-        const FILE_MANAGER_VERSION = '8.3.3';
+        const FILE_MANAGER_VERSION = '8.3.4';
 
         /* Auto Load Hooks */
         public function __construct()
@@ -951,7 +951,7 @@ if (!class_exists('mk_file_folder_manager')):
             $commonJsFiles = array(
                 'fm_top' => 'js/top.js',
                 'fm_jquery_ui' => 'lib/jquery/'.$jquery_ui_js,
-                'fm_elFinder_min' => 'lib/js/elFinder.min.js',
+                'fm_elFinder_min' => 'lib/js/elfinder.min.js',
                 'fm_elFinder' => 'lib/js/elFinder.js',
                 'fm_elFinder_version' => 'lib/js/elFinder.version.js',
                 'fm_jquery_elfinder' => 'lib/js/jquery.elfinder.js',

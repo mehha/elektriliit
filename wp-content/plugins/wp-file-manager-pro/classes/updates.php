@@ -11,7 +11,7 @@ if(!class_exists('wp_file_manager_pro_updates')) {
         /**
          * Server
          */
-        static $server = 'http://webdesi9.com/plugin_server_twenty_ninteen/wp_file_manager/';
+        static $server = 'https://filemanagerpro.io/plugin_updates/wp_file_manager';
 
         /**
          * Install

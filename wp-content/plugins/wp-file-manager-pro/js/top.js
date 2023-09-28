@@ -32,3 +32,14 @@ function fm_get_network_url(){
     }
     return href;
   }
+  jQuery(document).on('click', ".notice-dismiss", function(){
+    jQuery(this).closest('.updated').hide();
+    var current_url = window.location.href;
+    if(current_url!=''){
+      var selected_tab = current_url.split('&tb')[1];
+      if(selected_tab!=undefined){
+        var admin_page_url = 'admin.php?page=wp_file_manager_settings&tb'+selected_tab+'';
+        window.history.replaceState({}, document.title, admin_page_url);
+      }
+    }
+  });

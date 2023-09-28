@@ -4,6 +4,7 @@ global $wpdb;
 $tbl = $wpdb->prefix.'fm_file_action_log';
 $action = (isset($_GET['action']) && !empty($_GET['action'])) ? sanitize_text_field($_GET['action']) : '';
 $tab_type = isset($_GET['tab_type']) && !empty($_GET['tab_type']) ? sanitize_text_field($_GET['tab_type']) : 'edit_file';
+$searchlog = isset($_GET['searchlog']) && !empty($_GET['searchlog']) ? sanitize_text_field($_GET['searchlog']) : '';
 if(!empty($action) && $action == 'delete' && wp_verify_nonce( $_GET['key'], 'log_del_nonce') && current_user_can('administrator')) {
   $id = intval($_GET['id']);
   $removeLog = $wpdb->delete($tbl, array('id' => $id));
@@ -25,21 +26,25 @@ $no_of_records_per_page = 10;
 $offset = ($pageno-1) * $no_of_records_per_page;
 $showing_page = ($pageno * $no_of_records_per_page)-($no_of_records_per_page-1);
 $sno = $showing_page-1;
-
+if ($searchlog) {
+  $searchquery = 'AND files LIKE "%' . $searchlog . '%"';
+} else {
+  $searchquery = '';
+}
 //case 1
-$e_total_editFiles = $wpdb->get_results("select * from ".$tbl." where action='edit' order by id DESC");
+$e_total_editFiles = $wpdb->get_results("select * from ".$tbl." where action='edit' ".$searchquery." order by id DESC");
 $e_total_pages = ceil(count($e_total_editFiles) / $no_of_records_per_page);
-$e_editedFiles = $wpdb->get_results("select * from ".$tbl." where action='edit' order by id DESC LIMIT ".$offset.", ".$no_of_records_per_page."");
+$e_editedFiles = $wpdb->get_results("select * from ".$tbl." where action='edit' ".$searchquery." order by id DESC LIMIT ".$offset.", ".$no_of_records_per_page."");
 
 //case 2
-$d_total_downloadedFiles = $wpdb->get_results("select * from ".$tbl." where action='download' order by id DESC");
+$d_total_downloadedFiles = $wpdb->get_results("select * from ".$tbl." where action='download' ".$searchquery." order by id DESC");
 $d_total_pages = ceil(count($d_total_downloadedFiles) / $no_of_records_per_page);
-$d_downloadFiles = $wpdb->get_results("select * from ".$tbl." where action='download' order by id DESC LIMIT ".$offset.", ".$no_of_records_per_page."");
+$d_downloadFiles = $wpdb->get_results("select * from ".$tbl." where action='download' ".$searchquery." order by id DESC LIMIT ".$offset.", ".$no_of_records_per_page."");
 
 //case 3
-$u_total_uploadedFiles = $wpdb->get_results("select * from ".$tbl." where action='upload' order by id DESC");
+$u_total_uploadedFiles = $wpdb->get_results("select * from ".$tbl." where action='upload' ".$searchquery." order by id DESC");
 $u_total_pages = ceil(count($u_total_uploadedFiles) / $no_of_records_per_page);
-$u_uploadedFiles = $wpdb->get_results("select * from ".$tbl." where action='upload' order by id DESC LIMIT ".$offset.", ".$no_of_records_per_page."");
+$u_uploadedFiles = $wpdb->get_results("select * from ".$tbl." where action='upload' ".$searchquery." order by id DESC LIMIT ".$offset.", ".$no_of_records_per_page."");
 $confirmBox = __('Are you sure want to delete?','wp-file-manager-pro');
 ?>
 <div class="wrap rootPageWrap">
@@ -56,6 +61,10 @@ $confirmBox = __('Are you sure want to delete?','wp-file-manager-pro');
     </ul>
 
     <div class="logs_tab_container">
+      <div class="search_container">
+        <h3><?php _e('Search Logs', 'wp-file-manager-pro'); ?></h3>
+        <form method="POST"><input type="text" id="file_search" name="file_search" placeholder="Search File Name" /><input type="submit" value="search" id="search_file" name="search_file" /></form>
+      </div>
       <!--case 1-->
       <div class="edit_file logs_tab_block <?php if($tab_type  == 'edit_file'){ echo 'log_active'; }?>">
         <h3><?php _e('Edited Files','wp-file-manager-pro');?></h3>        
@@ -103,11 +112,15 @@ $confirmBox = __('Are you sure want to delete?','wp-file-manager-pro');
               $e_rmid_size = 4;
               $e_current = $pageno;
               $e_content_tab = "&tab_type=".$tab_type;
+              if ($searchlog) {
+                  $searchlog_content_tab = "&searchlog=" . $searchlog;
+              } else {
+                $searchlog_content_tab = '';
+              }
               if($e_total_pages>1){
             ?>
             <div class="logs_total_showing"><?php echo __("Showing ", 'wp-file-manager-pro').$showing_page." ".__("to", 'wp-file-manager-pro')." ".($sno)." ".__("of", 'wp-file-manager-pro')." ".count($e_total_editFiles)." ".__("entries", 'wp-file-manager-pro');?></div>
             <ul class="pagination">
-              <!--<li><a href="?page=wpfm-logs&pageno=1<?php //echo $e_content_tab?>">First</a></li>-->
               <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
                   <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?page=wpfm-logs&pageno=".($pageno - 1).$e_content_tab; } ?>">Prev</a>
               </li>
@@ -117,14 +130,14 @@ $confirmBox = __('Are you sure want to delete?','wp-file-manager-pro');
               if ( $n == $e_current ) 
               {
                 ?>
-                <li><a class='page-numbers current' href='?page=wpfm-logs&pageno=<?php echo $n.$e_content_tab;?>'> <?php echo $n;?></a></li>
+                <li><a class='page-numbers current' href='?page=wpfm-logs&pageno=<?php echo $n.$e_content_tab.$searchlog_content_tab;?>'> <?php echo $n;?></a></li>
                 <?php
               }
               else 
               {
                 if ( ($e_current && $n >= $e_current - $e_lmid_size && $n <= $e_current + $e_rmid_size ) ):
                 ?>
-                  <li><a class='page-numbers' href='?page=wpfm-logs&pageno=<?php echo $n.$e_content_tab ;?>'> <?php echo $n;?></a></li>
+                  <li><a class='page-numbers' href='?page=wpfm-logs&pageno=<?php echo $n.$e_content_tab.$searchlog_content_tab; ;?>'> <?php echo $n;?></a></li>
                   <?php
                 endif;
               }
@@ -133,7 +146,6 @@ $confirmBox = __('Are you sure want to delete?','wp-file-manager-pro');
               <li class="<?php if($pageno >= $e_total_pages){ echo 'disabled'; } ?>">
                   <a href="<?php if($pageno >= $e_total_pages){ echo '#'; } else { echo "?page=wpfm-logs&pageno=".($pageno + 1).$e_content_tab; } ?>"><?php _e('Next','wp-file-manager-pro');?></a>
               </li>
-              <!--<li><a href="?page=wpfm-logs&pageno=<?php //echo $e_total_pages.$e_content_tab; ?>"><?php //_e('Last','wp-file-manager-pro');?></a></li>-->
             </ul>
             <?php }?>
         </div>
@@ -185,11 +197,15 @@ $confirmBox = __('Are you sure want to delete?','wp-file-manager-pro');
               $d_rmid_size = 4;
               $d_current = $pageno;
               $d_content_tab = "&tab_type=".$tab_type;
+              if ($searchlog) {
+                $searchlogd_content_tab = "&searchlog=" . $searchlog;
+              } else {
+                $searchlogd_content_tab = '';
+              }
               if($d_total_pages>1){
             ?>
             <div class="logs_total_showing"><?php echo __("Showing ", 'wp-file-manager-pro').$showing_page." ".__("to", 'wp-file-manager-pro')." ".($sno)." ".__("of", 'wp-file-manager-pro')." ".count($d_total_downloadedFiles)." ".__("entries", 'wp-file-manager-pro');?></div>
             <ul class="pagination">
-              <!--<li><a href="?page=wpfm-logs&pageno=1<?php //echo $d_content_tab?>">First</a></li>-->
               <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
                   <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?page=wpfm-logs&pageno=".($pageno - 1).$d_content_tab; } ?>">Prev</a>
               </li>
@@ -199,7 +215,7 @@ $confirmBox = __('Are you sure want to delete?','wp-file-manager-pro');
               if ( $n == $d_current ) 
               {
                 ?>
-                <li><a class='page-numbers current' href='?page=wpfm-logs&pageno=<?php echo $n.$d_content_tab;?>'> <?php echo $n;?></a></li>
+                <li><a class='page-numbers current' href='?page=wpfm-logs&pageno=<?php echo $n.$d_content_tab.$searchlogd_content_tab;?>'> <?php echo $n;?></a></li>
                 <?php
               }
                 
@@ -207,7 +223,7 @@ $confirmBox = __('Are you sure want to delete?','wp-file-manager-pro');
               {
                 if ( ($d_current && $n >= $d_current - $d_lmid_size && $n <= $d_current + $d_rmid_size ) ):
                 ?>
-                  <li><a class='page-numbers' href='?page=wpfm-logs&pageno=<?php echo $n.$d_content_tab ;?>'> <?php echo $n;?></a></li>
+                  <li><a class='page-numbers' href='?page=wpfm-logs&pageno=<?php echo $n.$d_content_tab.$searchlogd_content_tab ;?>'> <?php echo $n;?></a></li>
                   <?php
                 endif;
               }
@@ -216,7 +232,6 @@ $confirmBox = __('Are you sure want to delete?','wp-file-manager-pro');
               <li class="<?php if($pageno >= $d_total_pages){ echo 'disabled'; } ?>">
                   <a href="<?php if($pageno >= $d_total_pages){ echo '#'; } else { echo "?page=wpfm-logs&pageno=".($pageno + 1).$d_content_tab; } ?>"><?php _e('Next','wp-file-manager-pro');?></a>
               </li>
-              <!--<li><a href="?page=wpfm-logs&pageno=<?php //echo $d_total_pages.$d_content_tab; ?>"><?php //_e('Last','wp-file-manager-pro');?></a></li>-->
             </ul>
           <?php }?>
         </div>
@@ -270,11 +285,15 @@ $confirmBox = __('Are you sure want to delete?','wp-file-manager-pro');
               $u_rmid_size = 4;
               $u_current = $pageno;
               $u_content_tab = "&tab_type=".$tab_type;
+              if ($searchlog) {
+                $searchlogu_content_tab = "&searchlog=" . $searchlog;
+              } else {
+                $searchlogu_content_tab = '';
+              }
               if($u_total_pages>1){
             ?>
             <div class="logs_total_showing"><?php echo __("Showing ", 'wp-file-manager-pro').$showing_page." ".__("to", 'wp-file-manager-pro')." ".($sno)." ".__("of", 'wp-file-manager-pro')." ".count($u_total_uploadedFiles)." ".__("entries", 'wp-file-manager-pro');?></div>
             <ul class="pagination">
-              <!--<li><a href="<?php //echo admin_url('admin.php');?>?page=wpfm-logs&pageno=1<?php //echo $u_content_tab?>">First</a></li>-->
               <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
                   <a href="<?php if($pageno <= 1){ echo 'javascript:void(0)'; } else { echo "?page=wpfm-logs&pageno=".($pageno - 1).$u_content_tab; } ?>">Prev</a>
               </li>
@@ -284,14 +303,14 @@ $confirmBox = __('Are you sure want to delete?','wp-file-manager-pro');
               if ( $n == $u_current )
               {
                 ?>
-                <li><a class='page-numbers current' href='<?php echo admin_url('admin.php');?>?page=wpfm-logs&pageno=<?php echo $n.$u_content_tab;?>'> <?php echo $n;?></a></li>
+                <li><a class='page-numbers current' href='<?php echo admin_url('admin.php');?>?page=wpfm-logs&pageno=<?php echo $n.$u_content_tab.$searchlogu_content_tab;?>'> <?php echo $n;?></a></li>
                 <?php
               }
               else 
               {
                 if ( ($u_current && $n >= $u_current - $u_lmid_size && $n <= $u_current + $u_rmid_size ) ):
                 ?>
-                  <li><a class='page-numbers' href='<?php echo admin_url('admin.php');?>?page=wpfm-logs&pageno=<?php echo $n.$u_content_tab ;?>'> <?php echo $n;?></a></li>
+                  <li><a class='page-numbers' href='<?php echo admin_url('admin.php');?>?page=wpfm-logs&pageno=<?php echo $n.$u_content_tab.$searchlogu_content_tab ;?>'> <?php echo $n;?></a></li>
                   <?php
                 endif;
               }
@@ -300,7 +319,6 @@ $confirmBox = __('Are you sure want to delete?','wp-file-manager-pro');
               <li class="<?php if($pageno >= $u_total_pages){ echo 'disabled'; } ?>">
                   <a href="<?php if($pageno >= $u_total_pages){ echo 'javascript:void(0)'; } else { echo admin_url('admin.php')."?page=wpfm-logs&pageno=".($pageno + 1).$u_content_tab; } ?>">Next</a>
               </li>
-              <!--<li><a href="?page=wpfm-logs&pageno=<?php //echo $u_total_pages.$u_content_tab; ?>">Last</a></li>-->
             </ul>
           <?php }?>
         </div>
@@ -357,7 +375,17 @@ jQuery(".bulk_delete_2").click(function () {
 jQuery(".bulk_delete_3").click(function () {
   bulk_delete(3,ajax_url);
 }); //click
-
+  jQuery("body").on("click", "#search_file", function(e) {
+      // e.preventDefault();
+      var searchval = jQuery('#file_search').val();
+      if (searchval != "") {
+        const url = new URL(window.location);
+        url.searchParams.set('searchlog', searchval);
+        window.history.pushState(null, '', url.toString());
+      } else {
+        alert('Please Enter value!');
+      }
+    });
 });
 function bulk_delete(tab,ajax_url) {
   var bulk_action_selection = jQuery('.bulk_selection_'+tab+' :selected').val();
@@ -453,7 +481,45 @@ a:focus, button:focus {
 .logs_page_wrap .logs_tab_container{
     background: #fff;
     padding: 20px;
+    position: relative;
 }
+.logs_page_wrap .logs_tab_container .search_container {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+  }
+  .logs_page_wrap .logs_tab_container .search_container form {
+    margin-left: 10px;
+  }
+  .logs_page_wrap .logs_tab_container .search_container input#search_file {
+    margin-left: 10px;
+  }
+  .logs_page_wrap .logs_tab_container .search_container h3{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 11px;
+  }
+  .logs_page_wrap .logs_tab_container .search_container #search_file{
+    color: #2271b1;
+    border-color: #2271b1;
+    background: #f6f7f7;
+    vertical-align: top;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 2.15384615;
+    min-height: 30px;
+    margin: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+
 .logs_page_wrap .logs_tab_container table tr td, .logs_page_wrap .logs_tab_container table tr th {
     padding-left: 0px;
     display: table-cell;
