@@ -11,4 +11,11 @@
       background-color: $primary;
     }
   }
+
+  .wp-block-columns {
+    @include media-breakpoint-down(md) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 }
