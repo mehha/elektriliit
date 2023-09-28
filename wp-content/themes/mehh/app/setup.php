@@ -82,7 +82,6 @@ add_action('after_setup_theme', function () {
     register_nav_menus([
         'primary_navigation' => __('Primary Navigation', 'sage'),
         'top_navigation' => __('Top Navigation', 'sage'),
-        'top_protected_navigation' => __('Top Protected Navigation', 'sage')
     ]);
 
     /**
@@ -287,7 +286,7 @@ add_action('admin_menu', function () {
     remove_menu_page( 'edit-comments.php' );
     remove_menu_page( 'edit.php?post_type=acf-field-group' );
     remove_menu_page( 'sb-instagram-feed' );
-    remove_menu_page( 'wp_file_manager' );
+//    remove_menu_page( 'wp_file_manager' );
 }, 1000);
 
 add_action('admin_bar_menu', function ($wp_admin_bar) {

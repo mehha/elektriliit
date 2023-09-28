@@ -7,6 +7,19 @@
     --bs-nav-link-color: #fff;
     --bs-nav-link-hover-color: #EFF6FC;
 
+    .nav-item {
+      display: flex;
+      align-items: center;
+
+      @include wp-current-menu-item {
+        > a {
+          text-decoration: underline;
+          text-decoration-color: var(--bs-white);
+          text-underline-offset: 4px;
+        }
+      }
+    }
+
     .nav-link {
       --bs-nav-link-padding-y: 0;
 
