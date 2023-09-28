@@ -52,19 +52,3 @@ add_action('manage_events_posts_custom_column', function ($column_name, $post_id
         echo get_field('begin_date_time', $post_id);
     }
 }, 20, 2);
-
-/*
- * Modify menu active menu classes for events
- */
-add_filter('nav_menu_css_class', function($classes, $item, $args, $depth){
-
-    if (is_singular(array('events'))) {
-//        100 is page id of Koolitused page (archive)
-        if(342 == $item->object_id){
-            $classes[] = 'current-menu-item';
-        }
-    }
-
-    return $classes;
-
-}, 10, 4);

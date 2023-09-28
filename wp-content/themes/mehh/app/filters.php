@@ -85,8 +85,14 @@ add_filter('excerpt_more', function () {
  */
 add_filter('nav_menu_css_class', function($classes, $item, $args, $depth){
 
-    if (is_single()) {
+    if (is_singular(array('events'))) {
 //        100 is page id of Koolitused page (archive)
+        if(342 == $item->object_id){
+            $classes[] = 'current-menu-item';
+        }
+    }
+
+    if (is_single() && !is_singular(array('events'))) {
         if(338 == $item->object_id){
             $classes[] = 'current-menu-item';
         }
