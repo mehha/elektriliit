@@ -1,5 +1,4 @@
 <?php
-var_dump(ini_get('upload_max_filesize'));
 /**
  * Front to the WordPress application. This file doesn't do anything, but loads
  * wp-blog-header.php which does and tells WordPress to load the theme.
