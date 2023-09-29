@@ -305,7 +305,7 @@ function add_mehh_tutorial_videos() {
         'mehh_tutorial_videos',
         'Tutorial videos',
         function() {
-            echo '<p>Lehe muutmine</p><video controls muted playsinline><source type="video/mp4" src="https://elektriliit.mehh.ee/et/wp-content/uploads/sites/2/2023/09/Lehe-muutmine-opt.mp4"></video>';
+            echo '<p>Lehe muutmine</p><video controls muted playsinline><source type="video/mp4" src="https://elektriliit.mehh.ee/et/wp-content/uploads/sites/2/2023/09/Lehe-muutmine.mp4"></video>';
             echo '<p>Uue sündmuse lisamine</p><video controls muted playsinline><source type="video/mp4" src="https://elektriliit.mehh.ee/et/wp-content/uploads/sites/2/2023/09/Urituse-lisamine.mp4"></video>';
         }
     );
