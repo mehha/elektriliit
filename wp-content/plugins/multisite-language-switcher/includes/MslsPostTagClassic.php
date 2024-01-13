@@ -43,7 +43,7 @@ class MslsPostTagClassic extends MslsPostTag {
 			</tr>';
 
 		$item_format = '<tr class="form-field">
-			<th scope="row" valign="top">
+			<th scope="row">
 			<label for="msls_input_%1$s">%2$s</label></th>
 			<td>
 			<select class="msls-translations" name="msls_input_%1$s">
@@ -69,8 +69,13 @@ class MslsPostTagClassic extends MslsPostTag {
 
 		$language = $blog->get_language();
 		$icon     = MslsAdminIcon::create()
-			->set_language( $language )
-			->set_icon_type( 'flag' );
+			->set_language( $language );
+
+		if( $this->options->admin_display === 'label' ) {
+			$icon->set_icon_type( 'label' );
+		} else {
+			$icon->set_icon_type( 'flag' );			
+		}
 		$options  = '';
 		$terms    = get_terms( [ 'taxonomy' => $type, 'hide_empty' => false ] );
 
