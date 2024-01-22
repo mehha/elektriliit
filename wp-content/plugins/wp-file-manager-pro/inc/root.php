@@ -2,9 +2,11 @@
     exit;
 }
 global $wpdb;
+$path = str_replace('\\', '/', ABSPATH); 
  if (isset($_POST['submit']) && wp_verify_nonce($_POST['wp_filemanager_root_nonce_field'], 'wp_filemanager_root_action')) {
+    $directory_separators = ['../', './','..\\', '.\\', '..'];
     $save_array = 	array(
-        'public_path' => isset($_POST['public_path']) ? str_replace('..', '', htmlentities(trim($_POST['public_path']))) : '',
+        'public_path' => isset($_POST['public_path']) ? str_replace($directory_separators, '', htmlentities(trim($path.$_POST['public_path']))): $path,
         'fm_syntax_checker' => isset($_POST['fm_syntax_checker']) ? htmlentities($_POST['fm_syntax_checker']) : '',
         'fm_enable_trash' => isset($_POST['fm_enable_trash']) ? intval($_POST['fm_enable_trash']) : '',
         'fm_enable_media_upload' => isset($_POST['fm_enable_media_upload']) ? intval($_POST['fm_enable_media_upload']) : '',
@@ -52,20 +54,20 @@ $this->fm_custom_assets();
 <span class="headingText"><?php _e('Preferences - File Manager', 'wp-file-manager-pro'); ?></span>
 </h3>
 
-<?php $path = str_replace('\\', '/', ABSPATH); ?>
+<?php 
+$path_length = strlen($path);
+$access_folder = isset($settings['public_path']) && !empty($settings['public_path']) ? substr($settings['public_path'],$path_length) : '';
+?>
 
 <form action="" method="post" class="rootDirectoryForm">
 <?php  wp_nonce_field('wp_filemanager_root_action', 'wp_filemanager_root_nonce_field'); ?>
-<label class="labelHeading"><?php _e('Public Root Path', 'wp-file-manager-pro'); ?></label>
-
-<input name="public_path" type="text" id="public_path" value="<?php echo isset($settings['public_path']) && !empty($settings['public_path']) ? $settings['public_path'] : $path; ?>" class="regular-text fmInput">
 <div class="grp_root">
-<div class="emText"><?php _e('File Manager Root Path, you can change according to your choice.', 'wp-file-manager-pro'); ?></div>
-</div>
-<div class="grp_root">
-<div class="codeTagEle"><label class="labelHeadingInline"><?php _e('Default', 'wp-file-manager-pro'); ?>:</label> <code><?php echo $path; ?></code></div>
-
-<div class="fmError"><?php _e('Please change this carefully, Wrong path can lead file manager plugin to go down.', 'wp-file-manager-pro'); ?></div>
+    <label class="labelHeading"><?php _e('Public Root Path', 'wp-file-manager-pro'); ?></label>
+    <div class="input-addon"><b><?php _e('Default', 'wp-file-manager-pro'); ?></b>: <?php echo $path; ?></div>
+    <input type="text" name="public_path" id="public_path" placeholder="<?php _e('Path of the folder to display e.g wp-content/uploads', 'wp-file-manager-pro'); ?>" value="<?php echo $access_folder; ?>" class="regular-text fmInput"/>
+    <p class="mb15 fmError">
+        <?php _e('Please change this carefully, wrong path can lead file manager plugin to go down.', 'wp-file-manager-pro'); ?>
+    </p>
 </div>
 
 

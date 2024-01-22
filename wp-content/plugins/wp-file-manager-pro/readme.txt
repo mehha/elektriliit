@@ -3,7 +3,7 @@ Contributors: mndpsingh287
 Tags: file manager, upload files, WP file manager, file manage, edit files, delete files, ftp, filemanager, wpfilemanager, clone, move, zip, download, modify, edit, manage, directory
 Requires at least: 3.4
 Tested up to: 6.2
-Stable tag: 8.3.4
+Stable tag: 8.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

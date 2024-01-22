@@ -116,8 +116,8 @@ if(!empty($shortcode_data)){
 			if(!isset($opt['fm_welcome_mesg'])){
 				$filemanagerReturn .= '<p class="wrap_file_manager_p"><strong>'.__('Welcome', 'wp-file-manager-pro').': </strong>'.$current_user->display_name.'</p>';
 			} else {
-				$message = $opt['fm_welcome_mesg'];
-				$message = stripcslashes(htmlspecialchars_decode(utf8_decode(htmlentities(str_replace('%Username%', $current_user->display_name, $message ),ENT_QUOTES))));
+				$message = esc_attr($opt['fm_welcome_mesg']);
+				$message = str_replace('%Username%', $current_user->display_name, $message );
 				if(!empty(trim($message))){
 					$filemanagerReturn .= '<p class="wrap_file_manager_p">'.$message.'</p>';
 				}

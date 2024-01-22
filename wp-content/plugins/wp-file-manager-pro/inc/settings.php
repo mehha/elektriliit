@@ -74,7 +74,9 @@ $wp_filemanager_options = array();
         $opt = get_option('wp_filemanager_options');
         $themes = mk_file_folder_manager::getFfmThemes();
         $list_pages = $this->listofpages(); 
-        $sel_tab = isset($_GET['tb']) ? base64_decode($_GET['tb']) : 'General';?>
+        $sel_tab = isset($_GET['tb']) ? base64_decode($_GET['tb']) : 'General';
+        $sel_tab = esc_attr($sel_tab);
+        ?>
         <form action="" method="post" id="ffm_manager">
             <?php  wp_nonce_field('wp_filemanager_action', 'wp_filemanager_nonce_field'); ?>
             <input type="hidden" name="selected_tab" id="selected_tab" value="<?php echo $sel_tab;?>"/>

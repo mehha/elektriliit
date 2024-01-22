@@ -4,7 +4,7 @@
   Plugin URI: https://filemanagerpro.io/product/file-manager/
   Description: Manage your WP files.
   Author: mndpsingh287
-  Version: 8.3.4
+  Version: 8.3.5
   Author URI: https://profiles.wordpress.org/mndpsingh287
   License: GPLv2
  **/
@@ -20,11 +20,13 @@ if (!defined('fm_file_path')):
 if (!defined('fm_plugin_url')):
     define('fm_plugin_url', plugins_url('wp-file-manager-pro'));
 endif;
+
+
 if (!class_exists('mk_file_folder_manager')):
     class mk_file_folder_manager
     {
 
-        const FILE_MANAGER_VERSION = '8.3.4';
+        const FILE_MANAGER_VERSION = '8.3.5';
 
         /* Auto Load Hooks */
         public function __construct()
@@ -61,7 +63,6 @@ if (!class_exists('mk_file_folder_manager')):
             array(&$this, 'mk_file_folder_manager_install_vendor_callback'));
             // php syntax
             add_action('wp_ajax_mk_check_filemanager_php_syntax', array(&$this, 'mk_check_filemanager_php_syntax_callback'));
-            add_action('wp_ajax_nopriv_mk_check_filemanager_php_syntax', array(&$this, 'mk_check_filemanager_php_syntax_callback'));
             add_action('admin_init', array(&$this, 'remove_fm_temp_file'));
              /*
             Media Upload
@@ -78,19 +79,23 @@ if (!class_exists('mk_file_folder_manager')):
             
             // This hook is used for creating shortcode table
             add_action('wp_enqueue_scripts', array(&$this, 'fm_frontend_script'));
+           
+            
             add_action( 'rest_api_init', function () {
                 if(is_user_logged_in()){
-                    register_rest_route( 'v1', '/fm/backup/(?P<backup_id>[a-zA-Z0-9-=]+)/(?P<type>[a-zA-Z0-9-=]+)/(?P<key>[a-zA-Z0-9-=]+)', array(
-                        'methods' => 'GET',
-                        'callback' => array( $this, 'fm_download_backup' ),
-                        'permission_callback' => '__return_true',
-                    ));
-                
-                    register_rest_route( 'v1', '/fm/backupall/(?P<backup_id>[a-zA-Z0-9-=]+)/(?P<type>[a-zA-Z0-9-=]+)/(?P<key>[a-zA-Z0-9-=]+)/(?P<all>[a-zA-Z]+)', array(
-                        'methods' => 'GET',
-                        'callback' => array( $this, 'fm_download_backup_all' ),
-                        'permission_callback' => '__return_true',
-                    ));
+                    if(current_user_can('manage_options') || (is_multisite() && current_user_can( 'manage_network' ))){
+                        register_rest_route( 'v1', '/fm/backup/(?P<backup_id>[a-zA-Z0-9-=]+)/(?P<type>[a-zA-Z0-9-=]+)/(?P<key>[a-zA-Z0-9-=]+)', array(
+                            'methods' => 'GET',
+                            'callback' => array( $this, 'fm_download_backup' ),
+                            'permission_callback' => '__return_true',
+                        ));
+                    
+                        register_rest_route( 'v1', '/fm/backupall/(?P<backup_id>[a-zA-Z0-9-=]+)/(?P<type>[a-zA-Z0-9-=]+)/(?P<key>[a-zA-Z0-9-=]+)/(?P<all>[a-zA-Z]+)', array(
+                            'methods' => 'GET',
+                            'callback' => array( $this, 'fm_download_backup_all' ),
+                            'permission_callback' => '__return_true',
+                        ));
+                    }
                 }
                 register_rest_route( 'v1', '/fm/cancel', array(
 				    'methods' => 'POST',
@@ -497,7 +502,7 @@ if (!class_exists('mk_file_folder_manager')):
             global $wpdb;
             $fmdb = $wpdb->prefix.'wpfm_backup';
             $date = date('Y-m-d H:i:s');
-            $file_number = 'backup_'.date('Y_m_d_H_i_s-').rand(0,9999);
+            $file_number = 'backup_'.date('Y_m_d_H_i_s-').bin2hex(openssl_random_pseudo_bytes(4));
             $nonce = $_POST['nonce'];
             //$type = sanitize_text_field($_POST['type']);
             $database = sanitize_text_field($_POST['database']);
@@ -3050,13 +3055,20 @@ if (!class_exists('mk_file_folder_manager')):
                             /*
                             Ajax Data end
                             */
-
+                           
+                            $directory_separators = ['../', './','..\\', '.\\', '..'];
+                            $accessfolder = str_replace($directory_separators, '', $accessfolder);
+                            $accessfolder = $absolute_path.$accessfolder;
+                            // Check if the target directory is within the base directory
+                            if (strpos($accessfolder, $absolute_path) !== 0) {
+                                die(__('You don\'t have permission to access file manager.', 'wp-file-manager-pro'));
+                            }else {
                             $opts = array(
                             'debug' => false,
                             'roots' => array(
                                 array(
                                     'driver'        => 'LocalFileSystem', // driver for accessing file system (REQUIRED)
-                                    'path'          => $absolute_path.$accessfolder, // path to files (REQUIRED)
+                                    'path'          => $accessfolder, // path to files (REQUIRED)
                                     'URL'           => $siteUrl, // URL to files (REQUIRED)
                                     'uploadDeny'    => $mime_denied, // All Mimetypes not allowed to upload
                                     'uploadAllow'   => $mime_allowed, 
@@ -3068,8 +3080,10 @@ if (!class_exists('mk_file_folder_manager')):
                                 )
                             )
                         );
+                    
                         $connector = new elFinderConnector(new elFinder($opts));
                         $connector->run();
+                    }
                     } else {
                         die(__('You don\'t have permission to access file manager.', 'wp-file-manager-pro'));
                     }
@@ -3136,30 +3150,55 @@ if (!class_exists('mk_file_folder_manager')):
             include('classes/updates.php');
         }
 
+    /**
+     * encrypt
+     */
+    public static function encrypt_keys($action,$nonce,$orderID,$licenceKey) {
+        $output =false;
+        $encrypt_method = "AES-256-CBC";
+        $key = hash('sha256', $licenceKey);
+        $iv = substr(hash('sha256', $orderID), 0, 16);
+        
+        if ( $action == 'encrypt' ) {
+            $output = openssl_encrypt($nonce, $encrypt_method, $key, 0, $iv);
+            $output = base64_encode($output);
+            
+        } else if( $action == 'decrypt' ) {
+            
+            $output = openssl_decrypt(base64_decode($nonce), $encrypt_method, $key, 0, $iv);
+            
+        }
+        return $output;
+    }
         /* Verify */
         public static function verify($oid, $lk, $red)
         {
             $orderID = $oid;
+            $action = 'encrypt';
             $licenceKey = $lk;
             $wp_file_manager_pro = array();
             $server = 'https://filemanagerpro.io/';
+            $nonce =mk_file_folder_manager::encrypt_keys($action,$lk,$orderID,$licenceKey);
             if (fm_curl_exists()) {          
-                $API = $server.'verify.php';
+                $API = $server.'license-verify.php';
                 $curl = curl_init();
                 curl_setopt($curl, CURLOPT_URL, $API);
                 curl_setopt($curl, CURLOPT_POST, 1);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); // save to returning 1
-                curl_setopt($curl, CURLOPT_POSTFIELDS, 'orderid='.$orderID.'&licencekey='.$licenceKey.'&website='.site_url().'&nonce=ungt56ghsdewj87h');
+                curl_setopt($curl, CURLOPT_POSTFIELDS, 'orderid='.$orderID.'&licencekey='.$licenceKey.'&website='.site_url().
+                '&nonce='.$nonce.'');
                 $result = curl_exec($curl);
                 $data = json_decode($result, true);
                 curl_close($curl);
                 if (!$data) {
-                    $API = $server.'verify.php?orderid='.$orderID.'&licencekey='.$licenceKey.'&website='.site_url().'&nonce=ungt56ghsdewj87h';
+                    $API = $server.'license-verify.php?orderid='.$orderID.'&licencekey='.$licenceKey.'&website='.site_url().
+                    '&nonce='.$nonce.'';
                     $result = file_get_contents($API);
                     $data = json_decode($result, true);
                 }
             } else {
-                $API = $server.'verify.php?orderid='.$orderID.'&licencekey='.$licenceKey.'&website='.site_url().'&nonce=ungt56ghsdewj87h';
+                $API = $server.'license-verify.php?orderid='.$orderID.'&licencekey='.$licenceKey.'&website='.site_url().
+                '&nonce='.$nonce.'';
                 $result = file_get_contents($API);
                 $data = json_decode($result, true);
             }
@@ -3356,12 +3395,13 @@ if (!class_exists('mk_file_folder_manager')):
             if (is_user_logged_in() && $fileMime == 'text/x-php') {
                 $current_user = wp_get_current_user();
                 $upload_dir = wp_upload_dir();
-                if (isset($current_user->user_login) && !empty($upload_dir['basedir'])) {
-                    $fm_temp = $upload_dir['basedir'].'/fm_temp.php';
+                if (current_user_can('administrator') && !empty($upload_dir['basedir'])) {
+                    $tmp_dir = sys_get_temp_dir();
+                    $fm_temp = tempnam($tmp_dir, 'fm_temp');
                     $handle = fopen($fm_temp, 'w');
                     fwrite($handle, $code);
-                    $check = shell_exec('php -d display_errors=1 -l '.$fm_temp);
-                    
+                    $check = shell_exec('php -d display_errors=1 -l ' . escapeshellarg($fm_temp));
+                    unlink($fm_temp);
                     if(empty($check)){
                         echo '<p>('.__('Unable to execute php syntax checker due to server permissions.', 'wp-file-manager-pro').')</p>';
                     } elseif(strpos($check, 'No syntax errors') === false) {
@@ -3371,6 +3411,8 @@ if (!class_exists('mk_file_folder_manager')):
                     } else {
                         echo '1';
                     }
+                }else{
+                    echo __('You do not have permission to check syntax.','wp-file-manager-pro');
                 }
             } else {
                 echo '1';
@@ -3410,10 +3452,12 @@ if (!class_exists('mk_file_folder_manager')):
         public function d_l_callback() {
             $nonce = $_REQUEST['wpnonce'];
             $orderDetails = get_option('wp_file_manager_pro');
-            if($nonce == 'vbqg8PoEFEX1ZN2VI75gjh68ghj24dsvgdsgt') {
-                $iod = intval($_REQUEST['oid']);
-                $serialkey = sanitize_text_field($_REQUEST['license']);
-                $orderDetailsId = intval($orderDetails['orderid']);
+            $action = 'decrypt';
+            $iod = intval($_REQUEST['oid']);
+            $serialkey = sanitize_text_field($_REQUEST['license']);
+            $nonce_decrypt =mk_file_folder_manager::encrypt_keys($action,$nonce,$iod,$serialkey);
+            if($nonce_decrypt ==$serialkey) {
+               $orderDetailsId = intval($orderDetails['orderid']);
                 if($iod == $orderDetailsId && $serialkey == $orderDetails['serialkey']) {
                     $del = delete_option('wp_file_manager_pro');
                     if($del) {
@@ -3706,7 +3750,6 @@ if(!function_exists('mk_file_folder_manager_wp_fm_on_activate_table_pro')){
 	    }
     }
 }
-
 if(!function_exists('mk_file_folder_manager_fm_create_tbl_pro')){
     function mk_file_folder_manager_fm_create_tbl_pro(){
 	    global $wpdb;

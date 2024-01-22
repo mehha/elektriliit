@@ -118,7 +118,8 @@ if (isset($_POST['save_shortcode']) && ((isset($_REQUEST['wp_filemanager_loggedi
 				}
 			}
 			
-			$access_folder = str_replace('..', '', trim(sanitize_text_field($_REQUEST["access_folder"])));
+			$directory_separators = ['../', './','..\\', '.\\', '..'];
+			$access_folder = str_replace($directory_separators, '', trim(sanitize_text_field($_REQUEST["access_folder"])));
 			$hide_files = str_replace('..', '', trim(sanitize_text_field($_REQUEST["hide_files"])));
 			$extensions = trim(sanitize_text_field($_REQUEST["lock_extensions"]));
 			$lang = trim(sanitize_text_field($_REQUEST["lang"]));

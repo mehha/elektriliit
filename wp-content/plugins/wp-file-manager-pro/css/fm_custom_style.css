@@ -45,6 +45,22 @@ div#email table.form-table.emailNotiTable td , div#email table.form-table.emailN
     margin-bottom: 9px;
 	padding: 0px 0px;
 }
+.input-addon {
+	padding: 0.5rem 0.75rem;
+	margin-bottom: 0;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.25;
+	color: #464a4c;
+	text-align: center;
+	background-color: #eceeef;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: 0.25rem;
+	display: inline-block;
+  }
+  .fmInput{
+	width:60% !important;
+  }
 .fmInnerWrap .labelHeading{
 	display:block;
 	font-size:16px;
