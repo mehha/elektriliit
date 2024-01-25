@@ -21,7 +21,7 @@ export default function save({attributes}) {
 		<div {...useBlockProps.save({className: 'wp-block-row'})}>
 			<div id={`swiper-${attributes?.blockId}`} className="swiper">
 				<div className="swiper-wrapper">
-					{attributes?.items.length && attributes?.items.map((singleItem, key) => {
+					{attributes?.items?.length && attributes?.items.map((singleItem, key) => {
 						const isFirstChild = key === 0;
 						return (
 							<div key={key} className={`swiper-slide${isFirstChild ? ' swiper-slide-first' : ''}`}>

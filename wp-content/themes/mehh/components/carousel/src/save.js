@@ -22,7 +22,7 @@ export default function save({attributes}) {
 	return (
 		<div {...useBlockProps.save({className: 'wp-block-row'})}>
 			<div id={`carousel-${attributes?.blockId}`} className="carousel slide" data-bs-ride="carousel">
-				{attributes?.items.length > 1 &&
+				{attributes?.items?.length > 1 &&
 					<div className="carousel-indicators">
 						{attributes?.items.map((singleItem, key) => {
 							return (
@@ -37,7 +37,7 @@ export default function save({attributes}) {
 				}
 
 				<div className="carousel-inner">
-					{attributes?.items.length && attributes?.items.map((singleItem, key) => {
+					{attributes?.items?.length && attributes?.items.map((singleItem, key) => {
 						return (
 							<div className={`${key === 0 ? 'active' : ''} carousel-item`} data-bs-interval="6000">
 								<div className="ratio" style="--bs-aspect-ratio: 34%;">
@@ -57,7 +57,7 @@ export default function save({attributes}) {
 					})}
 				</div>
 
-				{attributes?.items.length && 1 == 2 &&
+				{attributes?.items?.length && 1 == 2 &&
 					<>
 						<button className="carousel-control-prev" type="button"
 								data-bs-target={`#carousel-${attributes?.blockId}`}

@@ -18,7 +18,7 @@ export default function save({attributes}) {
 	return (
 		<div {...useBlockProps.save({ className: 'wp-block-row' })}>
 			<div className="accordion" id="accordionModule">
-				{attributes?.items.length && attributes?.items.map((singleItem, key) => {
+				{attributes?.items?.length && attributes?.items.map((singleItem, key) => {
 					return (
 						<div className="accordion-item">
 							<h2 className="accordion-header my-0" id={key}>
