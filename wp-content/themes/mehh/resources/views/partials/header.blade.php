@@ -7,11 +7,9 @@
           @include('components.contact-form-modal-btn')
         </div>
         <div class="navbar-top-right d-flex align-items-center gap-2">
-          @if(is_user_logged_in())
-            <div aria-label="{{ wp_get_nav_menu_name('top_navigation') }}">
-              {!! wp_nav_menu(['theme_location' => 'top_navigation', 'menu_class' => 'navbar-nav me-auto mb-0', 'anchor_class' => 'nav-link', 'echo' => false]) !!}
-            </div>
-          @endif
+          <div aria-label="{{ wp_get_nav_menu_name('top_navigation') }}">
+            {!! wp_nav_menu(['theme_location' => 'top_navigation', 'menu_class' => 'navbar-nav me-auto mb-0', 'anchor_class' => 'nav-link', 'echo' => false]) !!}
+          </div>
 
           <div class="d-none d-lg-block">
             @include('forms.search-expandable', ['id' => 2])
