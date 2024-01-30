@@ -74,7 +74,9 @@ main {
 
 .page:not(.home, .wide-layout),
 .single,
-.archive {
+.archive,
+.search-results,
+.error404 {
   main {
     .main-content-wrapper {
       max-width: $container-narrow;
