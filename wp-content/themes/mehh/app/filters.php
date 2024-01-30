@@ -114,8 +114,11 @@ add_filter('nav_menu_css_class', function($classes, $item, $args, $depth){
 
 }, 10, 4);
 
-add_filter('wp_sitemaps_post_types', function ($post_types) {
-    unset($post_types['user']);
-    unset($post_types['taxonomy']);
-    return $post_types;
-});
+/*
+ * Remove taxonomies and users from sitemap
+ */
+add_filter( 'wp_sitemaps_add_provider', function ($provider, $name) {
+    return ( $name == 'users' ) ? false : $provider;
+}, 10, 2);
+
+add_filter( 'wp_sitemaps_taxonomies', '__return_false' );
