@@ -1,4 +1,4 @@
-<div class="mb-4">
+<div class="mb-5">
   <article @php(post_class())>
     <header>
       <h2 class="entry-title">
