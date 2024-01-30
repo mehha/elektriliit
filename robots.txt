@@ -4,7 +4,7 @@ Disallow: /wp-admin/
 Disallow: /readme.html
 Disallow: /refer/
 
-Sitemap: https://mehh-template.test/et/wp-sitemap.xml
-Sitemap: https://mehh-template.test/et/wp-sitemap-posts-post-1.xml
-Sitemap: https://mehh-template.test/et/wp-sitemap-posts-page-1.xml
-Sitemap: https://mehh-template.test/et/wp-sitemap-posts-product-1.xml
+Sitemap: https://elektriliit.ee/et/wp-sitemap.xml
+Sitemap: https://elektriliit.ee/et/wp-sitemap-posts-post-1.xml
+Sitemap: https://elektriliit.ee/et/wp-sitemap-posts-page-1.xml
+Sitemap: https://elektriliit.ee/et/wp-sitemap-posts-events-1.xml
