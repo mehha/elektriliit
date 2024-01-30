@@ -113,3 +113,9 @@ add_filter('nav_menu_css_class', function($classes, $item, $args, $depth){
     return $classes;
 
 }, 10, 4);
+
+add_filter('wp_sitemaps_post_types', function ($post_types) {
+    unset($post_types['user']);
+    unset($post_types['taxonomy']);
+    return $post_types;
+});
