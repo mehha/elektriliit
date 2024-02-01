@@ -29,29 +29,7 @@ header.banner {
   --bs-navbar-brand-margin-end: 0;
   --bs-navbar-brand-padding-y: 0;
 
-  position: relative;
-
   .navbar-brand-inner {
-    @include media-breakpoint-up(xl) {
-      background-color: $white;
-      position: absolute;
-      left: 0;
-      top: -43px;
-      width: 205px;
-      height: 135px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-bottom: 1px solid $gray-light;
-      border-right: 1px solid $gray-light;
-      border-left: 1px solid $gray-light;
-      @include theme-transition(height);
-
-      body.not-top & {
-        height: 110px;
-      }
-    }
-
     img {
       @include media-breakpoint-down(xl) {
         max-width: 80px;
@@ -81,10 +59,8 @@ header.banner {
       transform: translateY(-44px);
 
       .navbar-primary {
-        .navbar-nav > li > a {
-          padding-top: 20px;
-          padding-bottom: 20px;
-        }
+        padding-top: 12px;
+        padding-bottom: 12px;
       }
     }
   }

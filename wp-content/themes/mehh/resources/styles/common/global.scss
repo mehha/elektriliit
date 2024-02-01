@@ -43,7 +43,7 @@ main {
   background: url("../images/bg-opacity-40.webp") no-repeat center center;
   background-size: cover;
   @include media-breakpoint-up(xl) {
-    padding-top: 131px;
+    padding-top: 147px;
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;

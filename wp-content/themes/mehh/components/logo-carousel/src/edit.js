@@ -23,7 +23,7 @@ import './editor.scss';
 
 import {Panel, PanelBody, PanelRow, Button} from '@wordpress/components';
 import {useState, useEffect} from '@wordpress/element';
-import {more, close} from '@wordpress/icons';
+import {more, close, arrowUp, arrowDown} from '@wordpress/icons';
 import {MediaPlaceholder, URLInputButton, URLInput} from '@wordpress/block-editor'
 
 /**
@@ -79,13 +79,33 @@ export default function Edit({attributes, setAttributes, props}) {
 		});
 	}
 
+	const moveUp = (index) => {
+	    if (index === 0) return; // Can't move up the first item
+	    setItems((prevItems) => {
+	        const newItems = [...prevItems];
+	        [newItems[index - 1], newItems[index]] = [newItems[index], newItems[index - 1]];
+	        setAttributes({ items: newItems });
+	        return newItems;
+	    });
+	};
+
+	const moveDown = (index) => {
+	    if (index === items.length - 1) return; // Can't move down the last item
+	    setItems((prevItems) => {
+	        const newItems = [...prevItems];
+	        [newItems[index + 1], newItems[index]] = [newItems[index], newItems[index + 1]];
+	        setAttributes({ items: newItems });
+	        return newItems;
+	    });
+	};
+
 	return (
 		<div {...useBlockProps()}>
 			<Panel header="Logo carousel">
 				{items.map((item, i) => (
 					<div className="panel-body-container">
 						<PanelBody
-							title="Slide"
+							title={item?.image?.sizes?.thumbnail?.url}
 							initialOpen={false}
 						>
 							<PanelRow>
@@ -122,6 +142,8 @@ export default function Edit({attributes, setAttributes, props}) {
 								/>
 							</PanelRow>
 						</PanelBody>
+						<Button icon={arrowUp} onClick={() => moveUp(i)}></Button>
+      			<Button icon={arrowDown} onClick={() => moveDown(i)}></Button>
 						<Button
 							icon={close}
 							label="Delete"

@@ -24,7 +24,7 @@
 
       <a class="navbar-brand" href="{{ home_url('/') }}" aria-label="{{$siteName}} logo">
         <div class="navbar-brand-inner">
-          <img width="158" height="78" alt="Logo" src="@asset('/images/logo.png')"/>
+          <img width="140" height="68" alt="Logo" src="@asset('/images/logo.png')"/>
         </div>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPrimary"

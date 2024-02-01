@@ -36,12 +36,12 @@
 
       > a {
         order: 2;
-        color: $body-color;
+        color: $primary;
         font-weight: 600;
         line-height: 1.2;
         @include font-size(20px);
         @include hover-focus-active {
-          color: $link-color;
+          color: $link-hover-color;
         }
       }
 
@@ -85,12 +85,12 @@
       }
 
       > a {
-        color: $body-color;
+        color: $primary;
         font-weight: 600;
         line-height: 1.2;
         @include font-size(22px);
         @include hover-focus-active {
-          color: $link-color;
+          color: $link-hover-color;
         }
       }
     }

@@ -1,13 +1,13 @@
 @include media-breakpoint-up(xl) {
   .navbar-primary {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 
     .navbar-nav {
       --bs-nav-link-color: var(--bs-body-color);
       --bs-nav-link-hover-color: var(--bs-primary);
 
-      margin-left: 213px;
+      margin-left: 2rem;
 
       .sub-menu {
         display: block;
@@ -21,7 +21,7 @@
         > .nav-link {
           @include theme-transition;
 
-        --bs-nav-link-padding-y: 32px;
+        --bs-nav-link-padding-y: 24px;
         --bs-nav-link-font-weight: 500;
         --bs-navbar-nav-link-padding-x: 12px;
         }
