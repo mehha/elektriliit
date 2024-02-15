@@ -1,4 +1,5 @@
 import Modal from 'bootstrap/js/dist/modal';
+
 export function handleForms() {
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   const forms = document.querySelectorAll('.needs-validation')
@@ -6,60 +7,59 @@ export function handleForms() {
   // Loop over them and prevent submission
   Array.from(forms).forEach(form => {
     form.addEventListener('submit', event => {
-
-      // Recaptcha
+      let siteKey = form.dataset.sitekey
+      let baseUrl = form.dataset.baseurl
       let reCaptcha;
-      let FormCaptcha = document.querySelector('#g-recaptcha');
-      if (event.target.classList.contains('needs-validation') && FormCaptcha) {
-        // eslint-disable-next-line no-undef
-        if ( grecaptcha.getResponse(renderForm) === '' ) {
-          reCaptcha = false;
-          event.target.querySelector('#g-recaptcha').classList.add('captcha-error');
-        } else {
-          reCaptcha = true;
-        }
-      } else {
-        reCaptcha = true;
-      }
-
-      if (!form.checkValidity() || !reCaptcha) {
-        event.preventDefault()
-        event.stopPropagation()
-        localStorage.removeItem('form-submitted');
-      } else {
-        localStorage.setItem('form-submitted', 'true')
-      }
-
+      event.preventDefault()
+      event.stopPropagation()
       form.classList.add('was-validated')
+
+      grecaptcha.ready(function () {
+        grecaptcha.execute(siteKey, {action: 'submit'}).then(function (token) {
+          fetch(baseUrl + '/wp-json/wp/v2/verify-recaptcha', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'recaptcha_token=' + token,
+          })
+            .then(function (response) {
+              console.log('response', response)
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(function (data) {
+              console.log('data', data)
+              if (data.success && form.checkValidity()) {
+                localStorage.setItem('form-submitted', 'true')
+                form.submit()
+              } else {
+                localStorage.removeItem('form-submitted');
+                console.log("reCAPTCHA verification failed or data validation failed", data)
+              }
+            })
+            .catch(function (error) {
+              localStorage.removeItem('form-submitted');
+              console.error('There was a problem with the fetch operation:', error);
+            })
+        });
+      });
     }, false)
   })
 
-  // Recaptcha callback
-  let renderForm;
-  let FormCaptcha = document.querySelector('#g-recaptcha');
-  window.CaptchaCallback = function() {
-    if ( FormCaptcha ) {
-      // eslint-disable-next-line no-undef
-      renderForm = grecaptcha.render('g-recaptcha', {'sitekey' : FormCaptcha.dataset.sitekey, 'callback' : correctCaptcha});
+  window.addEventListener("load", function () {
+    const submittedUsername = localStorage.getItem('form-submitted');
+    const contactModal = new Modal('#contactModal')
+
+    if (submittedUsername) {
+      contactModal.show()
+      localStorage.removeItem('form-submitted');
+
+      setTimeout(() => {
+        contactModal.hide()
+      }, 2400)
     }
-  };
-
-  let correctCaptcha = function(response) {
-    if ( response !== '')
-      FormCaptcha.classList.remove('captcha-error');
-  };
-
-  window.addEventListener("load", function() {
-      const submittedUsername = localStorage.getItem('form-submitted');
-      const contactModal = new Modal('#contactModal')
-
-      if (submittedUsername) {
-        contactModal.show()
-        localStorage.removeItem('form-submitted');
-
-        setTimeout(() => {
-          contactModal.hide()
-        }, 2400)
-      }
   });
 }
