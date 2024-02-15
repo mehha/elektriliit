@@ -24,14 +24,12 @@ export function handleForms() {
             body: 'recaptcha_token=' + token,
           })
             .then(function (response) {
-              console.log('response', response)
               if (!response.ok) {
                 throw new Error('Network response was not ok');
               }
               return response.json();
             })
             .then(function (data) {
-              console.log('data', data)
               if (data.success && form.checkValidity()) {
                 localStorage.setItem('form-submitted', 'true')
                 form.submit()
