@@ -2,6 +2,10 @@ RedirectMatch 404 /\.git
 RedirectMatch 403 ^.*/wp-includes/wlwmanifest.xml$
 Options -Indexes
 
+Order Deny,Allow
+deny from all
+Allow from 89.160.78.254
+
 RewriteEngine On
 RewriteRule package-lock\.json$ index.php [L]
 RewriteRule package\.json$ index.php [L]
