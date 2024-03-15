@@ -4,7 +4,9 @@
       <div class="container">
         <div class="navbar-top-left d-flex gap-3 align-items-center">
           @php(dynamic_sidebar('sidebar-header'))
-          @include('components.contact-form-modal-btn')
+          @if(get_current_blog_id() === 2)
+            @include('components.contact-form-modal-btn')
+          @endif
         </div>
         <div class="navbar-top-right d-flex align-items-center gap-2">
           <div aria-label="{{ wp_get_nav_menu_name('top_navigation') }}">
@@ -43,4 +45,6 @@
   </nav>
 </header>
 
-@include('components.contact-form-modal-body')
+@if(get_current_blog_id() === 2)
+  @include('components.contact-form-modal-body')
+@endif
