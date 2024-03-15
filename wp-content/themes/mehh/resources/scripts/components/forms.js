@@ -48,6 +48,8 @@ export function handleForms() {
   })
 
   window.addEventListener("load", function () {
+    if (!document.querySelector('#contactModal')) return
+
     const submittedUsername = localStorage.getItem('form-submitted');
     const contactModal = new Modal('#contactModal')
 
