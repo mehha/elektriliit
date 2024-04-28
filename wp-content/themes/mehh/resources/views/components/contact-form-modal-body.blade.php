@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        @php print do_shortcode('[contact-form]'); @endphp
+        @php print do_shortcode('[contact-form-7 id="453c083" title="Liitu"]'); @endphp
       </div>
     </div>
   </div>

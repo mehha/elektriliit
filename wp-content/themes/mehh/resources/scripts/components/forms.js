@@ -4,6 +4,8 @@ export function handleForms() {
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   const forms = document.querySelectorAll('.needs-validation')
 
+  if (!forms.length) return
+
   // Loop over them and prevent submission
   Array.from(forms).forEach(form => {
     let startTime = performance.now();
