@@ -4,7 +4,7 @@
   Plugin URI: https://filemanagerpro.io/product/file-manager/
   Description: Manage your WP files.
   Author: mndpsingh287
-  Version: 8.3.5
+  Version: 8.3.6
   Author URI: https://profiles.wordpress.org/mndpsingh287
   License: GPLv2
  **/
@@ -26,7 +26,7 @@ if (!class_exists('mk_file_folder_manager')):
     class mk_file_folder_manager
     {
 
-        const FILE_MANAGER_VERSION = '8.3.5';
+        const FILE_MANAGER_VERSION = '8.3.6';
 
         /* Auto Load Hooks */
         public function __construct()
@@ -3556,6 +3556,8 @@ if (!class_exists('mk_file_folder_manager')):
                     if($type == "db"){
                         $bkpName = $backup.'-db.sql.gz';
                     }else{
+                        $directory_separators = ['../', './','..\\', '.\\', '..'];
+                        $type = str_replace($directory_separators, '', $type);
                         $bkpName = $backup.'-'.$type.'.zip';
                     }
                     $file = $backup_dirname.$bkpName;
