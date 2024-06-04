@@ -20,4 +20,8 @@ jobs:
           ssh-keyscan -H ${{ secrets.HOST_SERVER_IP }} >> ~/.ssh/known_hosts
       - name: Copy files to server
         run: |
-          rsync -vrm  ./* ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt114655/domeenid/www.elektriliit.ee/htdocs
+          rsync -avz --delete \
+          --exclude='.git/' \
+          --exclude='.github/' \
+          --exclude='node_modules/' \
+          ./ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt114655/domeenid/www.elektriliit.ee/htdocs
