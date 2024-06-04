@@ -12,7 +12,7 @@
   @endif
 
   @while(have_posts()) @php(the_post())
-    <div class="wrap container" role="document">
+    <div class="wrap container aa" role="document">
       <div class="content">
         <div class="main-content-wrapper">
           @if(!has_post_thumbnail())
