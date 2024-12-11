@@ -26,4 +26,5 @@ jobs:
           --exclude='node_modules/' \
           --exclude='config-staging.php' \
           --exclude='wp-content/uploads/' \
+          --exclude='wp-content/member-files/' \
           ./ ${{ secrets.SSH_LOGIN_CREDS }}:/data01/virt114655/domeenid/www.elektriliit.ee/htdocs
