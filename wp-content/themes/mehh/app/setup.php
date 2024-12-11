@@ -319,3 +319,13 @@ add_action('wp_dashboard_setup', function () {
 add_action('wp_network_dashboard_setup', function () {
     add_mehh_tutorial_videos();
 });
+
+//Enable theme options for editor
+add_action('init', function () {
+    $editor = get_role('editor');
+
+    // Grant capability to edit menus
+    if ($editor && !$editor->has_cap('edit_theme_options')) {
+        $editor->add_cap('edit_theme_options');
+    }
+});
