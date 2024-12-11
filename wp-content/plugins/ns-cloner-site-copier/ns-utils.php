@@ -581,8 +581,53 @@ function ns_cloner_perform_clone( $args = array() ) {
 
 	if ( ! empty( ns_cloner()->process_manager->get_errors() ) ) {
 		ns_cloner()->report->clear_all_reports();
-		return new \WP_Error( 'broke', implode( '', ns_cloner()->process_manager->get_errors() ) );
+		return new \WP_Error( 'broke', ns_cloner_implode( '', ns_cloner()->process_manager->get_errors() ) );
 	} else {
 		return array( 'message' => __( 'Success', 'ns-cloner-site-copier' ) );
+	}
+
+}
+
+/**
+ * Implode multidimenional array
+ *
+ * @param string $glue  The separator.
+ * @param array  $array The array.
+ *
+ * @return string
+ */
+function ns_cloner_implode( $glue, $array = null ) {
+	if ( ! is_array( $array ) ) {
+		return $array;
+	}
+
+	$flat = array();
+	array_walk_recursive(
+		$array,
+		function ( $element ) use ( &$flat ) {
+			$flat[] = $element;
+		}
+	);
+	return implode( $glue, $flat );
+}
+
+/**
+ * Set the theme of the target site.
+ *
+ * @param int $source_site_id The source site id.
+ * @param int $target_site_id The target site id.
+ *
+ * @return void
+ */
+function ns_cloner_set_theme( $source_site_id, $target_site_id ) {
+	$source_stylesheet = get_blog_option( $source_site_id, 'stylesheet' );
+	$source_template   = get_blog_option( $source_site_id, 'template' );
+
+	if ( $source_stylesheet ) {
+		update_blog_option( $target_site_id, 'stylesheet', $source_stylesheet );
+	}
+
+	if ( $source_template ) {
+		update_blog_option( $target_site_id, 'template', $source_template );
 	}
 }

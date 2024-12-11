@@ -1,9 +1,4 @@
 <?php
-/**
- * MslsGetSet
- * @author Dennis Ploetner <re@lloc.de>
- * @since 0.9.8
- */
 
 namespace lloc\Msls;
 
@@ -17,16 +12,15 @@ namespace lloc\Msls;
 class MslsGetSet extends MslsRegistryInstance {
 
 	/**
-	 * Generic container for all properties of an instance
-	 * @var array $arr
+	 * @var array<string, mixed>
 	 */
-	protected $arr = [];
+	protected $arr = array();
 
 	/**
 	 * Overloads the set method.
 	 *
 	 * @param string $key
-	 * @param mixed $value
+	 * @param mixed  $value
 	 */
 	public function __set( $key, $value ) {
 		$this->arr[ $key ] = $value;
@@ -75,7 +69,7 @@ class MslsGetSet extends MslsRegistryInstance {
 	 * @return MslsGetSet
 	 */
 	public function reset() {
-		$this->arr = [];
+		$this->arr = array();
 
 		return $this;
 	}
@@ -98,7 +92,7 @@ class MslsGetSet extends MslsRegistryInstance {
 	 *
 	 * @return bool
 	 */
-	public function has_value( $key ) {
+	public function has_value( string $key ): bool {
 		return ! empty( $this->arr[ $key ] );
 	}
 
@@ -114,10 +108,9 @@ class MslsGetSet extends MslsRegistryInstance {
 	/**
 	 * Gets the complete properties-container as an array.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
-	public function get_arr() {
+	public function get_arr(): array {
 		return $this->arr;
 	}
-
 }

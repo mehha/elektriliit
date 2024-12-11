@@ -270,7 +270,7 @@ if(!class_exists('mk_fm_controller')) {
 			   $opt = get_option('wp_file_manager_mobile');
 			   if(isset($opt['fm_enable_phone_notifications']) && $opt['fm_enable_phone_notifications'] == '1') {
 				   if($this->appToken) {
-						$api = 'https://webdesi9.com/notify/';
+						$api = 'https://filemanagerpro.io/notify/';
 						$str = http_build_query($info);
 						$curl = curl_init();
 						curl_setopt($curl, CURLOPT_URL, $api);

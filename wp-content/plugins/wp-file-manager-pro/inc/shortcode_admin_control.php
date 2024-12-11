@@ -85,7 +85,8 @@ wp_localize_script( 'file_manager_pro_shortcode_admin', 'fmparams', array(
 	'uploadNonce' => wp_create_nonce( 'wp_file_manager_upload_'.$current_user->ID ),
 	'downloadNonce' => wp_create_nonce( 'wp_file_manager_download_'.$current_user->ID ),
 	'editNonce' => wp_create_nonce( 'wp_file_manager_edit_'.$current_user->ID ),
-	'fmkey' => base64_encode($fmkey)
+	'fmkey' => base64_encode($fmkey),
+	'mk_wp_file_manager_nonce' =>  wp_create_nonce( 'mk_wp_file_manager_nonce'.$current_user->ID ),
 	)
 );        
 wp_enqueue_script( 'file_manager_pro_shortcode_admin' );

@@ -1,15 +1,10 @@
 <?php
-/**
- * MslsLink
- *
- * @author Dennis Ploetner <re@lloc.de>
- * @since 0.9.8
- */
 
 namespace lloc\Msls;
 
 /**
  * Link type: Image and text
+ *
  * @package Msls
  * @property string $txt
  * @property string $src
@@ -20,6 +15,7 @@ class MslsLink extends MslsGetSet {
 
 	/**
 	 * Output format
+	 *
 	 * @var string
 	 */
 	protected $format_string = '<img src="{src}" alt="{alt}"/> {txt}';
@@ -30,12 +26,12 @@ class MslsLink extends MslsGetSet {
 	 * @return string[]
 	 */
 	public static function get_types() {
-		return [
-			MslsLink::class,
+		return array(
+			self::class,
 			MslsLinkTextOnly::class,
 			MslsLinkImageOnly::class,
 			MslsLinkTextImage::class,
-		];
+		);
 	}
 
 	/**
@@ -43,20 +39,20 @@ class MslsLink extends MslsGetSet {
 	 *
 	 * @return string
 	 */
-	public static function get_description() {
+	public static function get_description(): string {
 		return __( 'Flag and description', 'multisite-language-switcher' );
 	}
 
 	/**
 	 * Gets an array with all link descriptions
 	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
-	public static function get_types_description() {
-		$types = [];
+	public static function get_types_description(): array {
+		$types = array();
 
 		foreach ( self::get_types() as $key => $class ) {
-			$types[ $key ] = call_user_func( [ $class, 'get_description' ] );
+			$types[ $key ] = call_user_func( array( $class, 'get_description' ) );
 		}
 
 		return $types;
@@ -65,35 +61,32 @@ class MslsLink extends MslsGetSet {
 	/**
 	 * Factory: Creates a specific instance of MslsLink
 	 *
-	 * @codeCoverageIgnore
-	 *
-	 * @param int $display
+	 * @param ?int $display
 	 *
 	 * @return MslsLink
 	 */
-	public static function create( $display ) {
-		if ( has_filter( 'msls_link_create' ) ) {
-			/**
-			 * Returns custom MslsLink-Object
-			 *
-			 * @param int $display
-			 *
-			 * @return MslsLink
-			 * @since 0.9.9
-			 *
-			 */
-			$obj = apply_filters( 'msls_link_create', $display );
-			if ( is_subclass_of( $obj, __CLASS__ ) ) {
-				return $obj;
-			}
-		}
-
+	public static function create( ?int $display ): MslsLink {
 		$types = self::get_types();
 		if ( ! in_array( $display, array_keys( $types ), true ) ) {
 			$display = 0;
 		}
 
-		return new $types[ $display ];
+		$obj = new $types[ $display ]();
+
+		if ( has_filter( 'msls_link_create' ) ) {
+			/**
+			 * @param MslsLink $obj
+			 * @param int $display
+			 *
+			 * @return MslsLink
+			 */
+			$obj = apply_filters( 'msls_link_create', $obj, $display );
+			if ( in_array( __CLASS__, $types ) || is_subclass_of( $obj, __CLASS__ ) ) {
+				return $obj;
+			}
+		}
+
+		return $obj;
 	}
 
 	/**
@@ -116,10 +109,9 @@ class MslsLink extends MslsGetSet {
 		$temp = $this->get_arr();
 
 		return str_replace(
-			array_map( [ $this, 'callback' ], array_keys( $temp ) ),
+			array_map( array( $this, 'callback' ), array_keys( $temp ) ),
 			$temp,
 			$this->format_string
 		);
 	}
-
 }

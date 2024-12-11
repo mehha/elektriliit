@@ -94,6 +94,7 @@ if(!empty($shortcode_data)){
 			'fm_key' => base64_encode(self::fm_get_key()),
 			'uploadNonce' =>  wp_create_nonce( 'wp_file_manager_upload_'.$userID ),
 			'editNonce' => wp_create_nonce( 'wp_file_manager_edit_'.$userID ),
+			'mk_wp_file_manager_nonce' => wp_create_nonce( 'mk_wp_file_manager_nonce'.$current_user->ID )
 		);
 		if(!in_array('info',$allowedOperations)){
 			$filemanagerReturn .= '<style>
@@ -143,6 +144,7 @@ if(!empty($shortcode_data)){
 				customData: {
 				  _wpnonce: "'.$fmarr["nonce"].'",
 				  data_key: "'.$fmarr["data_key"].'",
+				  _ajax_nonce:"'.$fmarr["mk_wp_file_manager_nonce"].'",
 				},
 		  
 				/* Start */

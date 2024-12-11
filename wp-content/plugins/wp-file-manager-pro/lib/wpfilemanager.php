@@ -119,6 +119,7 @@ if(!empty($css)){
 		var uploadNonce = "<?php echo wp_create_nonce( 'wp_file_manager_upload_'.$current_user->ID )?>";
 		var downloadNonce = "<?php echo wp_create_nonce( 'wp_file_manager_download_'.$current_user->ID )?>";
 		var editNonce = "<?php echo wp_create_nonce( 'wp_file_manager_edit_'.$current_user->ID )?>";
+		var mk_wp_file_manager_nonce = "<?php echo wp_create_nonce( 'mk_wp_file_manager_nonce'.$current_user->ID )?>";
 		var operationsArr = {};
 		operationsArr["file_operations"] = '<?php echo isset($localStorage["file_operations"]) ? wp_json_encode($localStorage["file_operations"]) : wp_json_encode(array());?>';
 		operationsArr["gcloud_file_operations"] = '<?php echo isset($localStorage["gcloud_file_operations"]) ? wp_json_encode($localStorage["gcloud_file_operations"]) : wp_json_encode(array())?>';
@@ -134,6 +135,7 @@ if(!empty($css)){
 					customData: {
 						action: "mk_file_folder_manager",
 						networkhref:href,
+						_ajax_nonce:mk_wp_file_manager_nonce
 					},
 				<?php if(!empty($opt['fm_max_upload_size'])) {?>
 				uploadMaxChunkSize : <?php echo $opt['fm_max_upload_size'] * 10485760 ; ?>,

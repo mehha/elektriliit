@@ -9,6 +9,7 @@ use lloc\Msls\MslsBlogCollection;
 use lloc\Msls\MslsMain;
 use lloc\Msls\MslsOptionsPost;
 use lloc\Msls\MslsRegistryInstance;
+use lloc\Msls\MslsRequest;
 
 /**
  * Class ContentImporter
@@ -50,7 +51,7 @@ class ContentImporter extends MslsRegistryInstance {
 	 * @param \lloc\Msls\MslsMain|null $main
 	 */
 	public function __construct( MslsMain $main = null ) {
-		$this->main = $main ?: MslsMain::init();
+		$this->main = $main ?: MslsMain::create();
 	}
 
 	/**
@@ -63,7 +64,7 @@ class ContentImporter extends MslsRegistryInstance {
 	/**
 	 * @param \lloc\Msls\ContentImport\ImportLogger $logger
 	 */
-	public function set_logger( $logger ) {
+	public function set_logger( $logger ): void {
 		$this->logger = $logger;
 	}
 
@@ -77,7 +78,7 @@ class ContentImporter extends MslsRegistryInstance {
 	/**
 	 * @param \lloc\Msls\ContentImport\Relations $relations
 	 */
-	public function set_relations( $relations ) {
+	public function set_relations( $relations ): void {
 		$this->relations = $relations;
 	}
 
@@ -88,7 +89,7 @@ class ContentImporter extends MslsRegistryInstance {
 	 *
 	 * @return array The updated, if needed, data array.
 	 */
-	public function handle_import( array $data = [] ) {
+	public function handle_import( array $data = array() ) {
 		if ( ! $this->pre_flight_check() || false === $sources = $this->parse_sources() ) {
 			return $data;
 		}
@@ -144,7 +145,7 @@ class ContentImporter extends MslsRegistryInstance {
 	 *
 	 * @return bool
 	 */
-	protected function pre_flight_check( array $data = [] ) {
+	protected function pre_flight_check( array $data = array() ) {
 		if ( ! $this->handle ) {
 			return false;
 		}
@@ -166,11 +167,12 @@ class ContentImporter extends MslsRegistryInstance {
 	 * @return array|bool
 	 */
 	public function parse_sources() {
-		if ( ! isset( $_POST['msls_import'] ) ) {
+		if ( ! MslsRequest::has_var( 'msls_import' ) ) {
 			return false;
 		}
 
-		$import_data = array_filter( explode( '|', trim( $_POST['msls_import'] ) ), 'is_numeric' );
+		$msls_import = MslsRequest::get_var( 'msls_import' );
+		$import_data = array_filter( explode( '|', trim( $msls_import ) ), 'is_numeric' );
 
 		if ( count( $import_data ) !== 2 ) {
 			return false;
@@ -179,6 +181,11 @@ class ContentImporter extends MslsRegistryInstance {
 		return array_map( 'intval', $import_data );
 	}
 
+	/**
+	 * @param int $blog_id
+	 *
+	 * @return int
+	 */
 	protected function get_the_blog_post_ID( $blog_id ) {
 		switch_to_blog( $blog_id );
 
@@ -190,19 +197,20 @@ class ContentImporter extends MslsRegistryInstance {
 			return $id;
 		}
 
-		if ( isset( $_REQUEST['post'] ) && filter_var( $_REQUEST['post'], FILTER_VALIDATE_INT ) ) {
-			return (int) $_REQUEST['post'];
+		$request = MslsRequest::get_request( array( 'post' ) );
+		if ( ! empty( $request['post'] ) ) {
+			return (int) $request['post'];
 		}
 
-		$data = [
+		$data = array(
 			'post_type'  => $this->read_post_type_from_request( 'post' ),
-			'post_title' => 'MSLS Content Import Draft - ' . date( 'Y-m-d H:i:s' )
-		];
+			'post_title' => 'MSLS Content Import Draft - ' . ( new \DateTimeImmutable() )->format( 'Y-m-d H:i:s' ),
+		);
 
 		return $this->insert_blog_post( $blog_id, $data );
 	}
 
-	protected function insert_blog_post( $blog_id, array $data = [] ) {
+	protected function insert_blog_post( $blog_id, array $data = array() ) {
 		if ( empty( $data ) ) {
 			return false;
 		}
@@ -239,13 +247,13 @@ class ContentImporter extends MslsRegistryInstance {
 	 * Imports content according to the provided coordinates.
 	 *
 	 * @param ImportCoordinates $import_coordinates
-	 * @param array $post_fields An optional array of post fields; this can be
-	 *                                             left empty if the method is not called as a consequence
-	 *                                             of filtering the `wp_insert_post_data` filter.
+	 * @param array             $post_fields An optional array of post fields; this can be
+	 *                                                         left empty if the method is not called as a consequence
+	 *                                                         of filtering the `wp_insert_post_data` filter.
 	 *
 	 * @return array An array of modified post fields.
 	 */
-	public function import_content( ImportCoordinates $import_coordinates, array $post_fields = [] ) {
+	public function import_content( ImportCoordinates $import_coordinates, array $post_fields = array() ) {
 		if ( ! $import_coordinates->validate() ) {
 			return $post_fields;
 		}
@@ -264,7 +272,6 @@ class ContentImporter extends MslsRegistryInstance {
 		 * @param ImportCoordinates $import_coordinates
 		 *
 		 * @since TBD
-		 *
 		 */
 		$post_fields = apply_filters( 'msls_content_import_data_before_import', $post_fields, $import_coordinates );
 
@@ -311,7 +318,6 @@ class ContentImporter extends MslsRegistryInstance {
 		 * @param Relations $relations
 		 *
 		 * @since TBD
-		 *
 		 */
 		do_action( 'msls_content_import_after_import', $import_coordinates, $this->logger, $this->relations );
 
@@ -323,17 +329,19 @@ class ContentImporter extends MslsRegistryInstance {
 		 * @param ImportLogger $logger
 		 * @param Relations $relations
 		 */
-		return apply_filters( 'msls_content_import_data_after_import',
+		return apply_filters(
+			'msls_content_import_data_after_import',
 			$post_fields,
 			$import_coordinates,
 			$this->logger,
-			$this->relations );
+			$this->relations
+		);
 	}
 
 	/**
+	 * @param int   $blog_id
+	 * @param int   $post_id
 	 * @param array $data
-	 * @param int $post_id
-	 *
 	 * @return array
 	 */
 	protected function update_inserted_blog_post_data( $blog_id, $post_id, array $data ) {
@@ -346,6 +354,11 @@ class ContentImporter extends MslsRegistryInstance {
 		return $data;
 	}
 
+	/**
+	 * @param int $dest_blog_id
+	 * @param int $post_id
+	 * @return void
+	 */
 	protected function redirect_to_blog_post( $dest_blog_id, $post_id ) {
 		switch_to_blog( $dest_blog_id );
 		$edit_post_link = html_entity_decode( get_edit_post_link( $post_id ) );

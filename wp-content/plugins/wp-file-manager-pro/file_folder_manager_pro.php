@@ -4,7 +4,7 @@
   Plugin URI: https://filemanagerpro.io/product/file-manager/
   Description: Manage your WP files.
   Author: mndpsingh287
-  Version: 8.3.6
+  Version: 8.4.0
   Author URI: https://profiles.wordpress.org/mndpsingh287
   License: GPLv2
  **/
@@ -26,7 +26,7 @@ if (!class_exists('mk_file_folder_manager')):
     class mk_file_folder_manager
     {
 
-        const FILE_MANAGER_VERSION = '8.3.6';
+        const FILE_MANAGER_VERSION = '8.4.0';
 
         /* Auto Load Hooks */
         public function __construct()
@@ -499,11 +499,12 @@ if (!class_exists('mk_file_folder_manager')):
         Backup - Ajax - Feature
         */
         public function mk_file_manager_pro_backup_callback(){
+            $nonce = sanitize_text_field( $_POST['nonce'] );
+            if( current_user_can( 'manage_options' ) && wp_verify_nonce( $nonce, 'wpfmbackup' ) ) {
             global $wpdb;
             $fmdb = $wpdb->prefix.'wpfm_backup';
             $date = date('Y-m-d H:i:s');
             $file_number = 'backup_'.date('Y_m_d_H_i_s-').bin2hex(openssl_random_pseudo_bytes(4));
-            $nonce = $_POST['nonce'];
             //$type = sanitize_text_field($_POST['type']);
             $database = sanitize_text_field($_POST['database']);
             $files = sanitize_text_field($_POST['files']);
@@ -609,6 +610,9 @@ if (!class_exists('mk_file_folder_manager')):
                  echo wp_json_encode(array('step' => 0, 'database' => 'false', 'files' => 'false','plugins' => 'false','themes' => 'false','uploads'=> 'false','others' => 'false','bkpid' => $id, 'msg' => '<li class="fm-running-list fm-custom-checked">'.__('All done', 'wp-file-manager-pro').'</li>'));
                 }
             }
+            } else {
+                die(__('Invalid security token!', 'wp-file-manager-pro'));
+            }
             die;
         }
         /*
@@ -657,7 +661,7 @@ if (!class_exists('mk_file_folder_manager')):
         //install vendor
         public function mk_file_folder_manager_install_vendor_callback()
         {
-            $vendor_url = 'https://webdesi9.com/filemanager_vendor/vendor.zip';
+            $vendor_url = 'https://filemanagerpro.io/addon-libraries/vendor/v1/vendor.zip';
             $destination = FILEMANEGERPROPATH.'lib';
             $newZip = $destination.'/vendor.zip';
             $f = file_put_contents($newZip, fopen($vendor_url, 'r'), LOCK_EX);
@@ -1044,22 +1048,48 @@ if (!class_exists('mk_file_folder_manager')):
         */
         public function mk_file_folder_manager_action_callback()
         {
+
+            $current_user = wp_get_current_user();
+            check_ajax_referer('mk_wp_file_manager_nonce'.$current_user->ID );
             require 'lib/php/autoload.php';
             if(!isset($_REQUEST["is_type"])){
                 elFinder::$netDrivers['ftp'] = 'FTP';
             }
-            $current_user = wp_get_current_user();
+            
             $userLogin = $current_user->user_login;
             $user = new WP_User($current_user->ID);
             $file_operations = array();
+            
+            $authorized = false;
+            
             if (!empty($user->roles) && is_array($user->roles)) {
+
+                $authorized = in_array('administrator', $user->roles) ? true : false;
+               
+                if(!$authorized){
+
+                    $settings = get_option( 'wp_filemanager_options' );
+                    $fm_user_roles = (isset($settings['fm_user_roles']) && !empty($settings['fm_user_roles'])) ? $settings['fm_user_roles'] : [];
+                    $user_role = $user->roles;
+                    $authorized = !empty(array_filter($fm_user_roles, fn($value) => in_array($value, $user_role)));
+                }
+                
                 foreach ($user->roles as $role):
                     $role;
                 endforeach;
+
             } else {
-				$role = is_multisite() && is_super_admin() ? 'administrator': 'subscriber' ;	
+
+				$role = is_multisite() && is_super_admin() ? 'administrator': 'subscriber' ;
+                $authorized = ($role == 'administrator') ? true : false;	
 			}
 
+            if (!$authorized) {
+                
+                echo __('You are not authorized to perform this action.', 'wp-file-manager-pro');
+                die;
+            }
+            
             // allowing vendor for gdrive || Dropbox
             if (class_exists('wp_file_manager_dropbox') || class_exists('wp_file_manager_googledrive')) {
                 if (file_exists(FILEMANEGERPROPATH.'lib/vendor/autoload.php')) {
@@ -1125,6 +1155,10 @@ if (!class_exists('mk_file_folder_manager')):
                                 $mime_denied[] = $app_type;
                             }
                         }    
+                        
+                        if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                            $mime_denied[] = 'text/javascript';
+                        }  
                     endforeach; else:
                        $fileRestricted[] = array('pattern' => '', 'locked' => false);
                     endif;
@@ -1163,6 +1197,10 @@ if (!class_exists('mk_file_folder_manager')):
                                 $mime_denied[] = $app_type;
                             }
                         }
+                        
+                        if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                            $mime_denied[] = 'text/javascript';
+                        }  
                     endforeach; else:
                        $fileRestricted[] = array('pattern' => '', 'locked' => false);
                     endif; else:
@@ -1282,6 +1320,10 @@ if (!class_exists('mk_file_folder_manager')):
                                 $mime_denied[] = $app_type;
                             }
                         }
+                        
+                        if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                            $mime_denied[] = 'text/javascript';
+                        }  
 					  endforeach;
 					else:
 					   $gdrivefileRestricted[] = array( 'pattern' => '', 'locked' => false );			
@@ -1322,6 +1364,10 @@ if (!class_exists('mk_file_folder_manager')):
                                     $mime_denied[] = $app_type;
                                 }
                             }
+                            
+                            if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                $mime_denied[] = 'text/javascript';
+                            }  
 					  endforeach;
 					else:
 					   $gdrivefileRestricted[] = array( 'pattern' => '', 'locked' => false );			
@@ -1477,6 +1523,10 @@ if (!class_exists('mk_file_folder_manager')):
                                     $mime_denied[] = $app_type;
                                 }
                             }
+                            
+                            if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                $mime_denied[] = 'text/javascript';
+                            }  
                     endforeach; else:
                        $boxfileRestricted[] = array('pattern' => '', 'locked' => false);
                     endif;
@@ -1515,6 +1565,10 @@ if (!class_exists('mk_file_folder_manager')):
                                 $mime_denied[] = $app_type;
                             }
                         }
+                        
+                        if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                            $mime_denied[] = 'text/javascript';
+                        }  
                     endforeach; else:
                        $boxfileRestricted[] = array('pattern' => '', 'locked' => false);
                     endif; else:
@@ -1660,6 +1714,10 @@ if (!class_exists('mk_file_folder_manager')):
                                     $mime_denied[] = $app_type;
                                 }
                             }
+                            
+                            if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                $mime_denied[] = 'text/javascript';
+                            }  
                     endforeach; else:
                        $onedrivefileRestricted[] = array('pattern' => '', 'locked' => false);
                     endif;
@@ -1698,6 +1756,10 @@ if (!class_exists('mk_file_folder_manager')):
                                     $mime_denied[] = $app_type;
                                 }
                             }
+                            
+                            if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                $mime_denied[] = 'text/javascript';
+                            }  
                     endforeach; else:
                        $onedrivefileRestricted[] = array('pattern' => '', 'locked' => false);
                     endif; else:
@@ -1844,6 +1906,10 @@ if (!class_exists('mk_file_folder_manager')):
                                     $mime_denied[] = $app_type;
                                 }
                             }
+                            
+                            if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                $mime_denied[] = 'text/javascript';
+                            }  
                     endforeach; else:
                        $awsdrivefileRestricted[] = array('pattern' => '', 'locked' => false);
                     endif;
@@ -1881,6 +1947,10 @@ if (!class_exists('mk_file_folder_manager')):
                                     $mime_denied[] = $app_type;
                                 }
                             }
+                            
+                            if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                $mime_denied[] = 'text/javascript';
+                            }  
                     endforeach; else:
                        $awsdrivefileRestricted[] = array('pattern' => '', 'locked' => false);
                     endif; else:
@@ -2005,6 +2075,10 @@ if (!class_exists('mk_file_folder_manager')):
                                         $mime_denied[] = $app_type;
                                     }
                                 }
+                                
+                                if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                    $mime_denied[] = 'text/javascript';
+                                }  
                             endforeach; else:
                             $gcloud_drivefileRestricted[] = array('pattern' => '', 'locked' => false);
                         endif;
@@ -2046,6 +2120,10 @@ if (!class_exists('mk_file_folder_manager')):
                                             $mime_denied[] = $app_type;
                                         }
                                     }
+                                    
+                                    if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                        $mime_denied[] = 'text/javascript';
+                                    }  
                                 endforeach; else:
                                 $gcloud_drivefileRestricted[] = array('pattern' => '', 'locked' => false);
                             endif; else:
@@ -2160,6 +2238,10 @@ if (!class_exists('mk_file_folder_manager')):
                                     $mime_denied[] = $app_type;
                                 }
                             }
+                            
+                            if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                $mime_denied[] = 'text/javascript';
+                            }  
                     endforeach; else:
                        $oceandrivefileRestricted[] = array('pattern' => '', 'locked' => false);
                     endif;
@@ -2195,6 +2277,10 @@ if (!class_exists('mk_file_folder_manager')):
                                     $mime_denied[] = $app_type;
                                 }
                             }
+                            
+                            if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                $mime_denied[] = 'text/javascript';
+                            }  
                     endforeach; else:
                        $oceandrivefileRestricted[] = array('pattern' => '', 'locked' => false);
                     endif; else:
@@ -2315,7 +2401,7 @@ if (!class_exists('mk_file_folder_manager')):
                         $restrictedFolders = isset($opt['restrict_user_folders'][$key]) ? explode('|', $opt['restrict_user_folders'][$key]) : array();
                         if (!empty($restrictedFolders[0]) && is_array($restrictedFolders)):
                                 foreach ($restrictedFolders as $restrictedFolder):
-                                    $mk_restrictions[$key][] = array('pattern' => '!^\/'.$restrictedFolder.'$!', 'hidden' => true);
+                                    $mk_restrictions[$key][] = array('pattern' => '!^\/'.$restrictedFolder.'$!', 'hidden' => true, 'write' => false, 'read' => false );
                                 endforeach; 
                         else:
                                 $mk_restrictions[$key][] = array('hidden' => 'false');
@@ -2338,6 +2424,10 @@ if (!class_exists('mk_file_folder_manager')):
                                         $mime_denied[] = $app_type;
                                     }
                                 }
+                                
+                                if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                    $mime_denied[] = 'text/javascript';
+                                }  
                         endforeach; else:
                                 $mk_restrictions[$key][] = array('pattern' => '', 'locked' => false);
                         endif;
@@ -2391,7 +2481,7 @@ if (!class_exists('mk_file_folder_manager')):
                         $restrictedFolders = isset($opt['restrict_folders'][$key]) ? explode('|', $opt['restrict_folders'][$key]) : array();
                         if (!empty($restrictedFolders[0]) && is_array($restrictedFolders)):
                                 foreach ($restrictedFolders as $restrictedFolder):
-                                    $mk_restrictions[$key][] = array('pattern' => '!^\/'.$restrictedFolder.'$!', 'hidden' => true);
+                                    $mk_restrictions[$key][] = array('pattern' => '!^\/'.$restrictedFolder.'$!', 'hidden' => true, 'write' => false, 'read' => false );
                                 endforeach; 
                         else:
                                     $mk_restrictions[$key][] = array('hidden' => 'false');
@@ -2413,6 +2503,10 @@ if (!class_exists('mk_file_folder_manager')):
                                             $mime_denied[] = $app_type;
                                         }
                                     }
+                                    
+                                    if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                        $mime_denied[] = 'text/javascript';
+                                    }  
                                 endforeach; 
                         else:
                                 $mk_restrictions[$key][] = array('pattern' => '', 'locked' => false);
@@ -2544,7 +2638,17 @@ if (!class_exists('mk_file_folder_manager')):
                     }
 
                     foreach($accessfolder as $fk => $af) {
-                            $path_url = is_multisite() ? network_home_url().'/'.$af : site_url().'/'.$af;
+                            $path_url          = is_multisite() ? network_home_url() .'/'. $af : site_url() .'/'. $af;
+                            /**
+                             * @Preference
+                             * If public root path is changed.
+                             */
+                            $abs_path          = str_replace( '\\', '/', ABSPATH );
+                            $path_length       = strlen( $abs_path );
+                            $preference_folder = isset( $settings['public_path'] ) && ! empty( $settings['public_path'] ) ? substr( $settings['public_path'], $path_length ) : '';
+                            if( ! empty( $preference_folder ) ) {
+                                $path_url =  is_multisite() ? network_home_url() .'/'. trim( $preference_folder, '/' ) .'/'. $af : site_url() .'/'. trim( $preference_folder, '/' ) .'/'. $af;
+                            }
 						
                             $local_file_system[] = array(
                                         'driver' => 'LocalFileSystem', // driver for accessing file system (REQUIRED)
@@ -2986,7 +3090,7 @@ if (!class_exists('mk_file_folder_manager')):
                                 if(!empty($restrictedFolders[0]) && is_array($restrictedFolders)):
                                 foreach($restrictedFolders as $restrictedFolder):
                                     //$folderRestricted[] = array( 'pattern' => '!^/'.$restrictedFolder.'!','hidden' => true );
-                                    $folderRestricted[] = array( 'pattern' => '!^\/'.$restrictedFolder.'$!','hidden' => true );
+                                    $folderRestricted[] = array( 'pattern' => '!^\/'.$restrictedFolder.'$!','hidden' => true, 'write' => false, 'read' => false );
                                 endforeach;
                                 else:
                                     $folderRestricted[] = array('hidden' => false);			
@@ -3013,6 +3117,10 @@ if (!class_exists('mk_file_folder_manager')):
                                         $mime_denied[] = $app_type;
                                     }
                                 }
+                                
+                                if( $file_type_extension == 'js' ){ // Supported MIME type for JavaScript
+                                    $mime_denied[] = 'text/javascript';
+                                }  
                             }
                         } else {
                             $fileRestricted[] = array( 'pattern' => '', 'locked' => false);
@@ -3021,9 +3129,20 @@ if (!class_exists('mk_file_folder_manager')):
                         $mime_allowed = array('');
                         
                         /* Path View */		
-                        $siteUrl = site_url();
-                        if(!empty($accessfolder)) {
-                            $siteUrl .= '/'.$accessfolder;  
+                        $siteUrl           = site_url();
+                        /**
+                         * @Preference
+                         * If public root path is changed.
+                         */
+                        $abs_path          = str_replace( '\\', '/', ABSPATH );
+                        $path_length       = strlen( $abs_path );
+                        $preference_folder = isset( $settings['public_path'] ) && ! empty( $settings['public_path'] ) ? substr( $settings['public_path'], $path_length ) : '';
+                        if( ! empty( $preference_folder ) ){
+                            $siteUrl .= '/'. trim( $preference_folder, '/' );
+                        }
+                        
+                        if( ! empty( $accessfolder ) ) {
+                            $siteUrl .= '/'. ltrim( $accessfolder, '/' );  
                         }
                         $mk_restrictions = array();
                         $cc = count($restrictedFolders);
@@ -3051,14 +3170,60 @@ if (!class_exists('mk_file_folder_manager')):
                                     'write' => false,
                                     'hidden' => true,
                                     'locked' => false
-                                    );		
+                                    );	
+                                    
+                        $directory_separators = ['../', './','..\\', '.\\', '..'];
+                        $accessfolder = str_replace( $directory_separators, '', $accessfolder );
+                        $accessfolder = $absolute_path . $accessfolder;
+                        /**
+                        * Restrict backup folder
+                        */
+                        if ( ! current_user_can('manage_options') ) {
+
+                            $access_folder_preg = preg_replace( '/\/+/', '/', $accessfolder );
+                            if ( is_multisite() ) {
+                                // Multi Site FM Backup Folder
+                                $sites = get_sites(); 
+                                foreach ( $sites as $site ) {
+                                    switch_to_blog( $site->blog_id ); 
+
+                                    $upload_dir       = wp_upload_dir();
+                                    $upload_base_dir  =  $upload_dir['basedir'] . '/wp-file-manager-pro/fm_backup';
+                                    if( strrpos( $upload_base_dir, rtrim( $access_folder_preg, '/' ) ) !== false ) {
+                                        $path_trim   = rtrim( $access_folder_preg, '/' ) . '/';
+                                        $hidden_path = str_replace( $path_trim, '', $upload_base_dir );
+                                        $mk_restrictions[] = array( 
+                                            'pattern' => '!^\/' . $hidden_path . '$!',
+                                            'hidden'  => true, 
+                                            'read'    => false, 
+                                            'write'   => false,
+                                        );
+                                    }
+
+                                    restore_current_blog(); 
+                                }
+                            } else {
+                                // Main FM Backup Folder
+                                $upload_dir       = wp_upload_dir();
+                                $upload_base_dir  =  $upload_dir['basedir'] . '/wp-file-manager-pro/fm_backup';
+                                if ( strrpos( $upload_base_dir, rtrim( $access_folder_preg, '/' ) ) !== false ) {
+                                    $path_trim   = rtrim( $access_folder_preg, '/' ) . '/';
+                                    $hidden_path = str_replace( $path_trim, '', $upload_base_dir );
+                                    
+                                    $mk_restrictions[] = array( 
+                                        'pattern' => '!^\/' . $hidden_path . '$!',
+                                        'hidden'  => true, 
+                                        'read'    => false, 
+                                        'write'   => false,
+                                    );
+                                }  
+                                
+                            }
+                        }            
                             /*
                             Ajax Data end
                             */
-                           
-                            $directory_separators = ['../', './','..\\', '.\\', '..'];
-                            $accessfolder = str_replace($directory_separators, '', $accessfolder);
-                            $accessfolder = $absolute_path.$accessfolder;
+                            
                             // Check if the target directory is within the base directory
                             if (strpos($accessfolder, $absolute_path) !== 0) {
                                 die(__('You don\'t have permission to access file manager.', 'wp-file-manager-pro'));
@@ -3241,7 +3406,7 @@ if (!class_exists('mk_file_folder_manager')):
         /* API URL */
         public static function api($path)
         {
-            return 'https://webdesi9.com/'.$path;
+            return 'https://filemanagerpro.io/'.$path;
         }
 
         /* Error Msg */

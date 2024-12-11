@@ -1,9 +1,4 @@
 <?php
-/**
- * MslsTaxonomy
- * @author Dennis Ploetner <re@lloc.de>
- * @since 0.9.8
- */
 
 namespace lloc\Msls;
 
@@ -16,6 +11,7 @@ class MslsTaxonomy extends MslsContentTypes {
 
 	/**
 	 * Post type
+	 *
 	 * @var string
 	 */
 	protected $post_type = '';
@@ -34,8 +30,13 @@ class MslsTaxonomy extends MslsContentTypes {
 	 */
 	public static function get(): array {
 		$types = array_merge(
-			[ 'category', 'post_tag' ], // no 'post_link' here
-			get_taxonomies( [ 'public' => true, '_builtin' => false ] )
+			array( 'category', 'post_tag' ), // no 'post_link' here
+			get_taxonomies(
+				array(
+					'public'   => true,
+					'_builtin' => false,
+				)
+			)
 		);
 
 		return (array) apply_filters( 'msls_supported_taxonomies', $types );
@@ -45,7 +46,7 @@ class MslsTaxonomy extends MslsContentTypes {
 	 * @return string
 	 */
 	public function get_request(): string {
-		$request = MslsPlugin::get_superglobals( [ 'taxonomy', 'post_type' ] );
+		$request = MslsRequest::get_request( array( 'taxonomy', 'post_type' ) );
 
 		if ( ! empty( $request['taxonomy'] ) ) {
 			$this->post_type = esc_attr( $request['post_type'] ?? '' );
@@ -58,6 +59,7 @@ class MslsTaxonomy extends MslsContentTypes {
 
 	/**
 	 * Check for taxonomy
+	 *
 	 * @return bool
 	 */
 	public function is_taxonomy() {
@@ -73,7 +75,7 @@ class MslsTaxonomy extends MslsContentTypes {
 	 * @return string
 	 */
 	public function acl_request() {
-		if ( ! MslsOptions::instance()->is_excluded() ) {
+		if ( ! msls_options()->is_excluded() ) {
 			$request = $this->get_request();
 
 			$tax = get_taxonomy( $request );
@@ -93,5 +95,4 @@ class MslsTaxonomy extends MslsContentTypes {
 	public function get_post_type() {
 		return $this->post_type;
 	}
-
 }

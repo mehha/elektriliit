@@ -8,7 +8,9 @@ jQuery(document).ready(function () {
     .elfinder({
       url: fm_url+"action=mk_file_folder_manager&is_type=sc",
       uploadMaxChunkSize: fmparams.uploadMaxChunkSize,
-
+      customData: {
+        _ajax_nonce:fmparams.mk_wp_file_manager_nonce,
+      },
       lang: fmparams.lang,
       defaultView: fmparams.view,
       uiOptions: {

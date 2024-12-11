@@ -1,45 +1,42 @@
 <?php
-/**
- * MslsContentTypes
- * @author Dennis Ploetner <re@lloc.de>
- * @since 0.9.8
- */
 
 namespace lloc\Msls;
 
 /**
  * Supported content types
+ *
  * @package Msls
  */
 abstract class MslsContentTypes extends MslsRegistryInstance {
 
 	/**
 	 * Request
+	 *
 	 * @var string
 	 */
-	protected $request;
+	protected string $request;
 
 	/**
 	 * Types
-	 * @var array
+	 *
+	 * @var string[]
 	 */
-	protected $types = [];
+	protected array $types = array();
 
 	/**
 	 * Factory method
 	 *
-	 * @codeCoverageIgnoreMslsContentTypes
-	 *
 	 * @return MslsContentTypes
 	 */
 	public static function create() {
-		$_request = MslsPlugin::get_superglobals( [ 'taxonomy' ] );
+		$_request = MslsRequest::get_request( array( 'taxonomy' ) );
 
 		return '' != $_request['taxonomy'] ? MslsTaxonomy::instance() : MslsPostType::instance();
 	}
 
 	/**
 	 * Check for post_type
+	 *
 	 * @return bool
 	 */
 	public function is_post_type() {
@@ -48,6 +45,7 @@ abstract class MslsContentTypes extends MslsRegistryInstance {
 
 	/**
 	 * Check for taxonomy
+	 *
 	 * @return bool
 	 */
 	public function is_taxonomy() {
@@ -68,7 +66,8 @@ abstract class MslsContentTypes extends MslsRegistryInstance {
 
 	/**
 	 * Getter
-	 * @return array
+	 *
+	 * @return string[]
 	 */
 	abstract public static function get(): array;
 
@@ -78,5 +77,4 @@ abstract class MslsContentTypes extends MslsRegistryInstance {
 	 * @return string
 	 */
 	abstract public function get_request(): string;
-
 }

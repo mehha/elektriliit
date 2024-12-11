@@ -84,7 +84,6 @@ add_filter('excerpt_more', function () {
  * Modify menu active menu classes for posts
  */
 add_filter('nav_menu_css_class', function($classes, $item, $args, $depth){
-
     if (is_singular(array('events'))) {
 //        100 is page id of Koolitused page (archive)
         if(342 == $item->object_id){
@@ -97,6 +96,7 @@ add_filter('nav_menu_css_class', function($classes, $item, $args, $depth){
             $classes[] = 'current-menu-item';
         }
     }
+
 
     if (is_single() && in_category(5)) {
         if(158 == $item->object_id){

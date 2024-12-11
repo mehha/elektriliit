@@ -1,17 +1,14 @@
 <?php
-/**
- * MslsAdminIcon
- * @author Dennis Ploetner <re@lloc.de>
- * @since 0.9.8
- */
 
 namespace lloc\Msls;
 
+use lloc\Msls\Component\Component;
 use lloc\Msls\Component\Icon\IconSvg;
 use lloc\Msls\Component\Icon\IconLabel;
 
 /**
  * Handles the icon links in the backend
+ *
  * @package Msls
  */
 class MslsAdminIcon {
@@ -72,8 +69,9 @@ class MslsAdminIcon {
 	 *
 	 * @param string $type
 	 */
-	public function __construct( ?string $type ) {
-		$this->type = esc_attr( $type );
+	public function __construct( ?string $type = null ) {
+		$this->type = $type;
+
 		$this->set_path();
 	}
 
@@ -85,14 +83,12 @@ class MslsAdminIcon {
 	}
 
 	/**
-	 * @codeCoverageIgnore
-	 *
 	 * @param ?string $type
 	 *
 	 * @return MslsAdminIcon|MslsAdminIconTaxonomy
 	 */
 	public static function create( ?string $type = null ) {
-		$obj = MslsContentTypes::create();
+		$obj = msls_content_types();
 
 		if ( ! $type ) {
 			$type = $obj->get_request();
@@ -104,11 +100,11 @@ class MslsAdminIcon {
 	/**
 	 * Set the icon path
 	 *
-	 * @param $icon_type
+	 * @param string $icon_type
 	 *
 	 * @return MslsAdminIcon
 	 */
-	public function set_icon_type( $icon_type ): MslsAdminIcon {
+	public function set_icon_type( string $icon_type ): MslsAdminIcon {
 		$this->icon_type = $icon_type;
 
 		return $this;
@@ -121,7 +117,7 @@ class MslsAdminIcon {
 	 */
 	public function set_path(): MslsAdminIcon {
 		if ( 'post' != $this->type ) {
-			$query_vars = [ 'post_type' => $this->type ];
+			$query_vars = array( 'post_type' => $this->type );
 			$this->path = add_query_arg( $query_vars, $this->path );
 		}
 
@@ -209,16 +205,18 @@ class MslsAdminIcon {
 	 */
 	public function get_a(): string {
 		if ( empty( $this->href ) ) {
-			$title = sprintf( __( 'Create a new translation in the %s-blog', 'multisite-language-switcher' ),
-				$this->language );
-			$href  = $this->get_edit_new();
+			/* translators: %s: blog name */
+			$format = __( 'Create a new translation in the %s-blog', 'multisite-language-switcher' );
+			$href   = $this->get_edit_new();
 		} else {
-			$title = sprintf( __( 'Edit the translation in the %s-blog', 'multisite-language-switcher' ),
-				$this->language );
-			$href  = $this->href;
+			/* translators: %s: blog name */
+			$format = __( 'Edit the translation in the %s-blog', 'multisite-language-switcher' );
+			$href   = $this->href;
 		}
 
-		return sprintf( '<a title="%s" href="%s">%s</a>&nbsp;', $title, $href, $this->get_icon() );
+		$title = sprintf( $format, $this->language );
+
+		return sprintf( '<a title="%1$s" href="%2$s">%3$s</a>&nbsp;', esc_attr( $title ), esc_url( $href ), $this->get_icon() );
 	}
 
 	/**
@@ -232,24 +230,29 @@ class MslsAdminIcon {
 		}
 
 		switch ( $this->icon_type ) {
-			case MslsAdminIcon::TYPE_FLAG:
-				$icon = sprintf( '<span class="flag-icon %s">%s</span>',
-					( new IconSvg() )->get( $this->language ),
-					$this->language
+			case self::TYPE_FLAG:
+				$class = ( new IconSvg() )->get( $this->language );
+				$icon  = sprintf(
+					'<span class="flag-icon %s">%s</span>',
+					esc_attr( $class ),
+					esc_html( $this->language )
 				);
 				break;
-			case MslsAdminIcon::TYPE_LABEL:
-				$icon = sprintf( '<span class="language-badge %s">%s</span>',
-					$this->language,
-					( new IconLabel() )->get( $this->language )
+			case self::TYPE_LABEL:
+				$text = ( new IconLabel() )->get( $this->language );
+				$icon = sprintf(
+					'<span class="language-badge %s">%s</span>',
+					esc_attr( $this->language ),
+					$text
 				);
+
 				break;
 			default:
-				$icon = sprintf( '<span class="dashicons %s"></span>',
-					empty( $this->href ) ? 'dashicons-plus' : 'dashicons-edit' );
+				$class = empty( $this->href ) ? 'dashicons-plus' : 'dashicons-edit';
+				$icon  = sprintf( '<span class="dashicons %s"></span>', esc_attr( $class ) );
 		}
 
-		return $icon;
+		return wp_kses( $icon, Component::get_allowed_html() );
 	}
 
 	/**
@@ -261,7 +264,13 @@ class MslsAdminIcon {
 		$path = $this->path;
 
 		if ( null !== $this->id && null !== $this->origin_language ) {
-			$path = add_query_arg( [ 'msls_id' => $this->id, 'msls_lang' => $this->origin_language ], $this->path );
+			$path = add_query_arg(
+				array(
+					'msls_id'   => $this->id,
+					'msls_lang' => $this->origin_language,
+				),
+				$this->path
+			);
 		}
 
 		/**
@@ -275,5 +284,4 @@ class MslsAdminIcon {
 
 		return get_admin_url( get_current_blog_id(), $path );
 	}
-
 }

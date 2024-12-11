@@ -7,7 +7,7 @@
  * @wordpress-plugin
  *
  * Plugin Name: Multisite Language Switcher
- * Version: 2.6.4
+ * Version: 2.9.5
  * Plugin URI: http://msls.co/
  * Description: A simple but powerful plugin that will help you to manage the relations of your contents in a multilingual multisite-installation.
  * Author: Dennis Ploetner
@@ -40,11 +40,9 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
  * @author Dennis Ploetner <re@lloc.de>
  */
 if ( ! defined( 'MSLS_PLUGIN_VERSION' ) ) {
-	define( 'MSLS_PLUGIN_VERSION', '2.6.4' );
+	define( 'MSLS_PLUGIN_VERSION', '2.9.5' );
 	define( 'MSLS_PLUGIN_PATH', plugin_basename( __FILE__ ) );
 	define( 'MSLS_PLUGIN__FILE__', __FILE__ );
-
-	lloc\Msls\MslsPlugin::init();
 
 	/**
 	 * Get the output for using the links to the translations in your code
@@ -56,13 +54,11 @@ if ( ! defined( 'MSLS_PLUGIN_VERSION' ) ) {
 	 * @return string
 	 */
 	function get_the_msls( $attr ): string {
-		$arr = is_array( $attr ) ? $attr : [];
+		$arr = is_array( $attr ) ? $attr : array();
 		$obj = apply_filters( 'msls_get_output', null );
 
 		return ! is_null( $obj ) ? strval( $obj->set_tags( $arr ) ) : '';
 	}
-
-	add_shortcode( 'sc_msls', 'get_the_msls' );
 
 	/**
 	 * Output the links to the translations in your template
@@ -79,7 +75,8 @@ if ( ! defined( 'MSLS_PLUGIN_VERSION' ) ) {
 	 *
 	 * @param string[] $arr
 	 */
-	function the_msls( array $arr = [] ): void {
+	function the_msls( array $arr = array() ): void {
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo get_the_msls( $arr );
 	}
 
@@ -91,7 +88,7 @@ if ( ! defined( 'MSLS_PLUGIN_VERSION' ) ) {
 	 * @return string
 	 */
 	function get_msls_flag_url( string $locale ): string {
-		return ( new \lloc\Msls\MslsOptions )->get_flag_url( $locale );
+		return ( new \lloc\Msls\MslsOptions() )->get_flag_url( $locale );
 	}
 
 	/**
@@ -128,7 +125,7 @@ if ( ! defined( 'MSLS_PLUGIN_VERSION' ) ) {
 	}
 
 	/**
-	 * Gets a blog by locale
+	 * Looks for the MslsBlog instance for a specific locale
 	 *
 	 * @param string $locale
 	 *
@@ -147,4 +144,91 @@ if ( ! defined( 'MSLS_PLUGIN_VERSION' ) ) {
 		return \lloc\Msls\MslsBlogCollection::instance();
 	}
 
+	/**
+	 * Gets the MslsOptions instance
+	 *
+	 * @return \lloc\Msls\MslsOptions
+	 */
+	function msls_options(): \lloc\Msls\MslsOptions {
+		return \lloc\Msls\MslsOptions::instance();
+	}
+
+	/**
+	 * Gets the MslsContentTypes instance
+	 *
+	 * @return \lloc\Msls\MslsContentTypes
+	 */
+	function msls_content_types(): \lloc\Msls\MslsContentTypes {
+		return \lloc\Msls\MslsContentTypes::create();
+	}
+
+	/**
+	 * Gets the MslsPostType instance
+	 *
+	 * @return \lloc\Msls\MslsPostType
+	 */
+	function msls_post_type(): \lloc\Msls\MslsPostType {
+		return \lloc\Msls\MslsPostType::instance();
+	}
+
+	/**
+	 * Gets the MslsTaxonomy instance
+	 *
+	 * @return \lloc\Msls\MslsTaxonomy
+	 */
+	function msls_taxonomy(): \lloc\Msls\MslsTaxonomy {
+		return \lloc\Msls\MslsTaxonomy::instance();
+	}
+
+	/**
+	 * Gets the MslsOutput instance
+	 *
+	 * @return \lloc\Msls\MslsOutput
+	 */
+	function msls_output(): \lloc\Msls\MslsOutput {
+		return \lloc\Msls\MslsOutput::create();
+	}
+
+	/**
+	 * Retrieves the MslsOptionsPost instance.
+	 *
+	 * @param int $id
+	 * @return \lloc\Msls\MslsOptionsPost
+	 */
+	function msls_get_post( int $id ): \lloc\Msls\MslsOptionsPost {
+		return new \lloc\Msls\MslsOptionsPost( $id );
+	}
+
+	/**
+	 * Retrieves the MslsOptionsTax instance.
+	 *
+	 * Determines the current query based on conditional tags:
+	 * - is_category
+	 * - is_tag
+	 * - is_tax
+	 *
+	 * @param int $id
+	 * @return \lloc\Msls\MslsOptionsTax
+	 */
+	function msls_get_tax( int $id ): \lloc\Msls\MslsOptionsTax {
+		return \lloc\Msls\MslsOptionsTax::create( $id );
+	}
+
+	/**
+	 * Retrieves the MslsOptionsQuery instance.
+	 *
+	 * Determines the current query based on conditional tags:
+	 * - is_day
+	 * - is_month
+	 * - is_year
+	 * - is_author
+	 * - is_post_type_archive
+	 *
+	 * @return ?\lloc\Msls\MslsOptionsQuery
+	 */
+	function msls_get_query(): ?\lloc\Msls\MslsOptionsQuery {
+		return \lloc\Msls\MslsOptionsQuery::create();
+	}
+
+	lloc\Msls\MslsPlugin::init();
 }
